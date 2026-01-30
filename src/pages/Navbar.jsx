@@ -20,7 +20,7 @@ function Navbar() {
 
         {/* Logo */}
         <Link to="/" className="logo" onClick={() => setOpen(false)}>
-          Sure Odds
+          Mega-Odds
         </Link>
 
         {/* Nav Links */}
