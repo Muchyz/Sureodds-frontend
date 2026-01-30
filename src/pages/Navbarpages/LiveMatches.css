@@ -1,0 +1,78 @@
+.live-wrapper {
+  min-height: 100vh;
+  padding: 90px 16px 40px;
+  background: radial-gradient(circle at top, #020617, #000);
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.live-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+.status {
+  text-align: center;
+  color: #9ca3af;
+  margin-top: 40px;
+}
+
+/* MATCH LIST */
+.live-list {
+  max-width: 720px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* MATCH CARD */
+.live-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 16px 18px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+
+/* TEAMS */
+.teams-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.team {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team:last-child {
+  text-align: right;
+}
+
+.score {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+/* META */
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #cbd5f5;
+}
+
+.time {
+  font-weight: bold;
+  color: #f87171;
+}

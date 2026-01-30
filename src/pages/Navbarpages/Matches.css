@@ -1,0 +1,116 @@
+.matches-page {
+  min-height: 100vh;
+  padding: 110px 20px 60px;
+  background: radial-gradient(circle at top, #0f172a, #020617 70%);
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.matches-title {
+  text-align: center;
+  font-size: 34px;
+  margin-bottom: 40px;
+  background: linear-gradient(90deg, #60a5fa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.status {
+  text-align: center;
+  color: #9ca3af;
+  margin-top: 20px;
+}
+
+.status.error {
+  color: #f87171;
+}
+
+.matches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.match-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 22px 18px;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+}
+
+.teams {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.teams strong {
+  color: #c7d2fe;
+}
+
+.league {
+  font-size: 13px;
+  color: #9ca3af;
+  margin-bottom: 6px;
+}
+
+.date {
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .matches-title {
+    font-size: 28px;
+  }
+}
+.matches-page {
+  padding: 12px;
+}
+
+.match-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  color: #fff;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+.match-info {
+  flex: 1;
+}
+
+.vs {
+  margin: 0 6px;
+  color: #aaa;
+}
+
+.date {
+  font-size: 12px;
+  color: #bbb;
+}
+
+.odds button {
+  margin-left: 6px;
+  padding: 6px 10px;
+  background: #222;
+  color: #0f0;
+  border: 1px solid #333;
+  border-radius: 4px;
+}

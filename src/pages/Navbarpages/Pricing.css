@@ -1,0 +1,12 @@
+@import "./Features.css";
+
+.price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #16a34a;
+  margin: 10px 0;
+}
+
+.premium {
+  border: 2px solid #16a34a;
+}
