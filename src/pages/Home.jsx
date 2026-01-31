@@ -54,15 +54,15 @@ function Home() {
         <div className="picks-list">
           <div className="pick-card">
             <div className="teams">
-              <span>Man City</span>
+              <span>Bochum</span>
               <span className="vs">vs</span>
-              <span>Arsenal</span>
+              <span>Schalke 04</span>
             </div>
 
             <div className="pick-meta">
-              <span className="pick-time">18:30</span>
-              <span className="pick-type">Over 2.5</span>
-              <span className="pick-odds">1.85</span>
+              <span className="pick-time">15:00</span>
+              <span className="pick-type">1st Half 2:0</span>
+              <span className="pick-odds">7.60</span>
             </div>
           </div>
 
