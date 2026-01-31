@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import API from "../api"; // 👈 ONLY change
+import api from "../../api";
 import "./Features.css";
 
 function Features() {
