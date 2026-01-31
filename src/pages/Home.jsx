@@ -21,7 +21,7 @@ function Home() {
 
         <div className="hero-actions">
           <Link to="/signup">
-            <button className="cta-primary">Start Free</button>
+            <button className="cta-primary">Join</button>
           </Link>
 
           <Link to="/features" className="cta-secondary">
@@ -47,7 +47,54 @@ function Home() {
           <p>Fixed Matches</p>
         </div>
       </section>
+{/* TODAY'S PICKS */}
+      <section className="picks-section">
+        <h2 className="picks-title">🔥 Today’s Top Picks</h2>
 
+        <div className="picks-list">
+          <div className="pick-card">
+            <div className="teams">
+              <span>Man City</span>
+              <span className="vs">vs</span>
+              <span>Arsenal</span>
+            </div>
+
+            <div className="pick-meta">
+              <span className="pick-time">18:30</span>
+              <span className="pick-type">Over 2.5</span>
+              <span className="pick-odds">1.85</span>
+            </div>
+          </div>
+
+          <div className="pick-card">
+            <div className="teams">
+              <span>Real Madrid</span>
+              <span className="vs">vs</span>
+              <span>Valencia</span>
+            </div>
+
+            <div className="pick-meta">
+              <span className="pick-time">21:00</span>
+              <span className="pick-type">Home Win</span>
+              <span className="pick-odds">1.62</span>
+            </div>
+          </div>
+
+          <div className="pick-card">
+            <div className="teams">
+              <span>Inter</span>
+              <span className="vs">vs</span>
+              <span>Napoli</span>
+            </div>
+
+            <div className="pick-meta">
+              <span className="pick-time">22:45</span>
+              <span className="pick-type">BTTS</span>
+              <span className="pick-odds">1.90</span>
+            </div>
+          </div>
+        </div>
+      </section>
       
 
     </div>
