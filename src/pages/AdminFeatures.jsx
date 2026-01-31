@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API from "../api";
 import "./AdminFeatures.css";
 
 function AdminFeatures() {
@@ -10,15 +11,8 @@ function AdminFeatures() {
 
   const submitFeature = async (e) => {
     e.preventDefault();
-    setMsg("");
     setLoading(true);
-
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setMsg("❌ You must be logged in as admin");
-      setLoading(false);
-      return;
-    }
+    setMsg("");
 
     const formData = new FormData();
     formData.append("title", title);
@@ -26,27 +20,13 @@ function AdminFeatures() {
     if (image) formData.append("image", image);
 
     try {
-      const res = await fetch("http://localhost:5000/features", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setMsg(data.message || "❌ Access denied");
-      } else {
-        setMsg("✅ Feature added successfully");
-        setTitle("");
-        setDescription("");
-        setImage(null);
-        document.getElementById("imageInput").value = "";
-      }
+      await API.post("/features", formData); // 👈 JWT auto-attached
+      setMsg("✅ Feature added successfully");
+      setTitle("");
+      setDescription("");
+      setImage(null);
     } catch (err) {
-      setMsg("❌ Server error");
+      setMsg(err.response?.data?.message || "❌ Access denied");
     } finally {
       setLoading(false);
     }
@@ -59,29 +39,10 @@ function AdminFeatures() {
       {msg && <p className="admin-message">{msg}</p>}
 
       <form onSubmit={submitFeature}>
-        <input
-          type="text"
-          placeholder="Feature title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-
-        <textarea
-          placeholder="Feature description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-
-        <input
-          id="imageInput"
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-        />
-
-        <button type="submit" disabled={loading}>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+        <button disabled={loading}>
           {loading ? "Uploading..." : "Add Feature"}
         </button>
       </form>
