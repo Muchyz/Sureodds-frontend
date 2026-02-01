@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import API from "../api";
+import api from "../api";
 import "./Login.css";
 
 function Login() {
@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await API.post("/login", { email, password });
+      const res = await api.post("/login", { email, password });
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("is_vip", res.data.is_vip);

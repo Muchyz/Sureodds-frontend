@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import API from "../api";
+import api from "../api";
 import "./Signup.css";
 
 function Signup() {
@@ -12,7 +12,7 @@ function Signup() {
     e.preventDefault();
 
     try {
-      await API.post("/register", { email, password });
+      await api.post("/register", { email, password });
       alert("Account created");
       navigate("/login");
     } catch (err) {
