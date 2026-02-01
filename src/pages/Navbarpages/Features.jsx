@@ -8,7 +8,7 @@ function Features() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.get("/features")
+    api.get("/features")
       .then((res) => {
         setFeatures(res.data);
         setError("");
