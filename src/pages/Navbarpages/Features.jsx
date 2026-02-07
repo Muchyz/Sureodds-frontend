@@ -14,7 +14,7 @@ function Features() {
         setError("");
       })
       .catch(() => {
-        setError("Upgrade to VIP to unlock features");
+        setError("Bets only visible to VIP's ...Upgrade to VIP to unlock features");
         setFeatures([]);
       })
       .finally(() => setLoading(false));
@@ -26,7 +26,7 @@ function Features() {
       <section className="features-hero">
         <span className="badge">VIP ACCESS</span>
         <h1>Win Smarter. Bet Like a Pro.</h1>
-        <p>Elite predictions backed by real data.</p>
+        <p>Elite Bets backed by real data and inside info.</p>
 
         <button className="cta-btn">Unlock VIP – KES 999</button>
       </section>
