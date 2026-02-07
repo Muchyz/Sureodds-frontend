@@ -56,12 +56,12 @@ function Home() {
           {/* PICK CARD 1 */}
           <div className="pick-card">
             <div className="teams">
-              <span>Bochum</span> <span className="vs">vs</span> <span>Schalke 04</span>
+              <span>🏆 Bochum</span> <span className="vs">vs</span> <span>Schalke 04</span>
             </div>
 
             <div className="pick-meta vertical-meta">
               <span className="pick-time">15:00</span>
-              <span className="pick-type">1st Half Correct Score: 2:0</span>
+              <span className="pick-type">⚽️ 1st Half Correct Score: 2:0</span>
               <span className="pick-odds">Odds: 7.60</span>
             </div>
           </div>
@@ -69,12 +69,12 @@ function Home() {
           {/* PICK CARD 2 */}
           <div className="pick-card">
             <div className="teams">
-              <span>Lunds</span> <span className="vs">vs</span> <span>Hassleholms</span>
+              <span>🏆 Lunds</span> <span className="vs">vs</span> <span>Hassleholms</span>
             </div>
 
             <div className="pick-meta vertical-meta">
               <span className="pick-time">15:00</span>
-              <span className="pick-type">1st Half Correct Score: 2:1</span>
+              <span className="pick-type">⚽️ 1st Half Correct Score: 2:1</span>
               <span className="pick-odds">Odds: 9.20</span>
             </div>
           </div>
@@ -82,12 +82,12 @@ function Home() {
           {/* PICK CARD 3 */}
           <div className="pick-card">
             <div className="teams">
-              <span>Flora Tallinn</span> <span className="vs">vs</span> <span>Bfc Daugavpils</span>
+              <span>🏆 Flora Tallinn</span> <span className="vs">vs</span> <span>Bfc Daugavpils</span>
             </div>
 
             <div className="pick-meta vertical-meta">
               <span className="pick-time">15:00</span>
-              <span className="pick-type">1st Half Correct Score: 1:0</span>
+              <span className="pick-type">⚽️ 1st Half Correct Score: 1:0</span>
               <span className="pick-odds">Odds: 6.20</span>
             </div>
           </div>
