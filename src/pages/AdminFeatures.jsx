@@ -1,5 +1,5 @@
 import { useState } from "react";
-import API from "../api";
+import api from "@/api";
 import "./AdminFeatures.css";
 
 function AdminFeatures() {
@@ -20,7 +20,7 @@ function AdminFeatures() {
     if (image) formData.append("image", image);
 
     try {
-      await API.post("/features", formData); // 👈 JWT auto-attached
+      await api.post("/features", formData); // 👈 JWT auto-attached
       setMsg("✅ Feature added successfully");
       setTitle("");
       setDescription("");
