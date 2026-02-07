@@ -31,22 +31,22 @@ function Home() {
       </section>
 
       {/* VALUE STATS */}
-<section className="quick-cards">
-  <div className="quick-card">
-    <h3><span className="star">⭐️</span>100%</h3>
-    <p>Verified Predictions</p>
-  </div>
+      <section className="quick-cards">
+        <div className="quick-card">
+          <h3><span className="star">⭐️</span>100%</h3>
+          <p>Verified Predictions</p>
+        </div>
 
-  <div className="quick-card">
-    <h3><span className="star">⭐️</span>10K+</h3>
-    <p>Active Bettors</p>
-  </div>
+        <div className="quick-card">
+          <h3><span className="star">⭐️</span>10K+</h3>
+          <p>Active Bettors</p>
+        </div>
 
-  <div className="quick-card">
-    <h3><span className="star">⭐️</span>VIP</h3>
-    <p>Fixed Matches</p>
-  </div>
-</section>
+        <div className="quick-card">
+          <h3><span className="star">⭐️</span>VIP</h3>
+          <p>Fixed Matches</p>
+        </div>
+      </section>
 
       {/* TODAY'S PICKS */}
       <section className="picks-section">
@@ -56,39 +56,40 @@ function Home() {
           {/* PICK CARD 1 */}
           <div className="pick-card">
             <div className="teams">
-              <span>🏆 Bochum</span> <span className="vs">vs</span> <span>Schalke 04</span>
+              <span>🏆 Mantova 1911
+</span> <span className="vs">vs</span> <span>Ssc Bari</span>
             </div>
 
             <div className="pick-meta vertical-meta">
               <span className="pick-time">15:00</span>
-              <span className="pick-type">⚽️ 1st Half Correct Score: 2:0</span>
-              <span className="pick-odds">Odds: 7.60</span>
+              <span className="pick-type">⚽️ 1st Half Correct Score: 1:1</span>
+              <span className="pick-odds">Odds: 8.20</span>
             </div>
           </div>
 
           {/* PICK CARD 2 */}
           <div className="pick-card">
             <div className="teams">
-              <span>🏆 Lunds</span> <span className="vs">vs</span> <span>Hassleholms</span>
+              <span>🏆 Vukovar 91</span> <span className="vs">vs</span> <span>Istra 1961</span>
             </div>
 
             <div className="pick-meta vertical-meta">
               <span className="pick-time">15:00</span>
-              <span className="pick-type">⚽️ 1st Half Correct Score: 2:1</span>
-              <span className="pick-odds">Odds: 9.20</span>
+              <span className="pick-type">⚽️ 1st Half Correct Score: 1:0</span>
+              <span className="pick-odds">Odds: 6.80</span>
             </div>
           </div>
 
           {/* PICK CARD 3 */}
           <div className="pick-card">
             <div className="teams">
-              <span>🏆 Flora Tallinn</span> <span className="vs">vs</span> <span>Bfc Daugavpils</span>
+              <span>🏆 Sc Faetano</span> <span className="vs">vs</span> <span>Sp Cailungo</span>
             </div>
 
             <div className="pick-meta vertical-meta">
               <span className="pick-time">15:00</span>
-              <span className="pick-type">⚽️ 1st Half Correct Score: 1:0</span>
-              <span className="pick-odds">Odds: 6.20</span>
+              <span className="pick-type">⚽️ 1st Half Correct Score: 0:2</span>
+              <span className="pick-odds">Odds: 8.40</span>
             </div>
           </div>
         </div>
