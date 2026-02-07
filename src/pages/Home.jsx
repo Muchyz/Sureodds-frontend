@@ -61,7 +61,7 @@ function Home() {
             </div>
 
             <div className="pick-meta vertical-meta">
-              <span className="pick-time">15:00</span>
+              <span className="pick-time">17:00</span>
               <span className="pick-type">⚽️ 1st Half Correct Score: 1:1</span>
               <span className="pick-odds">Odds: 8.20</span>
             </div>
@@ -74,7 +74,7 @@ function Home() {
             </div>
 
             <div className="pick-meta vertical-meta">
-              <span className="pick-time">15:00</span>
+              <span className="pick-time">17:00</span>
               <span className="pick-type">⚽️ 1st Half Correct Score: 1:0</span>
               <span className="pick-odds">Odds: 6.80</span>
             </div>
@@ -87,7 +87,7 @@ function Home() {
             </div>
 
             <div className="pick-meta vertical-meta">
-              <span className="pick-time">15:00</span>
+              <span className="pick-time">17:00</span>
               <span className="pick-type">⚽️ 1st Half Correct Score: 0:2</span>
               <span className="pick-odds">Odds: 8.40</span>
             </div>
