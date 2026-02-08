@@ -34,7 +34,7 @@ function Navbar() {
 
           <li>
             <Link to="/features" onClick={() => setOpen(false)}>
-              VIP FEATURES 
+              VIP 🔐
             </Link>
           </li>
 
