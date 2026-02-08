@@ -38,11 +38,12 @@ function Navbar() {
             </Link>
           </li>
 
-          <li>
+      {/*  <li>
             <Link to="/matches" onClick={() => setOpen(false)}>
               Matches
             </Link>
           </li>
+          */}
 
           <li>
             <Link to="/pricing" onClick={() => setOpen(false)}>
@@ -55,6 +56,7 @@ function Navbar() {
               About
             </Link>
           </li>
+          
 
           <li>
             <Link to="/contact" onClick={() => setOpen(false)}>
