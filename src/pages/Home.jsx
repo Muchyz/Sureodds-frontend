@@ -69,7 +69,7 @@ function Home() {
         </section>
       </section>
 
-      {/* TODAY'S PICKS */}
+      {/* YESTERDAY'S PICKS */}
       <section className="picks-section">
         <div className="section-header">
           <span className="fire-icon">🔥</span>
@@ -163,6 +163,124 @@ function Home() {
               <div className="meta-item">
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">8.40</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TODAY'S VIP PICKS */}
+      <section className="picks-section vip-section">
+        <div className="section-header">
+          <span className="vip-icon">👑</span>
+          <h2 className="picks-title vip-title">Today's VIP Picks</h2>
+        </div>
+
+        <div className="picks-list">
+          {/* VIP PICK CARD 1 */}
+          <div className="pick-card vip-pick-card">
+            <Link to="/vip-access-denied" className="pick-badge vip-badge">VIP Only</Link>
+            <div className="teams">
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                Boston River
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">Club Nacional De Football</span>
+            </div>
+
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">22:00</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Prediction</span>
+                <Link to="/vip-access-denied" className="meta-value prediction locked">
+                  <span className="lock-icon">🔒</span>
+                  <span>1st Half: Locked</span>
+                </Link>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <Link to="/vip-access-denied" className="meta-value odds locked">
+                  <span className="lock-icon">🔒</span>
+                  <span>--</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* VIP PICK CARD 2 */}
+          <div className="pick-card vip-pick-card">
+            <Link to="/vip-access-denied" className="pick-badge vip-badge">VIP Only</Link>
+            <div className="teams">
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                Panathinaikos
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">Olympiacos</span>
+            </div>
+
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">22:00</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Prediction</span>
+                <Link to="/vip-access-denied" className="meta-value prediction locked">
+                  <span className="lock-icon">🔒</span>
+                  <span>1st Half: Locked</span>
+                </Link>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <Link to="/vip-access-denied" className="meta-value odds locked">
+                  <span className="lock-icon">🔒</span>
+                  <span>--</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* VIP PICK CARD 3 */}
+          <div className="pick-card vip-pick-card">
+<Link to="/vip-access-denied" className="pick-badge vip-badge">VIP Only</Link>
+            <div className="teams">
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                Vila Nova
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">Jataiense Go</span>
+            </div>
+
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">22:00</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Prediction</span>
+                <Link to="/vip-access-denied" className="meta-value prediction locked">
+                  <span className="lock-icon">🔒</span>
+                  <span>1st Half: Locked</span>
+                </Link>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <Link to="/vip-access-denied" className="meta-value odds locked">
+                  <span className="lock-icon">🔒</span>
+                  <span>--</span>
+                </Link>
               </div>
             </div>
           </div>

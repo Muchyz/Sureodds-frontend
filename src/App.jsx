@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import LiveMatches from "./pages/Navbarpages/LiveMatches";
 //learn more
 import Learn from "./pages/Navbarpages/Learn";
+import VipAccessDenied from "./pages/Navbarpages/VipAccessDenied"
 
 // Protected pages
 import Features from "./pages/Navbarpages/Features";
@@ -80,6 +81,8 @@ function App() {
         <Route path="/learn" 
         element={<Learn />} 
         />
+        
+        <Route path="/vip-access-denied" element={<VipAccessDenied />} />
 
         {/* Fallback */}
         <Route path="*" element={<Home />} />
