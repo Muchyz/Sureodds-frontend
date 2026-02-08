@@ -9,7 +9,7 @@ function About() {
         <span className="badge">PROFESSIONAL BETTING PLATFORM</span>
         <h1>Precision Over Luck</h1>
         <p>
-          Sure Odds is built for bettors who understand that
+          Mega-Odds is built for bettors who understand that
           long-term profit comes from data, discipline, and timing —
           not emotions.
         </p>
@@ -36,8 +36,8 @@ function About() {
         <div className="about-box">
           <h3>What We Do</h3>
           <p>
-            We analyze football markets daily using form data,
-            team metrics, odds behavior, and probability models
+            We offer football markets daily using form data,
+            team metrics, odds behavior, and probability models sourced by our match fixing agents,
             to identify value opportunities before lines adjust.
           </p>
         </div>
@@ -45,9 +45,8 @@ function About() {
         <div className="about-box">
           <h3>Who This Is For</h3>
           <p>
-            Sure Odds is designed for serious bettors.
-            If you chase jackpots or expect guaranteed wins,
-            this platform is not for you.
+            Mega-Odds is designed for serious bettors.
+            Our matches are mainly confidential, leaked matches with known Outcomes and a guaranteed win
           </p>
         </div>
 
@@ -65,7 +64,7 @@ function About() {
       <section className="about-footer">
         <h2>Bet Like a Professional</h2>
         <p>
-  © {new Date().getFullYear()} Sure Odds Ltd.  
+  © {new Date().getFullYear()} Mega Odds Ltd.  
   Data analytics & sports intelligence platform.
 </p>
       </section>

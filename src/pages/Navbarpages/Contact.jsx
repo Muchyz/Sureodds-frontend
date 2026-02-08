@@ -74,7 +74,7 @@ function Contact() {
         >
           <FaTelegramPlane className="icon" />
           <h3>Telegram</h3>
-          <p className="number">@{telegramUsername}</p>
+          <p className="number">@Telegram</p>
           <a
             href={`https://t.me/${telegramUsername}`}
             target="_blank"
