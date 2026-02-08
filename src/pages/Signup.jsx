@@ -1,47 +1,86 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import api from "@/api";
 import "./Signup.css";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       await api.post("/register", { email, password });
-      alert("Account created");
-      navigate("/login");
+      toast.success("Account created successfully 🎉", { autoClose: 2000 });
+      setTimeout(() => navigate("/login"), 1000);
     } catch (err) {
-      alert(err.response?.data?.message || "Signup failed");
+      toast.error(err.response?.data?.message || "Signup failed ❌", {
+        autoClose: 3000,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="auth-page">
-      <div className="auth-card">
-        <h2>Create Account</h2>
+      <ToastContainer position="top-right" />
 
-        <form onSubmit={handleSignup}>
-          <input
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
+      <div className="auth-container">
+        {/* Left branding panel */}
+        <div className="auth-left">
+          <h1>Join Us!</h1>
+          <p>Create your VIP account and unlock exclusive features.</p>
+          <img
+            src="https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=800&q=80"
+            alt="VIP"
           />
+        </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        {/* Right signup panel */}
+        <div className="auth-right">
+          <div className="auth-card animate-card">
+            <h2>Create Account</h2>
+            <form onSubmit={handleSignup}>
+              <div className="input-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
 
-          <button>Create Account</button>
-        </form>
+              <div className="input-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
 
-        <Link to="/login" className="lgn">Login</Link>
+              <button className="gradient-btn" disabled={loading}>
+                {loading ? "Creating..." : "Create Account"}
+              </button>
+            </form>
+
+            <div className="auth-footer">
+              <span>Already have an account?</span>
+              <Link to="/login">Login</Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

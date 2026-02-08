@@ -1,71 +1,184 @@
-/* Same style as Login for consistency */
+/* Animated gradient background */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 .auth-page {
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: #0f172a;
+  align-items: center;
+  background: linear-gradient(270deg, #0f172a, #1e3a8a, #22c55e);
+  background-size: 600% 600%;
+  animation: gradientBG 15s ease infinite;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.auth-card {
-  background: #020617;
-  padding: 30px;
-  width: 100%;
-  max-width: 380px;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+/* Container with left/right panels */
+.auth-container {
+  display: flex;
+  width: 90%;
+  max-width: 900px;
+  background: rgba(0, 0, 0, 0.65);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
 }
 
-.auth-card h2 {
+/* Left panel */
+.auth-left {
+  flex: 1;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
   text-align: center;
+}
+
+.auth-left h1 {
+  font-size: 36px;
   margin-bottom: 10px;
 }
 
-.auth-card p {
-  color: #94a3b8;
-  text-align: center;
+.auth-left p {
+  font-size: 16px;
   margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.auth-left img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.auth-left img:hover {
+  transform: scale(1.05);
+}
+
+/* Right panel */
+.auth-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px;
+}
+
+/* Card entrance animation */
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-card {
+  animation: fadeInScale 0.5s ease forwards;
+}
+
+/* Signup card */
+.auth-card {
+  width: 100%;
+  max-width: 360px;
+  background: #020617;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* Card title */
+.auth-card h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Input fields */
+.input-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #cbd5e1;
 }
 
 .auth-card input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  border: none;
-  outline: none;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
   background: #0f172a;
   color: #fff;
+  transition: 0.2s ease;
 }
 
-.auth-card button {
+.auth-card input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+  outline: none;
+}
+
+/* Gradient button */
+.gradient-btn {
   width: 100%;
-  padding: 12px;
-  background: #22c55e;
+  padding: 14px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   color: #000;
   font-weight: bold;
+  font-size: 16px;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
-.auth-card button:hover {
-  background: #16a34a;
+.gradient-btn:hover {
+  background: linear-gradient(90deg, #16a34a, #22c55e);
 }
 
-.auth-link {
-  display: block;
-  margin-top: 15px;
-  text-align: center;
+.gradient-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Footer link */
+.auth-footer {
+  margin-top: 22px;
+  font-size: 14px;
   color: #94a3b8;
 }
 
-.auth-link a {
+.auth-footer a {
+  margin-left: 6px;
   color: #22c55e;
   text-decoration: none;
 }
-.lgn {
-  margin-top: 50px;
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .auth-container {
+    flex-direction: column;
+  }
+
+  .auth-left,
+  .auth-right {
+    padding: 30px 15px;
+  }
+
+  .auth-left img {
+    margin-top: 20px;
+  }
 }
