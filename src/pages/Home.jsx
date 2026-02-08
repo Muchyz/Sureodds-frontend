@@ -183,10 +183,10 @@ function Home() {
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
-                Boston River
+                Noroeste
               </span>
               <span className="vs">VS</span>
-              <span className="team-name">Club Nacional De Football</span>
+              <span className="team-name">Santos Sp</span>
             </div>
 
             <div className="pick-divider"></div>
