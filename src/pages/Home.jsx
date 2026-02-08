@@ -4,14 +4,23 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="home">
+      {/* Animated background elements */}
+      <div className="bg-orbs">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="orb orb-3"></div>
+      </div>
 
       {/* HERO */}
       <section className="hero">
-        <span className="pill">SURE FIXED MATCHES</span>
+        <span className="pill">
+          <span className="pill-shine"></span>
+          SURE FIXED MATCHES
+        </span>
 
         <h1>
           Outsmart the Odds. <br />
-          <span>Every Bet.</span>
+          <span className="gradient-text">Every Bet.</span>
         </h1>
 
         <p className="hero-text">
@@ -21,75 +30,140 @@ function Home() {
 
         <div className="hero-actions">
           <Link to="/signup">
-            <button className="cta-primary">Join</button>
+            <button className="cta-primary">
+              <span>Join Now</span>
+              <div className="button-glow"></div>
+            </button>
           </Link>
 
           <Link to="/features" className="cta-secondary">
-            See How It Works →
+            <span>See How It Works</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
           </Link>
         </div>
-      </section>
 
-      {/* VALUE STATS */}
-      <section className="quick-cards">
-        <div className="quick-card">
-          <h3><span className="star">⭐️</span>100%</h3>
-          <p>Verified Predictions</p>
-        </div>
+        {/* VALUE STATS - Moved inside hero */}
+        <section className="quick-cards">
+          <div className="quick-card">
+            <div className="card-shine"></div>
+            <div className="stat-icon">⭐️</div>
+            <h3>100%</h3>
+            <p>Verified</p>
+          </div>
 
-        <div className="quick-card">
-          <h3><span className="star">⭐️</span>10K+</h3>
-          <p>Active Bettors</p>
-        </div>
+          <div className="quick-card">
+            <div className="card-shine"></div>
+            <div className="stat-icon">🎯</div>
+            <h3>10K+</h3>
+            <p>Active Bettors</p>
+          </div>
 
-        <div className="quick-card">
-          <h3><span className="star">⭐️</span>VIP</h3>
-          <p>Fixed Matches</p>
-        </div>
+          <div className="quick-card">
+            <div className="card-shine"></div>
+            <div className="stat-icon">👑</div>
+            <h3>VIP</h3>
+            <p>Fixed Matches</p>
+          </div>
+        </section>
       </section>
 
       {/* TODAY'S PICKS */}
       <section className="picks-section">
-        <h2 className="picks-title">🔥 Today’s Top Picks</h2>
+        <div className="section-header">
+          <span className="fire-icon">🔥</span>
+          <h2 className="picks-title">Yesterday's Top Picks</h2>
+        </div>
 
         <div className="picks-list">
           {/* PICK CARD 1 */}
           <div className="pick-card">
+            <div className="pick-badge">Won</div>
             <div className="teams">
-              <span>🏆 Mantova 1911
-</span> <span className="vs">vs</span> <span>Ssc Bari</span>
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                Mantova 1911
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">SSC Bari</span>
             </div>
 
-            <div className="pick-meta vertical-meta">
-              <span className="pick-time">17:00</span>
-              <span className="pick-type">⚽️ 1st Half Correct Score: 1:1</span>
-              <span className="pick-odds">Odds: 8.20</span>
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">17:00</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Prediction</span>
+                <span className="meta-value prediction">⚽️ 1st Half: 1:1</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <span className="meta-value odds">8.20</span>
+              </div>
             </div>
           </div>
 
           {/* PICK CARD 2 */}
           <div className="pick-card">
+            <div className="pick-badge">Won</div>
             <div className="teams">
-              <span>🏆 Vukovar 91</span> <span className="vs">vs</span> <span>Istra 1961</span>
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                Vukovar 91
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">Istra 1961</span>
             </div>
 
-            <div className="pick-meta vertical-meta">
-              <span className="pick-time">17:00</span>
-              <span className="pick-type">⚽️ 1st Half Correct Score: 1:0</span>
-              <span className="pick-odds">Odds: 6.80</span>
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">17:00</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Prediction</span>
+                <span className="meta-value prediction">⚽️ 1st Half: 1:0</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <span className="meta-value odds">6.80</span>
+              </div>
             </div>
           </div>
 
           {/* PICK CARD 3 */}
           <div className="pick-card">
+            <div className="pick-badge">Won</div>
             <div className="teams">
-              <span>🏆 Sc Faetano</span> <span className="vs">vs</span> <span>Sp Cailungo</span>
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                SC Faetano
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">SP Cailungo</span>
             </div>
 
-            <div className="pick-meta vertical-meta">
-              <span className="pick-time">17:00</span>
-              <span className="pick-type">⚽️ 1st Half Correct Score: 0:2</span>
-              <span className="pick-odds">Odds: 8.40</span>
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">17:00</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Prediction</span>
+                <span className="meta-value prediction">⚽️ 1st Half: 0:2</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <span className="meta-value odds">8.40</span>
+              </div>
             </div>
           </div>
         </div>
@@ -99,7 +173,6 @@ function Home() {
       <footer className="footer">
         <p>© {new Date().getFullYear()} Mega-Odds. All rights reserved.</p>
       </footer>
-
     </div>
   );
 }
