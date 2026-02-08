@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import LiveMatches from "./pages/Navbarpages/LiveMatches";
+//learn more
+import Learn from "./pages/Navbarpages/Learn";
 
 // Protected pages
 import Features from "./pages/Navbarpages/Features";
@@ -73,6 +75,10 @@ function App() {
               <AdminFeatures />
             </ProtectedRoute>
           }
+        />
+        
+        <Route path="/learn" 
+        element={<Learn />} 
         />
 
         {/* Fallback */}

@@ -1,5 +1,5 @@
 import "./Pricing.css";
-
+import { Link } from "react-router-dom";
 function Pricing() {
   return (
     <div className="pricing-page">
@@ -217,11 +217,13 @@ function Pricing() {
             <h3>How do I receive the picks?</h3>
             <p>Immediately after payment, you'll be added to our private Telegram/WhatsApp group where we access all fixed matches 2-4 hours before kickoff. In addition you get direct access to VIP section on these games here online without need to always check up on WhatsApp or Telegram</p>
           </div>
-          
-          <div className="faq-item">
-            <h3>What if predictions don't win?</h3>
-            <p>VIP Fixed matches can never lose ...reason behind <br></br>Internal agreements: Teams collude to ensure a certain score or outcome (Thats why mainly games are from lower leagues rare in professional leagues due to strict regulations).</p>
-          </div>
+         <div className="faq-item">
+  <h3>What are "Fixed Matches"?</h3>
+  <p>"Fixed matches" refer to sports games (or sometimes other competitions) where the outcome has been pre-determined, usually illegally, rather than being decided fairly by the players' performance. In other words, someone arranges for a specific result before the match happens.</p>
+  <Link to="/Learn" className="faq-learn-more">
+  Learn more about fixed matches →
+</Link>
+</div>
           
           <div className="faq-item">
             <h3>Can I upgrade my plan?</h3>
