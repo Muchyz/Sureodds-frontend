@@ -41,9 +41,9 @@ function App() {
         <Route
           path="/pricing"
           element={
-            <ProtectedRoute>
+          
               <Pricing />
-            </ProtectedRoute>
+            
           }
         />
 

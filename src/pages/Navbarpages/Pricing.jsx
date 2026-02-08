@@ -23,7 +23,7 @@ function Pricing() {
         </h1>
         
         <p className="pricing-subtitle">
-          Get access to verified first-half correct score predictions with guaranteed accuracy.
+          Get access to verified & fixed first-half correct score  with guaranteed accuracy.
           Choose your winning plan today.
         </p>
       </section>
@@ -56,7 +56,7 @@ function Pricing() {
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>85% Success Rate</span>
+              <span>100% Success Rate</span>
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
@@ -97,7 +97,7 @@ function Pricing() {
           <ul className="pricing-features">
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>15 Fixed Matches per month</span>
+              <span>30 Fixed Matches per month</span>
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
@@ -105,7 +105,7 @@ function Pricing() {
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>92% Success Rate</span>
+              <span>100% Success Rate</span>
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
@@ -154,7 +154,7 @@ function Pricing() {
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>98% Success Rate</span>
+              <span>100% Success Rate</span>
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
@@ -170,7 +170,7 @@ function Pricing() {
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>Money-Back Guarantee</span>
+              <span>Notification</span>
             </li>
           </ul>
 
@@ -189,7 +189,7 @@ function Pricing() {
         <div className="trust-item">
           <div className="trust-icon">🏆</div>
           <h4>Verified Results</h4>
-          <p>All predictions tracked & verified</p>
+          <p>All Games tracked & verified</p>
         </div>
         <div className="trust-item">
           <div className="trust-icon">🔒</div>
@@ -210,17 +210,17 @@ function Pricing() {
         <div className="faq-grid">
           <div className="faq-item">
             <h3>What are "Fixed Matches"?</h3>
-            <p>These are carefully analyzed matches where we provide the exact first-half correct score with extremely high accuracy rates based on insider information and advanced analytics.</p>
+            <p>“Fixed matches” refer to sports games (or sometimes other competitions) where the outcome has been pre-determined, usually illegally, rather than being decided fairly by the players’ performance. In other words, someone arranges for a specific result before the match happens.</p>
           </div>
           
           <div className="faq-item">
             <h3>How do I receive the picks?</h3>
-            <p>Immediately after payment, you'll be added to our private Telegram/WhatsApp group where we share all fixed matches 2-4 hours before kickoff.</p>
+            <p>Immediately after payment, you'll be added to our private Telegram/WhatsApp group where we access all fixed matches 2-4 hours before kickoff. In addition you get direct access to VIP section on these games here online without need to always check up on WhatsApp or Telegram</p>
           </div>
           
           <div className="faq-item">
             <h3>What if predictions don't win?</h3>
-            <p>VIP Elite members enjoy our money-back guarantee. If our success rate drops below 90% in any month, you get a full refund.</p>
+            <p>VIP Fixed matches can never lose ...reason behind <br></br>Internal agreements: Teams collude to ensure a certain score or outcome (Thats why mainly games are from lower leagues rare in professional leagues due to strict regulations).</p>
           </div>
           
           <div className="faq-item">
