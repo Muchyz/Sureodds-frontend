@@ -162,7 +162,7 @@ function About() {
               <span>Get Started Now</span>
               <span className="btn-arrow">→</span>
             </Link>
-            <Link to="/vip" className="cta-btn secondary-cta">
+            <Link to="/pricing" className="cta-btn secondary-cta">
               <span className="vip-crown">👑</span>
               <span>View VIP Plans</span>
             </Link>
