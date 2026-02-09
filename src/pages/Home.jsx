@@ -128,7 +128,7 @@ function Home() {
                 <span className="meta-value time">22:00</span>
               </div>
               <div className="meta-item">
-                <span className="meta-label">Prediction</span>
+                <span className="meta-label">Bet</span>
                 <span className="meta-value prediction">⚽️ 1st Half: 1:2</span>
               </div>
               <div className="meta-item">
@@ -158,7 +158,7 @@ function Home() {
                 <span className="meta-value time">22:00</span>
               </div>
               <div className="meta-item">
-                <span className="meta-label">Prediction</span>
+                <span className="meta-label">Bet</span>
                 <span className="meta-value prediction">⚽️ 1st Half: 0:1</span>
               </div>
               <div className="meta-item">
@@ -188,7 +188,7 @@ function Home() {
                 <span className="meta-value time">22:00</span>
               </div>
               <div className="meta-item">
-                <span className="meta-label">Prediction</span>
+                <span className="meta-label">Bet</span>
                 <span className="meta-value prediction">⚽️ 1st Half: 1:1</span>
               </div>
               <div className="meta-item">
@@ -231,7 +231,7 @@ function Home() {
                 <span className="meta-value time">14:00</span>
               </div>
               <div className="meta-item">
-                <span className="meta-label">Prediction</span>
+                <span className="meta-label">Bet</span>
                 <Link to="/vip-access-denied" className="meta-value prediction locked">
                   <span className="lock-icon">🔒</span>
                   <span>1st Half: Locked</span>
@@ -270,7 +270,7 @@ function Home() {
                  <span className="meta-value time">14:30</span>
               </div>
               <div className="meta-item">
-                <span className="meta-label">Prediction</span>
+                <span className="meta-label">Bet</span>
                 <Link to="/vip-access-denied" className="meta-value prediction locked">
                   <span className="lock-icon">🔒</span>
                   <span>1st Half: Locked</span>
@@ -310,7 +310,7 @@ function Home() {
                 <span className="meta-value time">16:00</span>
               </div>
               <div className="meta-item">
-                <span className="meta-label">Prediction</span>
+                <span className="meta-label">Bet</span>
                 <Link to="/vip-access-denied" className="meta-value prediction locked">
                   <span className="lock-icon">🔒</span>
                   <span>1st Half: Locked</span>
