@@ -228,7 +228,7 @@ function Home() {
             <div className="pick-meta">
               <div className="meta-item">
                 <span className="meta-label">Time</span>
-                <span className="meta-value time">22:00</span>
+                <span className="meta-value time">22:00 pm</span>
               </div>
               <div className="meta-item">
                 <span className="meta-label">Prediction</span>
