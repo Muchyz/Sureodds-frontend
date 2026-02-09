@@ -179,7 +179,10 @@ function Home() {
         <div className="picks-list">
           {/* VIP PICK CARD 1 */}
           <div className="pick-card vip-pick-card">
-            <Link to="/vip-access-denied" className="pick-badge vip-badge">VIP Only</Link>
+            <div className="vip-ribbon">EXCLUSIVE</div>
+            <Link to="/vip-access-denied" className="pick-badge vip-badge">
+              VIP Only
+            </Link>
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
@@ -215,7 +218,10 @@ function Home() {
 
           {/* VIP PICK CARD 2 */}
           <div className="pick-card vip-pick-card">
-            <Link to="/vip-access-denied" className="pick-badge vip-badge">VIP Only</Link>
+            <div className="vip-ribbon">EXCLUSIVE</div>
+            <Link to="/vip-access-denied" className="pick-badge vip-badge">
+              VIP Only
+            </Link>
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
@@ -251,7 +257,10 @@ function Home() {
 
           {/* VIP PICK CARD 3 */}
           <div className="pick-card vip-pick-card">
-<Link to="/vip-access-denied" className="pick-badge vip-badge">VIP Only</Link>
+            <div className="vip-ribbon">EXCLUSIVE</div>
+            <Link to="/vip-access-denied" className="pick-badge vip-badge">
+              VIP Only
+            </Link>
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
