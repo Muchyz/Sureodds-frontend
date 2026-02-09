@@ -1,7 +1,16 @@
 import "./Home.css";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in by checking for token
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
+
   return (
     <div className="home">
       {/* Animated background elements */}
@@ -29,19 +38,41 @@ function Home() {
         </p>
 
         <div className="hero-actions">
-          <Link to="/signup">
-            <button className="cta-primary">
-              <span>Join Now</span>
-              <div className="button-glow"></div>
-            </button>
-          </Link>
+          {isLoggedIn ? (
+            // If logged in, show "Explore VIP Picks" instead of "Join Now"
+            <>
+              <Link to="/vip-picks">
+                <button className="cta-primary">
+                  <span>🔥 Explore VIP Picks</span>
+                  <div className="button-glow"></div>
+                </button>
+              </Link>
 
-          <Link to="/features" className="cta-secondary">
-            <span>See How It Works</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </Link>
+              <Link to="/my-stats" className="cta-secondary">
+                <span>View My Stats</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </Link>
+            </>
+          ) : (
+            // If not logged in, show "Join Now"
+            <>
+              <Link to="/signup">
+                <button className="cta-primary">
+                  <span>Join Now</span>
+                  <div className="button-glow"></div>
+                </button>
+              </Link>
+
+              <Link to="/features" className="cta-secondary">
+                <span>See How It Works</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* VALUE STATS - Moved inside hero */}
