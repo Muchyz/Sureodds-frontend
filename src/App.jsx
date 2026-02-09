@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./pages/Navbar";
 import ProtectedRoute from "./ProtectedRoute";
+import TestimonialsPage from "./pages/TestimonialsPage";
 
 // Public pages
 import Home from "./pages/Home";
@@ -94,6 +95,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/testimonials" element={<TestimonialsPage />} />
 
         {/* Fallback */}
         <Route path="*" element={<Home />} />

@@ -200,6 +200,106 @@ function Home() {
         </div>
       </section>
 
+      {/* PREVIOUS TICKET */}
+      <section className="picks-section">
+        <div className="section-header">
+          <span className="fire-icon">🎫</span>
+          <h2 className="picks-title">Previous Ticket</h2>
+        </div>
+
+        <div className="picks-list">
+          {/* PREVIOUS PICK CARD 1 */}
+          <div className="pick-card">
+            <div className="pick-badge">Won</div>
+            <div className="teams">
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                Nam Dinh Fc
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">Ha Tinh Fc</span>
+            </div>
+
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">14:00</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Bet</span>
+                <span className="meta-value prediction">⚽️ 1st Half: 1:0</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <span className="meta-value odds">7.20</span>
+              </div>
+            </div>
+          </div>
+
+          {/* PREVIOUS PICK CARD 2 */}
+          <div className="pick-card">
+            <div className="pick-badge">Won</div>
+            <div className="teams">
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                Lamphun Warriors Fc
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">Kanchanaburi Power Fc</span>
+            </div>
+
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">14:30</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Bet</span>
+                <span className="meta-value prediction">⚽️ 1st Half: 1:0</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <span className="meta-value odds">7.20</span>
+              </div>
+            </div>
+          </div>
+
+          {/* PREVIOUS PICK CARD 3 */}
+          <div className="pick-card">
+            <div className="pick-badge">Won</div>
+            <div className="teams">
+              <span className="team-name">
+                <span className="trophy">🏆</span>
+                Al-jabalain
+              </span>
+              <span className="vs">VS</span>
+              <span className="team-name">Al Bukiryah</span>
+            </div>
+
+            <div className="pick-divider"></div>
+
+            <div className="pick-meta">
+              <div className="meta-item">
+                <span className="meta-label">Time</span>
+                <span className="meta-value time">16:00</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Bet</span>
+                <span className="meta-value prediction">⚽️ 1st Half: 0:1</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Odds</span>
+                <span className="meta-value odds">6.50</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TODAY'S VIP PICKS */}
       <section className="picks-section vip-section">
         <div className="section-header">
@@ -217,10 +317,10 @@ function Home() {
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
-                Nam Dinh Fc
+                Racing Santander
               </span>
               <span className="vs">VS</span>
-              <span className="team-name">Ha Tinh Fc</span>
+              <span className="team-name">Mirandes</span>
             </div>
 
             <div className="pick-divider"></div>
@@ -228,7 +328,7 @@ function Home() {
             <div className="pick-meta">
               <div className="meta-item">
                 <span className="meta-label">Time</span>
-                <span className="meta-value time">14:00</span>
+                <span className="meta-value time">22:30</span>
               </div>
               <div className="meta-item">
                 <span className="meta-label">Bet</span>
@@ -256,10 +356,10 @@ function Home() {
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
-                Lamphun Warriors Fc
+                Amiens
               </span>
               <span className="vs">VS</span>
-              <span className="team-name">Kanchanaburi Power Fc</span>
+              <span className="team-name">Clermont</span>
             </div>
 
             <div className="pick-divider"></div>
@@ -267,7 +367,7 @@ function Home() {
             <div className="pick-meta">
               <div className="meta-item">
                 <span className="meta-label">Time</span>
-                 <span className="meta-value time">14:30</span>
+                 <span className="meta-value time">22:45</span>
               </div>
               <div className="meta-item">
                 <span className="meta-label">Bet</span>
@@ -295,10 +395,10 @@ function Home() {
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
-                Al-jabalain
+                Agf Aarhus
               </span>
               <span className="vs">VS</span>
-              <span className="team-name">Al Bukiryah
+              <span className="team-name">Odense Boldklub
               </span>
             </div>
 
@@ -307,7 +407,7 @@ function Home() {
             <div className="pick-meta">
               <div className="meta-item">
                 <span className="meta-label">Time</span>
-                <span className="meta-value time">16:00</span>
+                <span className="meta-value time">23:00</span>
               </div>
               <div className="meta-item">
                 <span className="meta-label">Bet</span>
