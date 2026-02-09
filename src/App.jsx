@@ -70,14 +70,6 @@ function App() {
           }
         />
 
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminFeatures />
-            </ProtectedRoute>
-          }
-        />
         
         <Route path="/learn" 
         element={<Learn />} 
