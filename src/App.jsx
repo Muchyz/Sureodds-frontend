@@ -70,6 +70,14 @@ function App() {
           }
         />
 
+        <Route
+          path="/adminfeatures"
+          element={
+            <ProtectedRoute>
+              <AdminFeatures />
+            </ProtectedRoute>
+          }
+        />
         
         <Route path="/learn" 
         element={<Learn />} 
@@ -77,7 +85,15 @@ function App() {
         
         <Route path="/vip-access-denied" element={<VipAccessDenied />} />
 
-<Route path="/admin" element={<Admin />} />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Fallback */}
         <Route path="*" element={<Home />} />
