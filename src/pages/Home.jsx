@@ -41,15 +41,15 @@ function Home() {
           {isLoggedIn ? (
             // If logged in, show "Explore VIP Picks" instead of "Join Now"
             <>
-              <Link to="/vip-picks">
+              <Link to="/features">
                 <button className="cta-primary">
-                  <span>🔥 Explore VIP Picks</span>
+                  <span>🔥Check Today's VIP</span>
                   <div className="button-glow"></div>
                 </button>
               </Link>
 
-              <Link to="/my-stats" className="cta-secondary">
-                <span>View My Stats</span>
+              <Link to="/learn" className="cta-secondary">
+                <span>Learn More About Fixed Matches</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
