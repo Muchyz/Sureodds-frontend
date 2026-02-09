@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "@/api";
 import "./Features.css";
 
@@ -28,7 +29,9 @@ function Features() {
         <h1>Win Smarter. Bet Like a Pro.</h1>
         <p>Elite Bets backed by real data and inside info.</p>
 
-        <button className="cta-btn">Unlock VIP – KES 999</button>
+<Link to="/pricing" className="cta-btn">
+  Unlock
+</Link>
       </section>
 
       {error && <p className="error">{error}</p>}
