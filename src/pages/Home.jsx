@@ -33,7 +33,7 @@ function Home() {
         </h1>
 
         <p className="hero-text">
-          Sure Odds uses real-time data, probability models, and sharp insights
+          Mega-Odds uses real-time data, probability models, and sharp insights
           to help you bet smarter — not harder.
         </p>
 
