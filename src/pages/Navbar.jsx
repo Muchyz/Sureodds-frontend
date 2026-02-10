@@ -26,6 +26,14 @@ function Navbar() {
         {/* Nav Links */}
         <ul className={`nav-links ${open ? "active" : ""}`}>
 
+      
+          <li>  <Link to="/testimonials" onClick={() => setOpen(false)}>
+              Members
+            </Link>
+          </li>
+          
+
+
           <li>
             <Link to="/live" onClick={() => setOpen(false)}>
               Live Games
