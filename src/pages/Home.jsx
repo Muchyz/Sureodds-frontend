@@ -619,7 +619,7 @@ Shanghai Port
                 <span className="meta-value time">
                   
                   
-                  22:300
+                  22:30
                   
                   
                   
