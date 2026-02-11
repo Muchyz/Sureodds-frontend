@@ -347,15 +347,16 @@ const TestimonialsPage = () => {
               </div>
             </div>
             
-            <div className="stat-card stat-card-pulse">
+           <div className="stat-card stat-card-pulse">
               <div className="stat-icon-wrapper">
                 <Star className="stat-icon" />
               </div>
-              <div className="stat-content">
+           <div className="stat-content">
                 <div className="stat-value">4.9/5</div>
                 <div className="stat-label">Average Rating</div>
               </div>
             </div>
+            
           </div>
         </div>
 
