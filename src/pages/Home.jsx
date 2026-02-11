@@ -203,7 +203,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  7.30
+                  7.80
                   
                   
                   </span>
