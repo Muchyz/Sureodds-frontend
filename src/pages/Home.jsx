@@ -115,14 +115,14 @@ function Home() {
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
-                Racing Santander
+                Linfield Fc
 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                Mirandes
+                Dungannon Swifts
                 
               </span>
             </div>
@@ -132,13 +132,17 @@ function Home() {
             <div className="pick-meta">
               <div className="meta-item">
                 <span className="meta-label">Time</span>
-                <span className="meta-value time">22:30</span>
+                <span className="meta-value time">
+                  
+                  22:45
+                  
+                  </span>
               </div>
               <div className="meta-item">
                 <span className="meta-label">Bet</span>
                 <span className="meta-value prediction">
                   
-                  ⚽️ 1st Half: 0:0
+                  ⚽️ 1st Half: 2:0
                   
                   </span>
               </div>
@@ -146,7 +150,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  4.60
+                  9.30
                   
                   </span>
               </div>
@@ -154,21 +158,21 @@ function Home() {
           </div>
 
           {/* PICK CARD 2 */}
-          <div className="pick-card">
-            <div className="pick-badge">Won</div>
+          <div className="pick-card grey">
+            <div className="pick-badge postponed">Postponed</div>
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
                 
-                Amiens
+                Ayr United Fc
                 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                Clermont
+                St Johnstone Fc
                 
                 
                 </span>
@@ -190,7 +194,7 @@ function Home() {
                 <span className="meta-label">Bet</span>
           <span className="meta-value prediction">
                   
-                  ⚽️ 1st Half: Other
+                  ⚽️ 1st Half: 1:1
                   
                   
                   </span>
@@ -199,7 +203,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  9.20
+                  7.30
                   
                   
                   </span>
@@ -215,14 +219,14 @@ function Home() {
                 <span className="trophy">🏆</span>
                 
                 
-                Agf Aarhus
+                Hearts
                 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                Odense Boldklub
+                Hibernian Fc
                 
                 </span>
             </div>
@@ -243,213 +247,24 @@ function Home() {
                 <span className="meta-value prediction">
                   
                   
-                  ⚽️ 1st Half: 0:1
+                  ⚽️ 1st Half: 0:0
                   
                   </span>
               </div>
               <div className="meta-item">
                 <span className="meta-label">Odds</span>
-                <span className="meta-value odds">8.20</span>
+                <span className="meta-value odds">
+                  
+                  4.70
+                  
+                  </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* PREVIOUS TICKET */}
-      <section className="picks-section">
-        <div className="section-header">
-          <span className="fire-icon"></span>
-          <h2 className="picks-title">Previous Ticket</h2>
-        </div>
 
-        <div className="picks-list">
-          {/* PREVIOUS PICK CARD 1 */}
-          <div className="pick-card">
-            <div className="pick-badge">Won</div>
-            <div className="teams">
-              <span className="team-name">
-                <span className="trophy"></span>
-                
-              Shamakhi Fk
-
-
-              </span>
-              <span className="vs">VS</span>
-              <span className="team-name">
-                
-                Qarabag Fk
-                
-              </span>
-            </div>
-
-            <div className="pick-divider"></div>
-
-            <div className="pick-meta">
-              <div className="meta-item">
-                <span className="meta-label">Time</span>
-                <span className="meta-value time">
-
-
-
-13:30
-
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Bet</span>
-                <span className="meta-value prediction">
-
-
-
-⚽️ 1st Half: 1:1
-
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Odds</span>
-                <span className="meta-value odds">
-
-
-
-8.40
-
-
-
-</span>
-              </div>
-            </div>
-          </div>
-
-          {/* PREVIOUS PICK CARD 2 */}
-          <div className="pick-card">
-            <div className="pick-badge">Won</div>
-            <div className="teams">
-              <span className="team-name">
-                <span className="trophy"></span>
-
-
-
-                Shanghai Shenhua
-
-
-
-              </span>
-              <span className="vs">VS</span>
-              <span className="team-name">
-
-
-Machida Z
-
-
-
-</span>
-            </div>
-
-            <div className="pick-divider"></div>
-
-            <div className="pick-meta">
-              <div className="meta-item">
-                <span className="meta-label">Time</span>
-                <span className="meta-value time">15:15</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Bet</span>
-                <span className="meta-value prediction">
-
-
-⚽️ 1st Half: 0:1
-
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Odds</span>
-                <span className="meta-value odds">
-
-
-7.60
-
-
-
-</span>
-              </div>
-            </div>
-          </div>
-
-          {/* PREVIOUS PICK CARD 3 */}
-          <div className="pick-card">
-            <div className="pick-badge">Won</div>
-            <div className="teams">
-              <span className="team-name">
-                <span className="trophy"></span>
-
-
-
-                Al Anwar
-
-
-
-              </span>
-              <span className="vs">VS</span>
-              <span className="team-name">
-
-
-
-Jeddah Club
-
-
-
-</span>
-            </div>
-
-            <div className="pick-divider"></div>
-
-            <div className="pick-meta">
-              <div className="meta-item">
-                <span className="meta-label">Time</span>
-                <span className="meta-value time">
-
-
-
-15:40
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Bet</span>
-                <span className="meta-value prediction">
-
-
-
-⚽️ 1st Half: 0:0
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Odds</span>
-                <span className="meta-value odds">
-
-
-5.00
-
-
-
-</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      
 
       {/* TODAY'S VIP PICKS */}
       <section className="picks-section vip-section">
@@ -470,7 +285,7 @@ Jeddah Club
                 <span className="trophy">🏆</span>
                 
                 
-                Linfield Fc
+                Ulsan Hyundai
 
 
                 
@@ -480,7 +295,7 @@ Jeddah Club
               <span className="team-name">
                 
                 
-                Dungannon Swifts
+                Melbourne City Fc
                 
                 
                 </span>
@@ -494,7 +309,7 @@ Jeddah Club
                 <span className="meta-value time">
                   
                   
-                  22:45
+                  13:00
                   
                   
                   
@@ -529,7 +344,7 @@ Jeddah Club
                 
                 
                 
-                St Johnstone Fc
+                Debreceni Eac
                 
                 
                 
@@ -538,7 +353,7 @@ Jeddah Club
               <span className="team-name">
                 
                 
-                Ayr United Fc
+                Soroksar
                 
                 
                 </span>
@@ -551,7 +366,7 @@ Jeddah Club
                 <span className="meta-label">Time</span>
                  <span className="meta-value time">
                    
-                   22:45
+                   15:00
                    
                    
                    </span>
@@ -583,7 +398,7 @@ Jeddah Club
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
-                Hearts
+                Gangwon
                 
                 
               </span>
@@ -591,7 +406,7 @@ Jeddah Club
               <span className="team-name">
                 
                 
-                Hibernian Fc
+                Shanghai Port
                 
                 
               </span>
@@ -605,7 +420,7 @@ Jeddah Club
                 <span className="meta-value time">
                   
                   
-                  23:00
+                  13:00
                   
                   
                   
