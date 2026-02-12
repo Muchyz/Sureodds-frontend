@@ -285,7 +285,7 @@ function Home() {
                 <span className="trophy">🏆</span>
                 
                 
-                Pohang Steelers
+                As Gubbio
 
 
                 
@@ -295,7 +295,7 @@ function Home() {
               <span className="team-name">
                 
                 
-                Gamba Osaka
+                Vis Pesaro 1898
                 
                 
                 </span>
@@ -309,7 +309,7 @@ function Home() {
                 <span className="meta-value time">
                   
                   
-                  13:00
+                  22:30
                   
                   
                   
@@ -344,7 +344,7 @@ function Home() {
                 
                 
                 
-                Baku Sporting
+                Marica Fc Rj
                 
                 
                 
@@ -353,7 +353,7 @@ function Home() {
               <span className="team-name">
                 
                 
-                Moik Baku
+                Sampaio Correa
                 
                 
                 </span>
@@ -366,7 +366,7 @@ function Home() {
                 <span className="meta-label">Time</span>
                  <span className="meta-value time">
                    
-                   13:30
+                   23:00
                    
                    
                    </span>
@@ -398,7 +398,7 @@ function Home() {
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
-                Sogndal Fotball
+                Retro Fc Pe
                 
                 
               </span>
@@ -406,7 +406,7 @@ function Home() {
               <span className="team-name">
                 
                 
-                Fc Kryvbas Kriviy Rih
+                Sc Recife Pe
                 
                 
               </span>
@@ -420,7 +420,7 @@ function Home() {
                 <span className="meta-value time">
                   
                   
-                  14:00
+                  23:00
                   
                   
                   
