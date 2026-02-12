@@ -115,14 +115,14 @@ function Home() {
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
-                Linfield Fc
+                Fc Zurich
 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                Dungannon Swifts
+                Winterthur
                 
               </span>
             </div>
@@ -134,7 +134,7 @@ function Home() {
                 <span className="meta-label">Time</span>
                 <span className="meta-value time">
                   
-                  22:45
+                  22:30
                   
                   </span>
               </div>
@@ -150,7 +150,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  9.30
+                  7.30
                   
                   </span>
               </div>
@@ -158,21 +158,21 @@ function Home() {
           </div>
 
           {/* PICK CARD 2 */}
-          <div className="pick-card grey">
-            <div className="pick-badge postponed">Postponed</div>
+          <div className="pick-card ">
+            <div className="pick-badge">Won</div>
             <div className="teams">
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
                 
-                Ayr United Fc
+                Fc Lugano
                 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                St Johnstone Fc
+                Servette Geneva
                 
                 
                 </span>
@@ -185,7 +185,7 @@ function Home() {
                 <span className="meta-label">Time</span>
                 <span className="meta-value time">
                   
-                  22:45
+                  22:30
                   
                   
                   </span>
@@ -194,7 +194,7 @@ function Home() {
                 <span className="meta-label">Bet</span>
           <span className="meta-value prediction">
                   
-                  ⚽️ 1st Half: 1:1
+                  ⚽️ 1st Half: 1:0
                   
                   
                   </span>
@@ -203,7 +203,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  7.80
+                  5.00
                   
                   
                   </span>
@@ -219,14 +219,14 @@ function Home() {
                 <span className="trophy">🏆</span>
                 
                 
-                Hearts
+                Union Brescia
                 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                Hibernian Fc
+                Virtus Verona
                 
                 </span>
             </div>
@@ -238,7 +238,7 @@ function Home() {
                 <span className="meta-label">Time</span>
                 <span className="meta-value time">
                   
-                  23:00
+                  22:30
                   
                   </span>
               </div>
@@ -247,7 +247,7 @@ function Home() {
                 <span className="meta-value prediction">
                   
                   
-                  ⚽️ 1st Half: 0:0
+                  ⚽️ 1st Half: Other
                   
                   </span>
               </div>
@@ -255,7 +255,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  4.70
+                  9.50
                   
                   </span>
               </div>
@@ -264,205 +264,6 @@ function Home() {
         </div>
       </section>
 
-
-      {/* PREVIOUS TICKET */}
-      <section className="picks-section">
-        <div className="section-header">
-          <span className="fire-icon">🏷</span>
-          <h2 className="picks-title">Previous Ticket</h2>
-        </div>
-
-        <div className="picks-list">
-          {/* PREVIOUS PICK CARD 1 */}
-          <div className="pick-card">
-            <div className="pick-badge">Won</div>
-            <div className="teams">
-              <span className="team-name">
-                <span className="trophy"></span>
-                
-              Ulsan Hyunda
-
-
-              </span>
-              <span className="vs">VS</span>
-              <span className="team-name">
-                
-                Melbourne City Fc
-                
-              </span>
-            </div>
-
-            <div className="pick-divider"></div>
-
-            <div className="pick-meta">
-              <div className="meta-item">
-                <span className="meta-label">Time</span>
-                <span className="meta-value time">
-
-
-
-13:00
-
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Bet</span>
-                <span className="meta-value prediction">
-
-
-
-⚽️ 1st Half: 0:1
-
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Odds</span>
-                <span className="meta-value odds">
-
-
-
-7.80
-
-
-
-</span>
-              </div>
-            </div>
-          </div>
-
-          {/* PREVIOUS PICK CARD 2 */}
-          <div className="pick-card">
-            <div className="pick-badge">Won</div>
-            <div className="teams">
-              <span className="team-name">
-                <span className="trophy"></span>
-
-
-
-                Debreceni Eac
-
-
-
-              </span>
-              <span className="vs">VS</span>
-              <span className="team-name">
-
-
-Soroksar 
-
-
-
-</span>
-            </div>
-
-            <div className="pick-divider"></div>
-
-            <div className="pick-meta">
-              <div className="meta-item">
-                <span className="meta-label">Time</span>
-                <span className="meta-value time">
-
-15:00
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Bet</span>
-                <span className="meta-value prediction">
-
-
-⚽️ 1st Half: 0:0
-
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Odds</span>
-                <span className="meta-value odds">
-
-
-4.60
-
-
-
-</span>
-              </div>
-            </div>
-          </div>
-
-          {/* PREVIOUS PICK CARD 3 */}
-          <div className="pick-card">
-            <div className="pick-badge">Won</div>
-            <div className="teams">
-              <span className="team-name">
-                <span className="trophy"></span>
-
-
-
-                Gangwon
-
-
-
-              </span>
-              <span className="vs">VS</span>
-              <span className="team-name">
-
-
-
-Shanghai Port
-
-
-
-</span>
-            </div>
-
-            <div className="pick-divider"></div>
-
-            <div className="pick-meta">
-              <div className="meta-item">
-                <span className="meta-label">Time</span>
-                <span className="meta-value time">
-
-
-
-13:00
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Bet</span>
-                <span className="meta-value prediction">
-
-
-
-⚽️ 1st Half: 0:0
-
-
-</span>
-              </div>
-              <div className="meta-item">
-                <span className="meta-label">Odds</span>
-                <span className="meta-value odds">
-
-
-4.40
-
-
-
-</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      
 
 
       {/* TODAY'S VIP PICKS */}
@@ -484,7 +285,7 @@ Shanghai Port
                 <span className="trophy">🏆</span>
                 
                 
-                Fc Zurich
+                Pohang Steelers
 
 
                 
@@ -494,7 +295,7 @@ Shanghai Port
               <span className="team-name">
                 
                 
-                Winterthur
+                Gamba Osaka
                 
                 
                 </span>
@@ -508,7 +309,7 @@ Shanghai Port
                 <span className="meta-value time">
                   
                   
-                  22:30
+                  13:00
                   
                   
                   
@@ -543,7 +344,7 @@ Shanghai Port
                 
                 
                 
-                Fc Lugano
+                Baku Sporting
                 
                 
                 
@@ -552,7 +353,7 @@ Shanghai Port
               <span className="team-name">
                 
                 
-                Servette Geneva
+                Moik Baku
                 
                 
                 </span>
@@ -565,7 +366,7 @@ Shanghai Port
                 <span className="meta-label">Time</span>
                  <span className="meta-value time">
                    
-                   22:30
+                   13:30
                    
                    
                    </span>
@@ -597,7 +398,7 @@ Shanghai Port
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
-                Union Brescia
+                Sogndal Fotball
                 
                 
               </span>
@@ -605,7 +406,7 @@ Shanghai Port
               <span className="team-name">
                 
                 
-                Virtus Verona
+                Fc Kryvbas Kriviy Rih
                 
                 
               </span>
@@ -619,7 +420,7 @@ Shanghai Port
                 <span className="meta-value time">
                   
                   
-                  22:30
+                  14:00
                   
                   
                   
