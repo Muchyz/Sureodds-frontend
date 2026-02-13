@@ -1,6 +1,214 @@
-import "./Pricing.css";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import "./Pricing.css";
+
 function Pricing() {
+  const [loading, setLoading] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(null);
+
+  const plans = {
+    starter: {
+      name: "Starter",
+      price: 2500,
+      period: "week",
+      features: [
+        "3 Fixed Matches per week",
+        "First Half Correct Scores",
+        "100% Success Rate",
+        "WhatsApp Support"
+      ]
+    },
+    pro: {
+      name: "Pro",
+      price: 8000,
+      period: "month",
+      features: [
+        "30 Fixed Matches per month",
+        "First Half Correct Scores",
+        "100% Success Rate",
+        "VIP Telegram Group",
+        "24/7 Priority Support",
+        "Live Match Updates"
+      ]
+    },
+    vip: {
+      name: "VIP Elite",
+      price: 20000,
+      period: "month",
+      features: [
+        "30+ Fixed Matches per month",
+        "First Half Correct Scores",
+        "100% Success Rate",
+        "Exclusive VIP Telegram",
+        "Personal Account Manager",
+        "Advanced Analytics Dashboard",
+        "Instant Notifications"
+      ]
+    }
+  };
+
+  const handlePlanSelect = (planKey) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login first to purchase a plan");
+      window.location.href = "/login";
+      return;
+    }
+    setSelectedPlan(planKey);
+    setShowModal(true);
+    setPaymentStatus(null);
+    setPhoneNumber("");
+  };
+
+  const initiatePayment = async () => {
+    if (!phoneNumber) {
+      alert("Please enter your M-Pesa phone number");
+      return;
+    }
+
+    // Validate phone number format
+    const cleanPhone = phoneNumber.replace(/\s/g, '');
+    const phoneRegex = /^(254|0)[17]\d{8}$/;
+    if (!phoneRegex.test(cleanPhone)) {
+      alert("Please enter a valid Kenyan phone number (e.g., 0712345678 or 254712345678)");
+      return;
+    }
+
+    setLoading(true);
+    setPaymentStatus({ type: "info", message: "Initiating payment..." });
+
+    try {
+      const token = localStorage.getItem("token");
+      const plan = plans[selectedPlan];
+
+      const response = await fetch("https://megaodds-backend.up.railway.app/api/payment/initiate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          amount: plan.price,
+          phone_number: cleanPhone,
+          plan_name: `${plan.name} Plan - ${plan.period}`
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setPaymentStatus({
+          type: "success",
+          message: "✅ STK Push sent! Please check your phone and enter your M-Pesa PIN."
+        });
+
+        // Start polling for payment status
+        pollPaymentStatus(data.invoice_id);
+      } else {
+        setPaymentStatus({
+          type: "error",
+          message: data.message || "Payment initiation failed. Please try again."
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      setPaymentStatus({
+        type: "error",
+        message: "Network error. Please check your connection and try again."
+      });
+      setLoading(false);
+    }
+  };
+
+  const pollPaymentStatus = async (invoiceId) => {
+    const token = localStorage.getItem("token");
+    let attempts = 0;
+    const maxAttempts = 30; // Poll for ~3 minutes (6s * 30)
+
+    const checkStatus = async () => {
+      try {
+        const response = await fetch(
+          `https://megaodds-backend.up.railway.app/api/payment/status/${invoiceId}`,
+          {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.success && (data.status === "COMPLETE" || data.status === "COMPLETED")) {
+          setPaymentStatus({
+            type: "success",
+            message: "🎉 Payment successful! Your VIP access has been activated. Redirecting..."
+          });
+          setLoading(false);
+          
+          // Update local storage
+          localStorage.setItem("is_vip", "1");
+          
+          // Redirect after 2 seconds
+          setTimeout(() => {
+            window.location.href = "/vip-section";
+          }, 2000);
+          
+          return true; // Stop polling
+        } else if (data.status === "FAILED") {
+          setPaymentStatus({
+            type: "error",
+            message: "❌ Payment failed. Please try again or contact support."
+          });
+          setLoading(false);
+          return true; // Stop polling
+        }
+
+        attempts++;
+        if (attempts >= maxAttempts) {
+          setPaymentStatus({
+            type: "warning",
+            message: "⏱️ Payment is taking longer than expected. We'll notify you once it's confirmed."
+          });
+          setLoading(false);
+          return true; // Stop polling
+        }
+
+        // Continue polling
+        setTimeout(checkStatus, 6000); // Check every 6 seconds
+      } catch (error) {
+        console.error("Status check error:", error);
+        attempts++;
+        if (attempts < maxAttempts) {
+          setTimeout(checkStatus, 6000);
+        } else {
+          setPaymentStatus({
+            type: "warning",
+            message: "Unable to verify payment status. Please contact support if money was deducted."
+          });
+          setLoading(false);
+        }
+      }
+    };
+
+    checkStatus();
+  };
+
+  const closeModal = () => {
+    if (loading) {
+      const confirm = window.confirm("Payment is in progress. Are you sure you want to close?");
+      if (!confirm) return;
+    }
+    setShowModal(false);
+    setPhoneNumber("");
+    setPaymentStatus(null);
+    setSelectedPlan(null);
+    setLoading(false);
+  };
+
   return (
     <div className="pricing-page">
       {/* Animated background orbs */}
@@ -23,7 +231,7 @@ function Pricing() {
         </h1>
         
         <p className="pricing-subtitle">
-          Get access to verified & fixed first-half correct score  with guaranteed accuracy.
+          Get access to verified & fixed first-half correct score with guaranteed accuracy.
           Choose your winning plan today.
         </p>
       </section>
@@ -68,7 +276,10 @@ function Pricing() {
             </li>
           </ul>
 
-          <button className="pricing-btn pricing-btn-starter">
+          <button 
+            className="pricing-btn pricing-btn-starter"
+            onClick={() => handlePlanSelect('starter')}
+          >
             <span>Get Started</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -121,7 +332,10 @@ function Pricing() {
             </li>
           </ul>
 
-          <button className="pricing-btn pricing-btn-pro">
+          <button 
+            className="pricing-btn pricing-btn-pro"
+            onClick={() => handlePlanSelect('pro')}
+          >
             <span>Get Pro Access</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -170,11 +384,14 @@ function Pricing() {
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>Notification</span>
+              <span>Instant Notifications</span>
             </li>
           </ul>
 
-          <button className="pricing-btn pricing-btn-vip">
+          <button 
+            className="pricing-btn pricing-btn-vip"
+            onClick={() => handlePlanSelect('vip')}
+          >
             <span>Go VIP Elite</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -183,6 +400,74 @@ function Pricing() {
         </div>
 
       </section>
+
+      {/* Payment Modal */}
+      {showModal && (
+        <div className="payment-modal-overlay" onClick={closeModal}>
+          <div className="payment-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>×</button>
+            
+            <div className="modal-header">
+              <h2>Complete Your Payment</h2>
+              <p className="modal-plan-name">{plans[selectedPlan]?.name} Plan</p>
+            </div>
+
+            <div className="modal-amount">
+              <span className="modal-currency">KES</span>
+              <span className="modal-value">{plans[selectedPlan]?.price.toLocaleString()}</span>
+              <span className="modal-period">/ {plans[selectedPlan]?.period}</span>
+            </div>
+
+            <div className="modal-form">
+              <label htmlFor="phone">M-Pesa Phone Number</label>
+              <input
+                id="phone"
+                type="tel"
+                placeholder="07XX XXX XXX or 2547XX XXX XXX"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                disabled={loading}
+                className="phone-input"
+              />
+              
+              <button
+                onClick={initiatePayment}
+                disabled={loading || !phoneNumber}
+                className="pay-button"
+              >
+                {loading ? (
+                  <>
+                    <span className="spinner"></span>
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <span>Pay with M-Pesa</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12 22V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12 12L2 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12 12L22 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </>
+                )}
+              </button>
+
+              {paymentStatus && (
+                <div className={`payment-status payment-status-${paymentStatus.type}`}>
+                  {paymentStatus.message}
+                </div>
+              )}
+
+              <div className="payment-info">
+                <p>📱 You will receive an STK push on your phone</p>
+                <p>🔐 Enter your M-Pesa PIN to complete payment</p>
+                <p>⚡ VIP access is granted immediately after payment</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Trust Indicators */}
       <section className="pricing-trust">
@@ -194,7 +479,7 @@ function Pricing() {
         <div className="trust-item">
           <div className="trust-icon">🔒</div>
           <h4>Secure Payment</h4>
-          <p>Safe & encrypted transactions</p>
+          <p>Safe & encrypted M-Pesa transactions</p>
         </div>
         <div className="trust-item">
           <div className="trust-icon">⚡</div>
@@ -210,20 +495,21 @@ function Pricing() {
         <div className="faq-grid">
           <div className="faq-item">
             <h3>What are "Fixed Matches"?</h3>
-            <p>“Fixed matches” refer to sports games (or sometimes other competitions) where the outcome has been pre-determined, usually illegally, rather than being decided fairly by the players’ performance. In other words, someone arranges for a specific result before the match happens.</p>
+            <p>"Fixed matches" refer to sports games where the outcome has been pre-determined, usually illegally, rather than being decided fairly by the players' performance.</p>
+            <Link to="/Learn" className="faq-learn-more">
+              Learn more about fixed matches →
+            </Link>
           </div>
           
           <div className="faq-item">
             <h3>How do I receive the picks?</h3>
-            <p>Immediately after payment, you'll be added to our private Telegram/WhatsApp group where we access all fixed matches 2-4 hours before kickoff. In addition you get direct access to VIP section on these games here online without need to always check up on WhatsApp or Telegram</p>
+            <p>Immediately after payment, you'll be added to our private Telegram/WhatsApp group where we share all fixed matches 2-4 hours before kickoff. You also get direct VIP section access.</p>
           </div>
-         <div className="faq-item">
-  <h3>What are "Fixed Matches"?</h3>
-  <p>"Fixed matches" refer to sports games (or sometimes other competitions) where the outcome has been pre-determined, usually illegally, rather than being decided fairly by the players' performance. In other words, someone arranges for a specific result before the match happens.</p>
-  <Link to="/Learn" className="faq-learn-more">
-  Learn more about fixed matches →
-</Link>
-</div>
+          
+          <div className="faq-item">
+            <h3>Is M-Pesa payment secure?</h3>
+            <p>Yes! We use Intasend's secure payment gateway. Your payment is encrypted and processed directly through M-Pesa's official system.</p>
+          </div>
           
           <div className="faq-item">
             <h3>Can I upgrade my plan?</h3>
