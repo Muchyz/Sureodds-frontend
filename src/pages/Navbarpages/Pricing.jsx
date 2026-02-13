@@ -256,7 +256,7 @@ function Pricing() {
           <ul className="pricing-features">
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>3 Fixed Matches per week</span>
+              <span>3 Fixed Matches a day for 1 week</span>
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
@@ -308,7 +308,7 @@ function Pricing() {
           <ul className="pricing-features">
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>30 Fixed Matches per month</span>
+              <span>3 Fixed Matches a day for 1 month</span>
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
@@ -360,7 +360,7 @@ function Pricing() {
           <ul className="pricing-features">
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
-              <span>30+ Fixed Matches per month</span>
+              <span>6 Fixed Matches a day for 1 month</span>
             </li>
             <li className="pricing-feature">
               <span className="pricing-check">✓</span>
