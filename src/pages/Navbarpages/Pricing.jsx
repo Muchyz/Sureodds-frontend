@@ -15,7 +15,7 @@ function Pricing() {
       price: 2500,
       period: "week",
       features: [
-        "3 Fixed Matches for a day",
+        "3 Fixed Matches a day for 1 week",
         "First Half Correct Scores",
         "100% Success Rate",
         "WhatsApp Support"
@@ -26,7 +26,7 @@ function Pricing() {
       price: 8000,
       period: "month",
       features: [
-        "30 Fixed Matches per month",
+        "3 Fixed Matches a day for 1 month",
         "First Half Correct Scores",
         "100% Success Rate",
         "VIP Telegram Group",
@@ -39,7 +39,7 @@ function Pricing() {
       price: 20000,
       period: "month",
       features: [
-        "30+ Fixed Matches per month",
+        "3 Fixed Matches a day for 1 month",
         "First Half Correct Scores",
         "100% Success Rate",
         "Exclusive VIP Telegram",
