@@ -115,14 +115,14 @@ function Home() {
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
-                Fc Zurich
+                As Gubbio
 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                Winterthur
+                Vis Pesaro 1898
                 
               </span>
             </div>
@@ -142,7 +142,7 @@ function Home() {
                 <span className="meta-label">Bet</span>
                 <span className="meta-value prediction">
                   
-                  ⚽️ 1st Half: 2:0
+                  ⚽️ 1st Half: 0:0
                   
                   </span>
               </div>
@@ -150,7 +150,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  7.30
+                  4.60
                   
                   </span>
               </div>
@@ -165,14 +165,14 @@ function Home() {
                 <span className="trophy">🏆</span>
                 
                 
-                Fc Lugano
+                Marica Fc Rj
                 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                Servette Geneva
+                Sampaio Correa
                 
                 
                 </span>
@@ -185,7 +185,7 @@ function Home() {
                 <span className="meta-label">Time</span>
                 <span className="meta-value time">
                   
-                  22:30
+                  23:00
                   
                   
                   </span>
@@ -194,7 +194,7 @@ function Home() {
                 <span className="meta-label">Bet</span>
           <span className="meta-value prediction">
                   
-                  ⚽️ 1st Half: 1:0
+                  ⚽️ 1st Half: Other
                   
                   
                   </span>
@@ -203,7 +203,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  5.00
+                  15.20
                   
                   
                   </span>
@@ -219,14 +219,14 @@ function Home() {
                 <span className="trophy">🏆</span>
                 
                 
-                Union Brescia
+                Retro Fc Pe
                 
                 
               </span>
               <span className="vs">VS</span>
               <span className="team-name">
                 
-                Virtus Verona
+                Sc Recife Pe
                 
                 </span>
             </div>
@@ -238,7 +238,7 @@ function Home() {
                 <span className="meta-label">Time</span>
                 <span className="meta-value time">
                   
-                  22:30
+                  23:00
                   
                   </span>
               </div>
@@ -247,7 +247,7 @@ function Home() {
                 <span className="meta-value prediction">
                   
                   
-                  ⚽️ 1st Half: Other
+                  ⚽️ 1st Half: 0:0
                   
                   </span>
               </div>
@@ -255,7 +255,7 @@ function Home() {
                 <span className="meta-label">Odds</span>
                 <span className="meta-value odds">
                   
-                  9.50
+                  4.80
                   
                   </span>
               </div>
@@ -285,7 +285,7 @@ function Home() {
                 <span className="trophy">🏆</span>
                 
                 
-                As Gubbio
+                Heidelberg United Fc
 
 
                 
@@ -295,7 +295,7 @@ function Home() {
               <span className="team-name">
                 
                 
-                Vis Pesaro 1898
+                Green Gully Sc
                 
                 
                 </span>
@@ -309,7 +309,7 @@ function Home() {
                 <span className="meta-value time">
                   
                   
-                  22:30
+                  11:30
                   
                   
                   
@@ -344,7 +344,7 @@ function Home() {
                 
                 
                 
-                Marica Fc Rj
+                Persis Solo
                 
                 
                 
@@ -353,7 +353,7 @@ function Home() {
               <span className="team-name">
                 
                 
-                Sampaio Correa
+                Madura United
                 
                 
                 </span>
@@ -366,7 +366,7 @@ function Home() {
                 <span className="meta-label">Time</span>
                  <span className="meta-value time">
                    
-                   23:00
+                   11:30
                    
                    
                    </span>
@@ -398,7 +398,7 @@ function Home() {
               <span className="team-name">
                 <span className="trophy">🏆</span>
                 
-                Retro Fc Pe
+                Hume City
                 
                 
               </span>
@@ -406,7 +406,7 @@ function Home() {
               <span className="team-name">
                 
                 
-                Sc Recife Pe
+                Altona Magic Sc
                 
                 
               </span>
@@ -420,7 +420,7 @@ function Home() {
                 <span className="meta-value time">
                   
                   
-                  23:00
+                  11:30
                   
                   
                   
