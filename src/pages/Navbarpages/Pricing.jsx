@@ -148,15 +148,15 @@ function Pricing() {
             message: "🎉 Payment successful! Your VIP access has been activated. Redirecting..."
           });
           setLoading(false);
-          
+
           // Update local storage
           localStorage.setItem("is_vip", "1");
-          
+
           // Redirect after 2 seconds
           setTimeout(() => {
             window.location.href = "/vip-section";
           }, 2000);
-          
+
           return true; // Stop polling
         } else if (data.status === "FAILED") {
           setPaymentStatus({
