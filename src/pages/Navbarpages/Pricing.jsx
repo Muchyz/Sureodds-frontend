@@ -84,18 +84,18 @@ function Pricing() {
       const token = localStorage.getItem("token");
       const plan = plans[selectedPlan];
 
-      const response = await fetch("https://megaodds-backend.up.railway.app/api/payment/initiate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          amount: plan.price,
-          phone_number: cleanPhone,
-          plan_name: `${plan.name} Plan - ${plan.period}`
-        })
-      });
+      const response = await fetch("https://megaodds-backend.onrender.com/api/payment/initiate", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    amount: plan.price,
+    phone_number: cleanPhone,
+    plan_name: `${plan.name} Plan - ${plan.period}`
+  })
+});
 
       const data = await response.json();
 
@@ -132,13 +132,13 @@ function Pricing() {
     const checkStatus = async () => {
       try {
         const response = await fetch(
-          `https://megaodds-backend.up.railway.app/api/payment/status/${invoiceId}`,
-          {
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
-          }
-        );
+  `https://megaodds-backend.onrender.com/api/payment/status/${invoiceId}`,
+  {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  }
+);
 
         const data = await response.json();
 
