@@ -12,7 +12,7 @@ function Pricing() {
   const plans = {
     starter: {
       name: "Starter",
-      price: 500,
+      price: 2500,
       period: "week",
       features: [
         "3 Fixed Matches for a day",
