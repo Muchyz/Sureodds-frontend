@@ -270,7 +270,7 @@ function Home() {
       <section className="picks-section vip-section">
         <div className="section-header">
           <span className="vip-icon">👑</span>
-          <h2 className="picks-title vip-title">UPCOMING VIP BET</h2>
+          <h2 className="picks-title vip-title">NIGHT VIP BET</h2>
         </div>
 
         <div className="picks-list">
