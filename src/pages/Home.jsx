@@ -83,14 +83,14 @@ function Home() {
           <span className="meta-label">Bet</span>
           <Link to="/vip-access-denied" className="meta-value prediction locked">
             <span className="lock-icon"></span>
-            <span>1st Half: Locked</span>
+            <span>1st Half: Locked🔐</span>
           </Link>
         </div>
         <div className="meta-item">
           <span className="meta-label">Odds</span>
           <Link to="/vip-access-denied" className="meta-value odds locked">
             <span className="lock-icon"></span>
-            <span>--</span>
+            <span>--🔐</span>
           </Link>
         </div>
       </div>
