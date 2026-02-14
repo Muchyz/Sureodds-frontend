@@ -14,7 +14,6 @@ function ParticleField() {
     const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
     resize();
     window.addEventListener("resize", resize);
-
     const COUNT = 90;
     const pts = Array.from({ length: COUNT }, () => ({
       x: Math.random() * canvas.width,
@@ -24,7 +23,6 @@ function ParticleField() {
       r: Math.random() * 1.2 + 0.3,
       o: Math.random() * 0.5 + 0.1,
     }));
-
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       pts.forEach(p => {
@@ -61,7 +59,7 @@ function ParticleField() {
 }
 
 /* ── 3-D tilt card wrapper ── */
-function TiltCard({ children, className = "", vip = false }) {
+function TiltCard({ children, className = "" }) {
   const ref = useRef(null);
   const onMove = useCallback((e) => {
     const el = ref.current;
@@ -109,11 +107,11 @@ function CountUp({ target, suffix = "" }) {
 }
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn]         = useState(false);
   const [yesterdayPicks, setYesterdayPicks] = useState([]);
-  const [todayPicks, setTodayPicks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
+  const [todayPicks, setTodayPicks]         = useState([]);
+  const [loading, setLoading]               = useState(true);
+  const [visible, setVisible]               = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -170,39 +168,48 @@ export default function Home() {
   );
 
   const renderVIPCard = (pick, idx) => (
-    <TiltCard key={pick.id} className="vip-pick-card reveal-card" vip>
-      <div className="vip-ribbon"><span>✦ EXCLUSIVE ✦</span></div>
+    <TiltCard key={pick.id} className="vip-pick-card reveal-card">
+      <div className="vip-ribbon" />
       <div className="card-number vip-number">VIP</div>
+
       <Link to="/vip-access-denied" className="pick-badge vip-badge">
         <span className="badge-dot gold-dot" />Members Only 🪙
       </Link>
+
       <div className="teams">
         <span className="team-name">{pick.team1}</span>
         <div className="vs-block">
-          <span className="vs-line gold-line" /><span className="vs gold-vs">VS</span><span className="vs-line gold-line" />
+          <span className="vs-line gold-line" />
+          <span className="vs gold-vs">VS</span>
+          <span className="vs-line gold-line" />
         </div>
         <span className="team-name">{pick.team2}</span>
       </div>
+
       <div className="pick-divider gold-divider" />
+
       <div className="pick-meta">
+
         <div className="meta-item">
           <span className="meta-label">Kick-off</span>
           <span className="meta-value time">🕐 {pick.time}</span>
         </div>
+
         <div className="meta-item">
           <span className="meta-label">Selection</span>
-          <Link to="/vip-access-denied" className="meta-value prediction locked">
-            <span className="lock-icon">🔐</span>
-            <span className="blur-text">Members Only</span>
+          <Link to="/vip-access-denied" className="meta-value prediction redacted-cell">
+            <span className="redacted-prefix">⚽ 1st Half:</span>
+            <span className="redacted-bar">UNLOCK🔐</span>
           </Link>
         </div>
+
         <div className="meta-item">
           <span className="meta-label">Odds</span>
-          <Link to="/vip-access-denied" className="meta-value odds locked">
-            <span className="lock-icon">🔐</span>
-            <span className="blur-text">4.60</span>
+          <Link to="/vip-access-denied" className="meta-value odds redacted-cell">
+            <span className="redacted-bar redacted-bar--wide">LOCKED</span>
           </Link>
         </div>
+
       </div>
     </TiltCard>
   );
@@ -222,7 +229,6 @@ export default function Home() {
 
       <div className="scanlines" />
 
-      {/* Live ticker */}
       <div className="ticker-bar">
         <div className="ticker-label">LIVE</div>
         <div className="ticker-track">
@@ -234,9 +240,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ══════════════════════════════════════
-          HERO — only this section is updated
-      ══════════════════════════════════════ */}
       <section className="hero">
         <div className="hero-inner">
 
@@ -246,34 +249,22 @@ export default function Home() {
             <div className="eyebrow-line" />
           </div>
 
-          {/* ── NEW HEADLINE TREATMENT ── */}
           <h1 className="hero-title">
-
-            {/* Line 1 — "Outsmart" — massive condensed chrome */}
             <span className="ht-outsmart">Outsmart</span>
-
-            {/* Line 2 — "the Odds." — thin italic + liquid gold */}
             <span className="ht-odds-row">
               <span className="ht-the">the</span>
-              <span className="ht-odds">
-                Odds<span className="ht-dot">.</span>
-              </span>
+              <span className="ht-odds">Odds<span className="ht-dot">.</span></span>
             </span>
-
-            {/* Line 3 — "Every Bet." — stroke outline word + filled word */}
             <span className="ht-every-row">
               <span className="ht-every">Every</span>
               <span className="ht-bet">Bet.</span>
             </span>
-
           </h1>
 
-          {/* ── NEW SUBTEXT TREATMENT ── */}
           <p className="hero-text">
             <span className="ht-sub-block">
               <span className="ht-sub-accent">Private intelligence.</span>
-              {" "}Real-time models. Fixed matches sourced
-              from verified insiders —
+              {" "}Real-time models. Fixed matches sourced from verified insiders —
               <span className="ht-sub-em"> delivered before the market moves.</span>
             </span>
           </p>
@@ -316,12 +307,12 @@ export default function Home() {
 
           <div className="stats-row">
             <div className="stat-block">
-              <span className="stat-num"><CountUp target={10482} suffix="+" /></span>
+              <span className="stat-num"><CountUp target={10500} suffix="+" /></span>
               <span className="stat-lbl">Active Members</span>
             </div>
             <div className="stat-sep">✦</div>
             <div className="stat-block">
-              <span className="stat-num"><CountUp target={94} suffix="%" /></span>
+              <span className="stat-num"><CountUp target={100} suffix="%" /></span>
               <span className="stat-lbl">Verified Win Rate</span>
             </div>
             <div className="stat-sep">✦</div>
@@ -330,10 +321,10 @@ export default function Home() {
               <span className="stat-lbl">Fixed Matches</span>
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* ── YESTERDAY ── */}
       {!loading && yesterdayPicks.length > 0 && (
         <section className="picks-section">
           <div className="section-header">
@@ -348,7 +339,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* ── FREE TODAY ── */}
       {!loading && freePicks.length > 0 && (
         <section className="picks-section">
           <div className="section-header">
@@ -363,7 +353,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* ── VIP ── */}
       {!loading && vipPicks.length > 0 && (
         <section className="picks-section vip-section">
           <div className="vip-header-glow" />
@@ -384,6 +373,7 @@ export default function Home() {
         © {new Date().getFullYear()} Mega-Odds · All rights reserved
         <span className="footer-diamond">✦</span>
       </footer>
+
     </div>
   );
 }
