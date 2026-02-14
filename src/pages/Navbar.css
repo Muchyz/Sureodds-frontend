@@ -1,99 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ─── Variables ─────────────────────────────────────────────────── */
+:root {
+  --navy:    #0a0f1e;
+  --gold:    #c9a84c;
+  --gold-lt: #e0c57a;
+  --cream:   #f5f0e8;
+  --slate:   #4a5568;
+  --border:  rgba(201, 168, 76, 0.2);
+  --glass:   #ffffff;
+  --shadow:  0 4px 32px rgba(10, 15, 30, 0.10);
+  --t:       240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Navbar Shell ───────────────────────────────────────────────── */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 70px;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   z-index: 1000;
+  background: #ffffff;
+  box-shadow: 0 1px 0 rgba(201, 168, 76, 0.35), 0 4px 24px rgba(10, 15, 30, 0.08);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+  transition: background var(--t), box-shadow var(--t);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.navbar.scrolled {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.35);
+  box-shadow: 0 6px 40px rgba(10, 15, 30, 0.13);
+}
+
+/* Gold accent rule at very top */
+.navbar-accent {
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold-lt) 50%, var(--gold) 70%, transparent 100%);
 }
 
 .navbar-container {
-  max-width: 1200px;
+  max-width: 1260px;
   margin: auto;
-  padding: 0 20px;
-  height: 100%;
+  padding: 0 32px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* Logo */
+/* ─── Logo ───────────────────────────────────────────────────────── */
 .logo {
-  font-size: 22px;
-  font-weight: 700;
-  color: #2563eb;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
   text-decoration: none;
+  letter-spacing: 0.04em;
 }
 
-/* Desktop links */
+.logo-mega {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0a0f1e;
+  letter-spacing: 0.12em;
+}
+
+.logo-divider {
+  font-size: 14px;
+  color: var(--gold);
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-bottom: 1px;
+}
+
+.logo-odds {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+}
+
+.logo:hover .logo-mega {
+  color: var(--gold);
+  transition: color var(--t);
+}
+.logo:hover .logo-odds {
+  color: var(--navy);
+  transition: color var(--t);
+}
+
+/* ─── Nav Links ──────────────────────────────────────────────────── */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 4px;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  padding: 6px 12px;
   text-decoration: none;
-  color: #334155;
+  color: var(--slate);
+  font-size: 13.5px;
   font-weight: 500;
+  letter-spacing: 0.03em;
+  border-radius: 6px;
+  transition: color var(--t), background var(--t);
+}
+
+/* Underline sweep on hover */
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 2px;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
 }
 
 .nav-links li a:hover {
-  color: #2563eb;
+  color: var(--navy);
+  background: rgba(201, 168, 76, 0.06);
 }
 
-/* Buttons */
+.nav-links li a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ─── Live indicator ─────────────────────────────────────────────── */
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  display: inline-block;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+  70%  { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+/* ─── VIP Link ───────────────────────────────────────────────────── */
+.vip-link {
+  color: var(--navy) !important;
+  font-weight: 600 !important;
+}
+
+.vip-badge {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+/* ─── CTA Button ─────────────────────────────────────────────────── */
+.auth-li {
+  margin-left: 8px;
+}
+
 .cta-btn {
-  background: #2563eb;
-  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--navy);
+  color: #fff;
   border: none;
-  padding: 8px 16px;
+  padding: 9px 20px;
   border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
   font-weight: 600;
+  letter-spacing: 0.04em;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--t), transform 100ms ease, box-shadow var(--t);
+}
+
+/* Gold shimmer sweep */
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(201, 168, 76, 0.2) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 400ms ease;
+}
+
+.cta-btn:hover::before {
+  transform: translateX(100%);
 }
 
 .cta-btn:hover {
-  background: #1e4fd8;
+  background: #151e38;
+  box-shadow: 0 4px 20px rgba(10, 15, 30, 0.25);
+  transform: translateY(-1px);
 }
 
+.cta-btn:active {
+  transform: translateY(0);
+}
+
+/* ─── Logout Button ──────────────────────────────────────────────── */
 .logout-btn {
   background: none;
-  border: none;
+  border: 1px solid rgba(239, 68, 68, 0.3);
   color: #ef4444;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
   font-weight: 600;
+  letter-spacing: 0.03em;
   cursor: pointer;
+  transition: background var(--t), border-color var(--t), color var(--t), transform 100ms ease;
 }
 
-/* Mobile */
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.06);
+  border-color: rgba(239, 68, 68, 0.6);
+  transform: translateY(-1px);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+/* ─── Hamburger ──────────────────────────────────────────────────── */
 .menu-toggle {
   display: none;
-  font-size: 26px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
   cursor: pointer;
+  padding: 4px;
 }
 
-/* Responsive */
+.menu-toggle span {
+  display: block;
+  height: 1.5px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: transform 300ms ease, opacity 200ms ease, width 300ms ease;
+}
+
+.menu-toggle span:nth-child(1) { width: 24px; }
+.menu-toggle span:nth-child(2) { width: 18px; }
+.menu-toggle span:nth-child(3) { width: 24px; }
+
+/* X state */
+.menu-toggle.open span:nth-child(1) {
+  width: 22px;
+  transform: translateY(6.5px) rotate(45deg);
+}
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.menu-toggle.open span:nth-child(3) {
+  width: 22px;
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .menu-toggle {
-    display: block;
+    display: flex;
+  }
+
+  .navbar-container {
+    padding: 0 20px;
   }
 
   .nav-links {
     position: absolute;
     top: 70px;
+    left: 0;
     right: 0;
     width: 100%;
-    background: white;
+    background: #fff;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
-    padding: 20px 0;
+    gap: 4px;
+    padding: 16px 0 24px;
     display: none;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 8px 30px rgba(10, 15, 30, 0.10);
   }
 
   .nav-links.active {
     display: flex;
+    animation: slideDown 220ms ease;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links li a {
+    display: block;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 0;
+    font-size: 14px;
+  }
+
+  .nav-links li a::after {
+    display: none;
+  }
+
+  .auth-li {
+    margin-left: 0;
+    margin-top: 8px;
+    padding: 0 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .auth-li a {
+    display: block;
+  }
+
+  .cta-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 20px;
+    border-radius: 6px;
+  }
+
+  .logout-btn {
+    width: 100%;
+    padding: 10px 20px;
   }
 }
