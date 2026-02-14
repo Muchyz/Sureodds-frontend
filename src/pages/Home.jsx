@@ -63,7 +63,7 @@ function Home() {
     <div key={pick.id} className="pick-card vip-pick-card">
       <div className="vip-ribbon">EXCLUSIVE</div>
       <Link to="/vip-access-denied" className="pick-badge vip-badge">
-        VIP Only
+        VIP Only 🪙
       </Link>
       <div className="teams">
         <span className="team-name">
