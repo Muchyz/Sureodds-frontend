@@ -103,14 +103,12 @@ function Home() {
   return (
     <div className="home">
 
-      {/* Animated background */}
       <div className="bg-orbs">
         <div className="orb orb-1"></div>
         <div className="orb orb-2"></div>
         <div className="orb orb-3"></div>
       </div>
 
-      {/* HERO */}
       <section className="hero">
         <span className="pill">
           <span className="pill-shine"></span>
@@ -161,7 +159,6 @@ function Home() {
           )}
         </div>
 
-        {/* VALUE STATS */}
         <section className="quick-cards">
           <div className="quick-card">
             <div className="card-shine"></div>
@@ -184,7 +181,7 @@ function Home() {
         </section>
       </section>
 
-      {/* YESTERDAY'S PICKS — hidden when empty */}
+      {/* YESTERDAY — only shows when there are picks */}
       {!loading && yesterdayPicks.length > 0 && (
         <section className="picks-section">
           <div className="section-header">
@@ -197,7 +194,7 @@ function Home() {
         </section>
       )}
 
-      {/* FREE TODAY PICKS — hidden when empty */}
+      {/* FREE TODAY — only shows when there are picks */}
       {!loading && freePicks.length > 0 && (
         <section className="picks-section">
           <div className="section-header">
@@ -210,7 +207,7 @@ function Home() {
         </section>
       )}
 
-      {/* VIP PICKS — hidden when empty */}
+      {/* VIP — only shows when there are picks */}
       {!loading && vipPicks.length > 0 && (
         <section className="picks-section vip-section">
           <div className="section-header">
@@ -223,7 +220,6 @@ function Home() {
         </section>
       )}
 
-      {/* FOOTER */}
       <footer className="footer">
         <p>© {new Date().getFullYear()} Mega-Odds. All rights reserved.</p>
       </footer>
