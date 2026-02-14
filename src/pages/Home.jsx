@@ -331,7 +331,7 @@ export default function Home() {
             <div className="sh-ornament"><span className="sh-diamond" /><span className="sh-line" /></div>
             <div className="sh-center">
               <span className="sh-tag">RESULTS</span>
-              <h2 className="picks-title">Yesterday's Top Picks</h2>
+              <h2 className="picks-title">Previous Picks</h2>
             </div>
             <div className="sh-ornament mirror"><span className="sh-line" /><span className="sh-diamond" /></div>
           </div>
