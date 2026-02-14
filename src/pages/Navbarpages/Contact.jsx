@@ -1,224 +1,127 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa";
-import { HiSparkles, HiLightningBolt } from "react-icons/hi";
-import { RiVipCrownFill } from "react-icons/ri";
 import "./Contact.css";
 
 function Contact() {
   const whatsappNumber = "705427449";
   const telegramUsername = "Muchyz";
-
-  const containerRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState({ whatsapp: false, telegram: false });
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    const t = setTimeout(() => setVisible(true), 80);
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <div className="contact-page-premium" ref={containerRef}>
-      {/* Animated Background */}
-      <div className="premium-background">
-        <div className="gradient-mesh">
-          <div className="mesh-circle mesh-1"></div>
-          <div className="mesh-circle mesh-2"></div>
-          <div className="mesh-circle mesh-3"></div>
-          <div className="mesh-circle mesh-4"></div>
-          <div className="mesh-circle mesh-5"></div>
-        </div>
-        <div className="animated-grid"></div>
-        <div className="radial-glow" style={{
-          left: `${mousePosition.x}%`,
-          top: `${mousePosition.y}%`
-        }}></div>
-      </div>
+    <div className={`contact-pro ${visible ? "visible" : ""}`}>
 
-      {/* Floating Particles */}
-      <div className="particles-container">
-        {[...Array(20)].map((_, i) => (
-          <div key={i} className="particle" style={{
-            '--delay': `${i * 0.3}s`,
-            '--duration': `${15 + Math.random() * 10}s`,
-            '--x': `${Math.random() * 100}vw`,
-            '--y': `${Math.random() * 100}vh`
-          }}></div>
-        ))}
-      </div>
+      <div className="contact-pro-inner">
 
-      <div className="content-container">
-        {/* Premium Header */}
-        <div className="premium-header">
-          <div className="vip-badge">
-            <RiVipCrownFill className="crown-icon" />
-            <span className="badge-text">Premium Connect</span>
-            <div className="badge-shine"></div>
-          </div>
-          
-          <h1 className="hero-title">
-            <span className="title-line">Let's Create</span>
-            <span className="title-line title-gradient">Something Amazing</span>
-            <div className="title-underline">
-              <div className="underline-fill"></div>
-            </div>
-          </h1>
-          
-          <p className="hero-subtitle">
-            Connect instantly through your preferred premium messaging platform
+        {/* ── Page Header ── */}
+        <div className="pro-header">
+          <span className="pro-eyebrow">Get in Touch</span>
+          <h1 className="pro-title">Contact Us</h1>
+          <p className="pro-subtitle">
+            Reach our team directly through WhatsApp or Telegram.
+            We respond within minutes, around the clock.
           </p>
+        </div>
 
-          <div className="trust-indicators">
-            <div className="trust-item">
-              <HiLightningBolt className="trust-icon" />
-              <span>Instant Response</span>
+        {/* ── Status Banner ── */}
+        <div className="status-banner">
+          <span className="status-dot" />
+          <span className="status-text">Team is online · Average response under 5 minutes</span>
+        </div>
+
+        {/* ── Cards ── */}
+        <div className="pro-cards">
+
+          {/* WhatsApp */}
+          <div className="pro-card">
+            <div className="pro-card-top wa-top">
+              <div className="pro-card-icon-wrap wa-icon-wrap">
+                <FaWhatsapp className="pro-card-icon" />
+              </div>
+              <span className="pro-card-tag">Most Popular</span>
             </div>
-            <div className="trust-divider"></div>
-            <div className="trust-item">
-              <HiSparkles className="trust-icon" />
-              <span>24/7 Available</span>
+            <div className="pro-card-body">
+              <h2 className="pro-card-title">WhatsApp</h2>
+              <p className="pro-card-desc">
+                Fast, direct messaging. Send text, voice notes or documents instantly.
+              </p>
+              <div className="pro-contact-row">
+                <span className="pcr-label">Direct Line</span>
+                <span className="pcr-value">+254 {whatsappNumber}</span>
+              </div>
+              <a
+                href={`https://wa.me/254${whatsappNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pro-cta wa-cta"
+              >
+                <FaWhatsapp className="pro-cta-icon" />
+                Message on WhatsApp
+              </a>
             </div>
+          </div>
+
+          {/* Telegram */}
+          <div className="pro-card">
+            <div className="pro-card-top tg-top">
+              <div className="pro-card-icon-wrap tg-icon-wrap">
+                <FaTelegramPlane className="pro-card-icon" />
+              </div>
+              <span className="pro-card-tag">Encrypted</span>
+            </div>
+            <div className="pro-card-body">
+              <h2 className="pro-card-title">Telegram</h2>
+              <p className="pro-card-desc">
+                Secure, encrypted messaging. Great for files, groups and private conversations.
+              </p>
+              <div className="pro-contact-row">
+                <span className="pcr-label">Username</span>
+                <span className="pcr-value">@{telegramUsername}</span>
+              </div>
+              <a
+                href={`https://t.me/${telegramUsername}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pro-cta tg-cta"
+              >
+                <FaTelegramPlane className="pro-cta-icon" />
+                Message on Telegram
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ── Trust row ── */}
+        <div className="trust-row">
+          <div className="trust-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.6"/>
+              <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+            <span>24 / 7 Support</span>
+          </div>
+          <div className="trust-sep" />
+          <div className="trust-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+            </svg>
+            <span>Private &amp; Confidential</span>
+          </div>
+          <div className="trust-sep" />
+          <div className="trust-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+              <path d="M22 4L12 14.01l-3-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span>Verified Team</span>
           </div>
         </div>
 
-        {/* Contact Cards */}
-        <div className="cards-grid">
-          {/* WhatsApp Luxury Card */}
-          <div
-            className={`luxury-card whatsapp-card ${isHovering.whatsapp ? 'is-hovering' : ''}`}
-            onMouseEnter={() => setIsHovering({ ...isHovering, whatsapp: true })}
-            onMouseLeave={() => setIsHovering({ ...isHovering, whatsapp: false })}
-          >
-            <div className="card-glow-effect whatsapp-glow"></div>
-            <div className="card-inner">
-              <div className="card-decoration">
-                <div className="decoration-circle circle-1"></div>
-                <div className="decoration-circle circle-2"></div>
-                <div className="decoration-line"></div>
-              </div>
-
-              <div className="icon-container">
-                <div className="icon-background whatsapp-bg">
-                  <div className="icon-pulse"></div>
-                </div>
-                <FaWhatsapp className="platform-icon" />
-                <div className="icon-particles">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="icon-particle"></div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="card-info">
-                <h3 className="platform-name">WhatsApp</h3>
-                <p className="platform-desc">Lightning-fast messaging</p>
-                
-                <div className="contact-display">
-                  <div className="contact-label">Direct Line</div>
-                  <div className="contact-value">+254 {whatsappNumber}</div>
-                </div>
-
-                <a
-                  href={`https://wa.me/254${whatsappNumber}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="luxury-button whatsapp-button"
-                >
-                  <span className="button-bg"></span>
-                  <span className="button-content">
-                    <span className="button-text">Start Chat</span>
-                    <span className="button-arrow">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </span>
-                  </span>
-                  <div className="button-shine"></div>
-                </a>
-              </div>
-
-              <div className="card-shimmer"></div>
-            </div>
-          </div>
-
-          {/* Telegram Luxury Card */}
-          <div
-            className={`luxury-card telegram-card ${isHovering.telegram ? 'is-hovering' : ''}`}
-            onMouseEnter={() => setIsHovering({ ...isHovering, telegram: true })}
-            onMouseLeave={() => setIsHovering({ ...isHovering, telegram: false })}
-          >
-            <div className="card-glow-effect telegram-glow"></div>
-            <div className="card-inner">
-              <div className="card-decoration">
-                <div className="decoration-circle circle-1"></div>
-                <div className="decoration-circle circle-2"></div>
-                <div className="decoration-line"></div>
-              </div>
-
-              <div className="icon-container">
-                <div className="icon-background telegram-bg">
-                  <div className="icon-pulse"></div>
-                </div>
-                <FaTelegramPlane className="platform-icon" />
-                <div className="icon-particles">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="icon-particle"></div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="card-info">
-                <h3 className="platform-name">Telegram</h3>
-                <p className="platform-desc">Secure & encrypted</p>
-                
-                <div className="contact-display">
-                  <div className="contact-label">Username</div>
-                  <div className="contact-value">@{telegramUsername}</div>
-                </div>
-
-                <a
-                  href={`https://t.me/${telegramUsername}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="luxury-button telegram-button"
-                >
-                  <span className="button-bg"></span>
-                  <span className="button-content">
-                    <span className="button-text">Start Chat</span>
-                    <span className="button-arrow">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </span>
-                  </span>
-                  <div className="button-shine"></div>
-                </a>
-              </div>
-
-              <div className="card-shimmer"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Premium Footer */}
-        <div className="premium-footer">
-          <div className="response-badge">
-            <div className="online-indicator">
-              <span className="indicator-dot"></span>
-              <span className="indicator-pulse"></span>
-            </div>
-            <span className="response-text">
-              <strong>Online Now</strong> • Average response: &lt;5 minutes
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );
