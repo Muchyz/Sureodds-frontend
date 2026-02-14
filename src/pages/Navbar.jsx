@@ -52,8 +52,8 @@ function Navbar() {
           </li>
 
           <li>
-            <Link to="/features" onClick={() => setOpen(false)} className="vip-link">
-              <span className="vip-badge"> VIP 🔐</span>
+            <Link to="/features" onClick={() => setOpen(false)}>
+              VIP 🔐
             </Link>
           </li>
 

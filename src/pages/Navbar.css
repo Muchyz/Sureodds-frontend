@@ -160,14 +160,92 @@
 }
 
 /* ─── VIP Link ───────────────────────────────────────────────────── */
+.nav-links .vip-link,
 .vip-link {
-  color: var(--navy) !important;
-  font-weight: 600 !important;
+  padding: 0 !important;
+  background: transparent !important;
 }
 
-.vip-badge {
-  font-size: 12px;
-  letter-spacing: 0;
+.nav-links .vip-link::after,
+.vip-link::after {
+  display: none !important;
+}
+
+.nav-links .vip-link:hover,
+.vip-link:hover {
+  background: transparent !important;
+}
+
+.nav-links .vip-link .vip-box,
+.vip-link .vip-box,
+.vip-box {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  
+  /* Premium gold gradient */
+  background: linear-gradient(135deg, #fdf3dc 0%, #e8c97e 40%, #c9a040 100%) !important;
+  color: #1a0e00 !important;
+  
+  /* Luxe shadows */
+  box-shadow: 
+    0 3px 16px rgba(201, 160, 64, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.15) inset !important;
+  
+  border: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease !important;
+}
+
+/* Shine effect */
+.vip-box::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -50% !important;
+  left: -60% !important;
+  width: 35% !important;
+  height: 200% !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+  transform: skewX(-20deg) !important;
+  animation: vipShine 3s ease-in-out infinite !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+@keyframes vipShine {
+  0% { left: -60%; opacity: 0; }
+  20% { opacity: 1; }
+  60%, 100% { left: 160%; opacity: 0; }
+}
+
+/* Hover state */
+.nav-links .vip-link:hover .vip-box,
+.vip-link:hover .vip-box {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 
+    0 6px 28px rgba(201, 160, 64, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.2) inset !important;
+}
+
+/* Active/pressed state */
+.nav-links .vip-link:active .vip-box,
+.vip-link:active .vip-box {
+  transform: translateY(0) scale(1) !important;
 }
 
 /* ─── CTA Button ─────────────────────────────────────────────────── */
@@ -335,6 +413,38 @@
 
   .nav-links li a::after {
     display: none;
+  }
+
+  /* VIP Link Mobile Specific Overrides */
+  .nav-links li .vip-link {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 10px 24px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+
+  .nav-links li .vip-link::after {
+    display: none !important;
+  }
+
+  .nav-links li .vip-link:hover {
+    background: transparent !important;
+  }
+
+  .nav-links li .vip-box {
+    display: inline-flex !important;
+    width: auto !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    background: linear-gradient(135deg, #fdf3dc 0%, #e8c97e 40%, #c9a040 100%) !important;
+    color: #1a0e00 !important;
+    border-radius: 8px !important;
+    box-shadow: 
+      0 3px 16px rgba(201, 160, 64, 0.4),
+      0 1px 0 rgba(255, 255, 255, 0.4) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.15) inset !important;
   }
 
   .auth-li {

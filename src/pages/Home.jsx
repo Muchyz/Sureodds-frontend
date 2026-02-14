@@ -127,6 +127,8 @@ export default function Home() {
         api.get("/api/picks/yesterday"),
         api.get("/api/picks/today"),
       ]);
+      console.log("Yesterday picks:", yRes.data);
+      console.log("Today picks:", tRes.data);
       setYesterdayPicks(yRes.data);
       setTodayPicks(tRes.data);
     } catch (err) {
@@ -216,6 +218,10 @@ export default function Home() {
 
   const vipPicks  = todayPicks.filter((p) => p.is_vip === 1 || p.is_vip === true);
   const freePicks = todayPicks.filter((p) => !p.is_vip);
+
+  console.log("VIP picks:", vipPicks);
+  console.log("Free picks:", freePicks);
+  console.log("Loading:", loading);
 
   return (
     <div className={`home ${visible ? "is-visible" : ""}`}>
