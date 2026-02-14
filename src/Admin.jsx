@@ -1,6 +1,6 @@
 import "./Admin.css";
 import { useState, useEffect } from "react";
-import api from "./api";
+import api from "../api";
 
 function Admin() {
   const [yesterdayPicks, setYesterdayPicks] = useState([]);
@@ -10,7 +10,6 @@ function Admin() {
   const [currentPick, setCurrentPick] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
-  // Form state
   const [formData, setFormData] = useState({
     team1: "",
     team2: "",
@@ -21,7 +20,6 @@ function Admin() {
     isVIP: false,
   });
 
-  // Fetch picks on component mount
   useEffect(() => {
     fetchPicks();
   }, []);
@@ -51,15 +49,11 @@ function Admin() {
     e.preventDefault();
     try {
       if (isEditing && currentPick) {
-        // Update existing pick
         await api.put(`/api/picks/${currentPick.id}`, formData);
       } else {
-        // Create new pick
         const pickType = activeTab === "yesterday" ? "yesterday" : "today";
         await api.post("/api/picks", { ...formData, pickType });
       }
-      
-      // Reset form and refresh picks
       resetForm();
       fetchPicks();
       alert("✅ Pick saved successfully!");
@@ -128,8 +122,8 @@ function Admin() {
       <div className="picks-grid">
         {picks.map((pick) => (
           <div key={pick.id} className={`admin-pick-card ${pick.is_vip ? "vip" : ""}`}>
-            {pick.is_vip && <div className="vip-badge-admin">VIP</div>}
-            
+            {pick.is_vip ? <div className="vip-badge-admin">VIP</div> : null}
+
             <div className="pick-header">
               <h3>{pick.team1} vs {pick.team2}</h3>
               <span className={`status-badge ${pick.status.toLowerCase()}`}>
@@ -176,26 +170,20 @@ function Admin() {
       <div className="admin-tabs">
         <button
           className={`tab ${activeTab === "yesterday" ? "active" : ""}`}
-          onClick={() => {
-            setActiveTab("yesterday");
-            resetForm();
-          }}
+          onClick={() => { setActiveTab("yesterday"); resetForm(); }}
         >
           🔥 Yesterday's Picks
         </button>
         <button
           className={`tab ${activeTab === "today" ? "active" : ""}`}
-          onClick={() => {
-            setActiveTab("today");
-            resetForm();
-          }}
+          onClick={() => { setActiveTab("today"); resetForm(); }}
         >
           👑 Today's VIP Picks
         </button>
       </div>
 
       <div className="admin-content">
-        {/* Add New Pick Button */}
+
         {!showForm && (
           <div className="add-pick-section">
             <button className="btn-add-main" onClick={() => setShowForm(true)}>
@@ -204,7 +192,6 @@ function Admin() {
           </div>
         )}
 
-        {/* Form for Add/Edit */}
         {showForm && (
           <div className="form-container">
             <div className="form-header">
@@ -214,6 +201,7 @@ function Admin() {
 
             <form onSubmit={handleSubmit} className="pick-form">
               <div className="form-grid">
+
                 <div className="form-group">
                   <label>Team 1 (Home) 🏠</label>
                   <input
@@ -287,6 +275,7 @@ function Admin() {
                     <option value="Live">Live</option>
                   </select>
                 </div>
+
               </div>
 
               <div className="form-group checkbox-group">
@@ -313,12 +302,12 @@ function Admin() {
           </div>
         )}
 
-        {/* Picks List */}
         <div className="picks-section-admin">
           {activeTab === "yesterday"
             ? renderPicksList(yesterdayPicks)
             : renderPicksList(todayPicks)}
         </div>
+
       </div>
     </div>
   );

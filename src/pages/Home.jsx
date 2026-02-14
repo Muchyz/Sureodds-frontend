@@ -30,8 +30,6 @@ function Home() {
     }
   };
 
-  // ── Pick card renderers ──────────────────────────────────────────
-
   const renderYesterdayCard = (pick) => (
     <div key={pick.id} className="pick-card">
       <div className={`pick-badge ${pick.status?.toLowerCase()}`}>{pick.status}</div>
@@ -99,12 +97,12 @@ function Home() {
     </div>
   );
 
-  // ── Split today picks into VIP and free ─────────────────────────
   const vipPicks  = todayPicks.filter((p) => p.is_vip === 1 || p.is_vip === true);
   const freePicks = todayPicks.filter((p) => !p.is_vip);
 
   return (
     <div className="home">
+
       {/* Animated background */}
       <div className="bg-orbs">
         <div className="orb orb-1"></div>
@@ -186,31 +184,21 @@ function Home() {
         </section>
       </section>
 
-      {/* YESTERDAY'S PICKS */}
-      <section className="picks-section">
-        <div className="section-header">
-          <span className="fire-icon"></span>
-          <h2 className="picks-title">Yesterday's Top Picks</h2>
-        </div>
-
-        {loading ? (
-          <div className="picks-loading">
-            <div className="loading-spinner"></div>
-            <p>Loading picks...</p>
+      {/* YESTERDAY'S PICKS — hidden when empty */}
+      {!loading && yesterdayPicks.length > 0 && (
+        <section className="picks-section">
+          <div className="section-header">
+            <span className="fire-icon"></span>
+            <h2 className="picks-title">Yesterday's Top Picks</h2>
           </div>
-        ) : yesterdayPicks.length === 0 ? (
-          <div className="picks-empty">
-            <p>No picks for yesterday yet.</p>
-          </div>
-        ) : (
           <div className="picks-list">
             {yesterdayPicks.map(renderYesterdayCard)}
           </div>
-        )}
-      </section>
+        </section>
+      )}
 
-      {/* FREE TODAY PICKS (non-VIP) */}
-      {freePicks.length > 0 && (
+      {/* FREE TODAY PICKS — hidden when empty */}
+      {!loading && freePicks.length > 0 && (
         <section className="picks-section">
           <div className="section-header">
             <span className="fire-icon"></span>
@@ -222,33 +210,24 @@ function Home() {
         </section>
       )}
 
-      {/* TODAY'S VIP PICKS */}
-      <section className="picks-section vip-section">
-        <div className="section-header">
-          <span className="vip-icon"></span>
-          <h2 className="picks-title vip-title">NIGHT VIP BET</h2>
-        </div>
-
-        {loading ? (
-          <div className="picks-loading">
-            <div className="loading-spinner"></div>
-            <p>Loading VIP picks...</p>
+      {/* VIP PICKS — hidden when empty */}
+      {!loading && vipPicks.length > 0 && (
+        <section className="picks-section vip-section">
+          <div className="section-header">
+            <span className="vip-icon"></span>
+            <h2 className="picks-title vip-title">NIGHT VIP BET</h2>
           </div>
-        ) : vipPicks.length === 0 ? (
-          <div className="picks-empty">
-            <p>VIP picks coming soon. <Link to="/signup">Get VIP access →</Link></p>
-          </div>
-        ) : (
           <div className="picks-list">
             {vipPicks.map(renderVIPCard)}
           </div>
-        )}
-      </section>
+        </section>
+      )}
 
       {/* FOOTER */}
       <footer className="footer">
         <p>© {new Date().getFullYear()} Mega-Odds. All rights reserved.</p>
       </footer>
+
     </div>
   );
 }
