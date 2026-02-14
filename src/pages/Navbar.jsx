@@ -46,15 +46,14 @@ function Navbar() {
 
           <li>
             <Link to="/live" onClick={() => setOpen(false)}>
-              <span className="live-dot" />
               Live Games
+              <span className="live-dot" />
             </Link>
           </li>
 
           <li>
             <Link to="/features" onClick={() => setOpen(false)} className="vip-link">
-              VIP
-              <span className="vip-badge">🔐</span>
+              <span className="vip-badge"> VIP 🔐</span>
             </Link>
           </li>
 
