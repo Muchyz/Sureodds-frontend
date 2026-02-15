@@ -35,7 +35,7 @@ function About() {
           </div>
           <div className="stat-divider"></div>
           <div className="stat-item">
-            <div className="stat-number">15K+</div>
+            <div className="stat-number">10K+</div>
             <div className="stat-label">Active Users</div>
           </div>
           <div className="stat-divider"></div>
