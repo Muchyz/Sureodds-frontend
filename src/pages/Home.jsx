@@ -366,7 +366,7 @@ export default function Home() {
             <div className="sh-ornament gold"><span className="sh-diamond gold-dia" /><span className="sh-line gold-ln" /></div>
             <div className="sh-center">
               <span className="sh-tag gold-tag">MEMBERS ONLY</span>
-              <h2 className="picks-title vip-title">Night VIP Bet</h2>
+              <h2 className="picks-title vip-title">Next VIP Bet</h2>
             </div>
             <div className="sh-ornament mirror gold"><span className="sh-line gold-ln" /><span className="sh-diamond gold-dia" /></div>
           </div>
