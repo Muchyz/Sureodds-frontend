@@ -55,7 +55,7 @@ function ParticleField() {
     draw();
     return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
   }, []);
-  return <canvas ref={canvasRef} className="particle-canvas" />;
+  return <canvas ref={canvasRef} className="home-particle-canvas" />;
 }
 
 /* ── 3-D tilt card wrapper ── */
@@ -75,8 +75,8 @@ function TiltCard({ children, className = "" }) {
     if (ref.current) ref.current.style.transform = "";
   }, []);
   return (
-    <div ref={ref} className={`pick-card ${className}`} onMouseMove={onMove} onMouseLeave={onLeave}>
-      <div className="card-glare" />
+    <div ref={ref} className={`home-pick-card ${className}`} onMouseMove={onMove} onMouseLeave={onLeave}>
+      <div className="home-card-glare" />
       {children}
     </div>
   );
@@ -139,76 +139,76 @@ export default function Home() {
   };
 
   const renderCard = (pick, idx) => (
-    <TiltCard key={pick.id} className="reveal-card" style={{ animationDelay: `${idx * 0.08}s` }}>
-      <div className={`pick-badge ${pick.status?.toLowerCase()}`}>
-        <span className="badge-dot" />{pick.status}
+    <TiltCard key={pick.id} className="home-reveal-card" style={{ animationDelay: `${idx * 0.08}s` }}>
+      <div className={`home-pick-badge ${pick.status?.toLowerCase()}`}>
+        <span className="home-badge-dot" />{pick.status}
       </div>
-      <div className="card-number">#{String(idx + 1).padStart(2, "0")}</div>
-      <div className="teams">
-        <span className="team-name">{pick.team1}</span>
-        <div className="vs-block">
-          <span className="vs-line" /><span className="vs">VS</span><span className="vs-line" />
+      <div className="home-card-number">#{String(idx + 1).padStart(2, "0")}</div>
+      <div className="home-teams">
+        <span className="home-team-name">{pick.team1}</span>
+        <div className="home-vs-block">
+          <span className="home-vs-line" /><span className="home-vs">VS</span><span className="home-vs-line" />
         </div>
-        <span className="team-name">{pick.team2}</span>
+        <span className="home-team-name">{pick.team2}</span>
       </div>
-      <div className="pick-divider" />
-      <div className="pick-meta">
-        <div className="meta-item">
-          <span className="meta-label">Kick-off</span>
-          <span className="meta-value time">🕐 {pick.time}</span>
+      <div className="home-pick-divider" />
+      <div className="home-pick-meta">
+        <div className="home-meta-item">
+          <span className="home-meta-label">Kick-off</span>
+          <span className="home-meta-value home-kickoff-time">🕐 {pick.time}</span>
         </div>
-        <div className="meta-item">
-          <span className="meta-label">Selection</span>
-          <span className="meta-value prediction">⚽ {pick.prediction}</span>
+        <div className="home-meta-item">
+          <span className="home-meta-label">Selection</span>
+          <span className="home-meta-value home-prediction">⚽ {pick.prediction}</span>
         </div>
-        <div className="meta-item">
-          <span className="meta-label">Odds</span>
-          <span className="meta-value odds"><span className="odds-inner">{pick.odds}</span></span>
+        <div className="home-meta-item">
+          <span className="home-meta-label">Odds</span>
+          <span className="home-meta-value home-odds"><span className="home-odds-inner">{pick.odds}</span></span>
         </div>
       </div>
     </TiltCard>
   );
 
   const renderVIPCard = (pick, idx) => (
-    <TiltCard key={pick.id} className="vip-pick-card reveal-card">
-      <div className="vip-ribbon" />
-      <div className="card-number vip-number">VIP</div>
+    <TiltCard key={pick.id} className="home-vip-pick-card home-reveal-card">
+      <div className="home-vip-ribbon" />
+      <div className="home-card-number home-vip-number">VIP</div>
 
-      <Link to="/vip-access-denied" className="pick-badge vip-badge">
-        <span className="badge-dot gold-dot" />Members Only 🪙
+      <Link to="/vip-access-denied" className="home-pick-badge home-vip-badge">
+        <span className="home-badge-dot home-gold-dot" />Members Only 🪙
       </Link>
 
-      <div className="teams">
-        <span className="team-name">{pick.team1}</span>
-        <div className="vs-block">
-          <span className="vs-line gold-line" />
-          <span className="vs gold-vs">VS</span>
-          <span className="vs-line gold-line" />
+      <div className="home-teams">
+        <span className="home-team-name">{pick.team1}</span>
+        <div className="home-vs-block">
+          <span className="home-vs-line home-gold-line" />
+          <span className="home-vs home-gold-vs">VS</span>
+          <span className="home-vs-line home-gold-line" />
         </div>
-        <span className="team-name">{pick.team2}</span>
+        <span className="home-team-name">{pick.team2}</span>
       </div>
 
-      <div className="pick-divider gold-divider" />
+      <div className="home-pick-divider home-gold-divider" />
 
-      <div className="pick-meta">
+      <div className="home-pick-meta">
 
-        <div className="meta-item">
-          <span className="meta-label">Kick-off</span>
-          <span className="meta-value time">🕐 {pick.time}</span>
+        <div className="home-meta-item">
+          <span className="home-meta-label">Kick-off</span>
+          <span className="home-meta-value home-kickoff-time">🕐 {pick.time}</span>
         </div>
 
-        <div className="meta-item">
-          <span className="meta-label">Selection</span>
-          <Link to="/vip-access-denied" className="meta-value prediction redacted-cell">
-            <span className="redacted-prefix">⚽ 1st Half:</span>
-            <span className="redacted-bar">UNLOCK🔐</span>
+        <div className="home-meta-item">
+          <span className="home-meta-label">Selection</span>
+          <Link to="/vip-access-denied" className="home-meta-value home-prediction home-redacted-cell">
+            <span className="home-redacted-prefix">⚽ 1st Half:</span>
+            <span className="home-redacted-bar">UNLOCK🔐</span>
           </Link>
         </div>
 
-        <div className="meta-item">
-          <span className="meta-label">Odds</span>
-          <Link to="/vip-access-denied" className="meta-value odds redacted-cell">
-            <span className="redacted-bar redacted-bar--wide">LOCKED</span>
+        <div className="home-meta-item">
+          <span className="home-meta-label">Odds</span>
+          <Link to="/vip-access-denied" className="home-meta-value home-odds home-redacted-cell">
+            <span className="home-redacted-bar home-redacted-bar--wide">LOCKED</span>
           </Link>
         </div>
 
@@ -224,68 +224,68 @@ export default function Home() {
   console.log("Loading:", loading);
 
   return (
-    <div className={`home ${visible ? "is-visible" : ""}`}>
+    <div className={`home-page ${visible ? "home-is-visible" : ""}`}>
 
       <ParticleField />
 
-      <div className="bg-orbs">
-        <div className="orb orb-1" /><div className="orb orb-2" />
-        <div className="orb orb-3" /><div className="orb orb-4" />
+      <div className="home-bg-orbs">
+        <div className="home-orb home-orb-1" /><div className="home-orb home-orb-2" />
+        <div className="home-orb home-orb-3" /><div className="home-orb home-orb-4" />
       </div>
 
-      <div className="scanlines" />
+      <div className="home-scanlines" />
 
-      <div className="ticker-bar">
-        <div className="ticker-label">LIVE</div>
-        <div className="ticker-track">
-          <div className="ticker-inner">
+      <div className="home-ticker-bar">
+        <div className="home-ticker-label">LIVE</div>
+        <div className="home-ticker-track">
+          <div className="home-ticker-inner">
             {["MAN CITY 2.10 ▲","REAL MADRID 1.85 ▼","PSG 3.40 ▲","BARCELONA 2.20 ▲","LIVERPOOL 1.95 ▼","INTER MILAN 2.75 ▲","JUVENTUS 3.10 ▼","CHELSEA 2.50 ▲","MAN CITY 2.10 ▲","REAL MADRID 1.85 ▼","PSG 3.40 ▲","BARCELONA 2.20 ▲"].map((item, i) => (
-              <span key={i} className={`ticker-item ${item.includes("▲") ? "tick-up" : "tick-down"}`}>{item}</span>
+              <span key={i} className={`home-ticker-item ${item.includes("▲") ? "home-tick-up" : "home-tick-down"}`}>{item}</span>
             ))}
           </div>
         </div>
       </div>
 
-      <section className="hero">
-        <div className="hero-inner">
+      <section className="home-hero">
+        <div className="home-hero-inner">
 
-          <div className="eyebrow-row">
-            <div className="eyebrow-line" />
-            <span className="eyebrow-text">MEGA-ODDS INTELLIGENCE</span>
-            <div className="eyebrow-line" />
+          <div className="home-eyebrow-row">
+            <div className="home-eyebrow-line" />
+            <span className="home-eyebrow-text">MEGA-ODDS INTELLIGENCE</span>
+            <div className="home-eyebrow-line" />
           </div>
 
-          <h1 className="hero-title">
-            <span className="ht-outsmart">Outsmart</span>
-            <span className="ht-odds-row">
-              <span className="ht-the">the</span>
-              <span className="ht-odds">Odds<span className="ht-dot">.</span></span>
+          <h1 className="home-hero-title">
+            <span className="home-ht-outsmart">Outsmart</span>
+            <span className="home-ht-odds-row">
+              <span className="home-ht-the">the</span>
+              <span className="home-ht-odds">Odds<span className="home-ht-dot">.</span></span>
             </span>
-            <span className="ht-every-row">
-              <span className="ht-every">Every</span>
-              <span className="ht-bet">Bet.</span>
+            <span className="home-ht-every-row">
+              <span className="home-ht-every">Every</span>
+              <span className="home-ht-bet">Bet.</span>
             </span>
           </h1>
 
-          <p className="hero-text">
-            <span className="ht-sub-block">
-              <span className="ht-sub-accent">Private intelligence.</span>
+          <p className="home-hero-text">
+            <span className="home-ht-sub-block">
+              <span className="home-ht-sub-accent">Private intelligence.</span>
               {" "}Real-time models. Fixed matches sourced from verified insiders —
-              <span className="ht-sub-em"> delivered before the market moves.</span>
+              <span className="home-ht-sub-em"> delivered before the market moves.</span>
             </span>
           </p>
 
-          <div className="hero-actions">
+          <div className="home-hero-actions">
             {isLoggedIn ? (
               <>
                 <Link to="/features">
-                  <button className="cta-primary">
-                    <span className="cta-label">Explore VIP Picks</span>
-                    <span className="cta-icon">→</span>
-                    <div className="cta-shine" />
+                  <button className="home-cta-primary">
+                    <span className="home-cta-label">Explore VIP Picks</span>
+                    <span className="home-cta-icon">→</span>
+                    <div className="home-cta-shine" />
                   </button>
                 </Link>
-                <Link to="/learn" className="cta-ghost">
+                <Link to="/learn" className="home-cta-ghost">
                   Learn More
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                     <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -295,13 +295,13 @@ export default function Home() {
             ) : (
               <>
                 <Link to="/signup">
-                  <button className="cta-primary">
-                    <span className="cta-label">Join the Inner Circle</span>
-                    <span className="cta-icon">→</span>
-                    <div className="cta-shine" />
+                  <button className="home-cta-primary">
+                    <span className="home-cta-label">Join the Inner Circle</span>
+                    <span className="home-cta-icon">→</span>
+                    <div className="home-cta-shine" />
                   </button>
                 </Link>
-                <Link to="/testimonials" className="cta-ghost">
+                <Link to="/testimonials" className="home-cta-ghost">
                   See Proof
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                     <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -311,20 +311,20 @@ export default function Home() {
             )}
           </div>
 
-          <div className="stats-row">
-            <div className="stat-block">
-              <span className="stat-num"><CountUp target={10500} suffix="+" /></span>
-              <span className="stat-lbl">Active Members</span>
+          <div className="home-stats-row">
+            <div className="home-stat-block">
+              <span className="home-stat-num"><CountUp target={10500} suffix="+" /></span>
+              <span className="home-stat-lbl">Active Members</span>
             </div>
-            <div className="stat-sep">✦</div>
-            <div className="stat-block">
-              <span className="stat-num"><CountUp target={100} suffix="%" /></span>
-              <span className="stat-lbl">Verified Win Rate</span>
+            <div className="home-stat-sep">✦</div>
+            <div className="home-stat-block">
+              <span className="home-stat-num"><CountUp target={100} suffix="%" /></span>
+              <span className="home-stat-lbl">Verified Win Rate</span>
             </div>
-            <div className="stat-sep">✦</div>
-            <div className="stat-block">
-              <span className="stat-num">VIP</span>
-              <span className="stat-lbl">Fixed Matches</span>
+            <div className="home-stat-sep">✦</div>
+            <div className="home-stat-block">
+              <span className="home-stat-num">VIP</span>
+              <span className="home-stat-lbl">Fixed Matches</span>
             </div>
           </div>
 
@@ -332,52 +332,52 @@ export default function Home() {
       </section>
 
       {!loading && yesterdayPicks.length > 0 && (
-        <section className="picks-section">
-          <div className="section-header">
-            <div className="sh-ornament"><span className="sh-diamond" /><span className="sh-line" /></div>
-            <div className="sh-center">
-              <span className="sh-tag">RESULTS</span>
-              <h2 className="picks-title">Previous Picks</h2>
+        <section className="home-picks-section">
+          <div className="home-section-header">
+            <div className="home-sh-ornament"><span className="home-sh-diamond" /><span className="home-sh-line" /></div>
+            <div className="home-sh-center">
+              <span className="home-sh-tag">RESULTS</span>
+              <h2 className="home-picks-title">Previous Picks</h2>
             </div>
-            <div className="sh-ornament mirror"><span className="sh-line" /><span className="sh-diamond" /></div>
+            <div className="home-sh-ornament home-mirror"><span className="home-sh-line" /><span className="home-sh-diamond" /></div>
           </div>
-          <div className="picks-list">{yesterdayPicks.map((p, i) => renderCard(p, i))}</div>
+          <div className="home-picks-list">{yesterdayPicks.map((p, i) => renderCard(p, i))}</div>
         </section>
       )}
 
       {!loading && freePicks.length > 0 && (
-        <section className="picks-section">
-          <div className="section-header">
-            <div className="sh-ornament"><span className="sh-diamond" /><span className="sh-line" /></div>
-            <div className="sh-center">
-              <span className="sh-tag">TODAY · FREE</span>
-              <h2 className="picks-title">Today's Free Picks</h2>
+        <section className="home-picks-section">
+          <div className="home-section-header">
+            <div className="home-sh-ornament"><span className="home-sh-diamond" /><span className="home-sh-line" /></div>
+            <div className="home-sh-center">
+              <span className="home-sh-tag">TODAY · FREE</span>
+              <h2 className="home-picks-title">Today's Free Picks</h2>
             </div>
-            <div className="sh-ornament mirror"><span className="sh-line" /><span className="sh-diamond" /></div>
+            <div className="home-sh-ornament home-mirror"><span className="home-sh-line" /><span className="home-sh-diamond" /></div>
           </div>
-          <div className="picks-list">{freePicks.map((p, i) => renderCard(p, i))}</div>
+          <div className="home-picks-list">{freePicks.map((p, i) => renderCard(p, i))}</div>
         </section>
       )}
 
       {!loading && vipPicks.length > 0 && (
-        <section className="picks-section vip-section">
-          <div className="vip-header-glow" />
-          <div className="section-header">
-            <div className="sh-ornament gold"><span className="sh-diamond gold-dia" /><span className="sh-line gold-ln" /></div>
-            <div className="sh-center">
-              <span className="sh-tag gold-tag">MEMBERS ONLY</span>
-              <h2 className="picks-title vip-title">Next VIP Bet</h2>
+        <section className="home-picks-section home-vip-section">
+          <div className="home-vip-header-glow" />
+          <div className="home-section-header">
+            <div className="home-sh-ornament home-gold"><span className="home-sh-diamond home-gold-dia" /><span className="home-sh-line home-gold-ln" /></div>
+            <div className="home-sh-center">
+              <span className="home-sh-tag home-gold-tag">MEMBERS ONLY</span>
+              <h2 className="home-picks-title home-vip-title">Next VIP Bet</h2>
             </div>
-            <div className="sh-ornament mirror gold"><span className="sh-line gold-ln" /><span className="sh-diamond gold-dia" /></div>
+            <div className="home-sh-ornament home-mirror home-gold"><span className="home-sh-line home-gold-ln" /><span className="home-sh-diamond home-gold-dia" /></div>
           </div>
-          <div className="picks-list">{vipPicks.map((p, i) => renderVIPCard(p, i))}</div>
+          <div className="home-picks-list">{vipPicks.map((p, i) => renderVIPCard(p, i))}</div>
         </section>
       )}
 
-      <footer className="footer">
-        <span className="footer-diamond">✦</span>
+      <footer className="home-footer">
+        <span className="home-footer-diamond">✦</span>
         © {new Date().getFullYear()} Mega-Odds · All rights reserved
-        <span className="footer-diamond">✦</span>
+        <span className="home-footer-diamond">✦</span>
       </footer>
 
     </div>
