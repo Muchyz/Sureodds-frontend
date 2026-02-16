@@ -204,6 +204,7 @@ function Pricing() {
     }
 
     setVerifyingManual(true);
+    setPaymentStatus(null); // Clear previous status
     
     try {
       const token = localStorage.getItem("token");
@@ -235,14 +236,14 @@ function Pricing() {
       } else {
         setPaymentStatus({
           type: "error",
-          message: data.message || "❌ Invalid transaction code. Please check and try again."
+          message: "❌ Payment not found. Please check your transaction code and try again."
         });
       }
     } catch (error) {
       console.error("Manual verification error:", error);
       setPaymentStatus({
         type: "error",
-        message: "Network error. Please try again or contact support."
+        message: "❌ Network error. Please try again or contact support."
       });
     } finally {
       setVerifyingManual(false);
@@ -603,6 +604,12 @@ function Pricing() {
                         </>
                       )}
                     </button>
+
+                    {!verifyingManual && paymentStatus && (paymentStatus.type === 'success' || paymentStatus.type === 'error') && (
+                      <div className={`mpesa-status mpesa-status-${paymentStatus.type}`}>
+                        {paymentStatus.message}
+                      </div>
+                    )}
                   </div>
                 </>
               )}
