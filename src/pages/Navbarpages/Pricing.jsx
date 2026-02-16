@@ -39,7 +39,7 @@ function Pricing() {
       price: 20000,
       period: "month",
       features: [
-        "3 Fixed Matches a day for 1 month",
+        "6 Fixed Matches a day for 1 month",
         "First Half Correct Scores",
         "100% Success Rate",
         "Exclusive VIP Telegram",
@@ -69,7 +69,6 @@ function Pricing() {
       return;
     }
 
-    // Validate phone number format
     const cleanPhone = phoneNumber.replace(/\s/g, '');
     const phoneRegex = /^(254|0)[17]\d{8}$/;
     if (!phoneRegex.test(cleanPhone)) {
@@ -85,17 +84,17 @@ function Pricing() {
       const plan = plans[selectedPlan];
 
       const response = await fetch("https://megaodds-backend.onrender.com/api/payment/initiate", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`
-  },
-  body: JSON.stringify({
-    amount: plan.price,
-    phone_number: cleanPhone,
-    plan_name: `${plan.name} Plan - ${plan.period}`
-  })
-});
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          amount: plan.price,
+          phone_number: cleanPhone,
+          plan_name: `${plan.name} Plan - ${plan.period}`
+        })
+      });
 
       const data = await response.json();
 
@@ -104,8 +103,6 @@ function Pricing() {
           type: "success",
           message: "✅ STK Push sent! Please check your phone and enter your M-Pesa PIN."
         });
-
-        // Start polling for payment status
         pollPaymentStatus(data.invoice_id);
       } else {
         setPaymentStatus({
@@ -127,18 +124,18 @@ function Pricing() {
   const pollPaymentStatus = async (invoiceId) => {
     const token = localStorage.getItem("token");
     let attempts = 0;
-    const maxAttempts = 30; // Poll for ~3 minutes (6s * 30)
+    const maxAttempts = 30;
 
     const checkStatus = async () => {
       try {
         const response = await fetch(
-  `https://megaodds-backend.onrender.com/api/payment/status/${invoiceId}`,
-  {
-    headers: {
-      "Authorization": `Bearer ${token}`
-    }
-  }
-);
+          `https://megaodds-backend.onrender.com/api/payment/status/${invoiceId}`,
+          {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          }
+        );
 
         const data = await response.json();
 
@@ -148,23 +145,18 @@ function Pricing() {
             message: "🎉 Payment successful! Your VIP access has been activated. Redirecting..."
           });
           setLoading(false);
-
-          // Update local storage
           localStorage.setItem("is_vip", "1");
-
-          // Redirect after 2 seconds
           setTimeout(() => {
             window.location.href = "/vip-section";
           }, 2000);
-
-          return true; // Stop polling
+          return true;
         } else if (data.status === "FAILED") {
           setPaymentStatus({
             type: "error",
             message: "❌ Payment failed. Please try again or contact support."
           });
           setLoading(false);
-          return true; // Stop polling
+          return true;
         }
 
         attempts++;
@@ -174,11 +166,10 @@ function Pricing() {
             message: "⏱️ Payment is taking longer than expected. We'll notify you once it's confirmed."
           });
           setLoading(false);
-          return true; // Stop polling
+          return true;
         }
 
-        // Continue polling
-        setTimeout(checkStatus, 6000); // Check every 6 seconds
+        setTimeout(checkStatus, 6000);
       } catch (error) {
         console.error("Status check error:", error);
         attempts++;
@@ -210,76 +201,51 @@ function Pricing() {
   };
 
   return (
-    <div className="pricing-page">
-      {/* Animated background orbs */}
-      <div className="pricing-bg-orbs">
-        <div className="pricing-orb pricing-orb-1"></div>
-        <div className="pricing-orb pricing-orb-2"></div>
-        <div className="pricing-orb pricing-orb-3"></div>
+    <div className="megaodds-pricing-page">
+
+      <div className="megaodds-bg-orbs">
+        <div className="megaodds-orb megaodds-orb-1"></div>
+        <div className="megaodds-orb megaodds-orb-2"></div>
+        <div className="megaodds-orb megaodds-orb-3"></div>
       </div>
 
-      {/* Hero Section */}
-      <section className="pricing-hero">
-        <span className="pricing-badge">
-          <span className="pricing-badge-shine"></span>
+      <section className="megaodds-hero">
+        <span className="megaodds-badge">
+          <span className="megaodds-badge-shine"></span>
           ⚽ FIRST HALF CORRECT SCORES
         </span>
-        
-        <h1 className="pricing-title">
+        <h1 className="megaodds-title">
           Premium Fixed Matches
-          <span className="pricing-gradient-text">Pricing Plans</span>
+          <span className="megaodds-gradient-text">Pricing Plans</span>
         </h1>
-        
-        <p className="pricing-subtitle">
-          Get access to verified & fixed first-half correct score with guaranteed accuracy.
+        <p className="megaodds-subtitle">
+          Get access to verified & fixed first-half correct scores with guaranteed accuracy.
           Choose your winning plan today.
         </p>
       </section>
 
-      {/* Pricing Cards Grid */}
-      <section className="pricing-grid">
-        
-        {/* STARTER PLAN */}
-        <div className="pricing-card">
-          <div className="pricing-card-header">
-            <div className="pricing-plan-icon">🎯</div>
-            <h3 className="pricing-plan-name">Starter</h3>
-            <p className="pricing-plan-desc">Perfect for beginners</p>
-          </div>
+      <section className="megaodds-pricing-grid">
 
-          <div className="pricing-amount">
-            <span className="pricing-currency">KES</span>
-            <span className="pricing-value">2,500</span>
-            <span className="pricing-period">/ week</span>
+        {/* STARTER */}
+        <div className="megaodds-card">
+          <div className="megaodds-card-header">
+            <div className="megaodds-plan-icon">🎯</div>
+            <h3 className="megaodds-plan-name">Starter</h3>
+            <p className="megaodds-plan-desc">Perfect for beginners</p>
           </div>
-
-          <ul className="pricing-features">
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>3 Fixed Matches a day for 1 week</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>First Half Correct Scores</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>100% Success Rate</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>WhatsApp Support</span>
-            </li>
-            <li className="pricing-feature disabled">
-              <span className="pricing-cross">✗</span>
-              <span>VIP Telegram Group</span>
-            </li>
+          <div className="megaodds-amount">
+            <span className="megaodds-currency">KES</span>
+            <span className="megaodds-value">2,500</span>
+            <span className="megaodds-period">/ week</span>
+          </div>
+          <ul className="megaodds-features">
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>3 Fixed Matches a day for 1 week</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>First Half Correct Scores</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>100% Success Rate</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>WhatsApp Support</span></li>
+            <li className="megaodds-feature megaodds-disabled"><span className="megaodds-cross">✗</span><span>VIP Telegram Group</span></li>
           </ul>
-
-          <button 
-            className="pricing-btn pricing-btn-starter"
-            onClick={() => handlePlanSelect('starter')}
-          >
+          <button className="megaodds-btn megaodds-btn-starter" onClick={() => handlePlanSelect('starter')}>
             <span>Get Started</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -287,55 +253,28 @@ function Pricing() {
           </button>
         </div>
 
-        {/* PRO PLAN - POPULAR */}
-        <div className="pricing-card pricing-card-popular">
-          <div className="pricing-popular-badge">
-            <span>🔥 MOST POPULAR</span>
+        {/* PRO */}
+        <div className="megaodds-card megaodds-card-popular">
+          <div className="megaodds-popular-badge"><span>🔥 MOST POPULAR</span></div>
+          <div className="megaodds-card-header">
+            <div className="megaodds-plan-icon">👑</div>
+            <h3 className="megaodds-plan-name">Pro</h3>
+            <p className="megaodds-plan-desc">Best value for serious bettors</p>
           </div>
-          
-          <div className="pricing-card-header">
-            <div className="pricing-plan-icon">👑</div>
-            <h3 className="pricing-plan-name">Pro</h3>
-            <p className="pricing-plan-desc">Best value for serious bettors</p>
+          <div className="megaodds-amount">
+            <span className="megaodds-currency">KES</span>
+            <span className="megaodds-value">8,000</span>
+            <span className="megaodds-period">/ month</span>
           </div>
-
-          <div className="pricing-amount">
-            <span className="pricing-currency">KES</span>
-            <span className="pricing-value">8,000</span>
-            <span className="pricing-period">/ month</span>
-          </div>
-
-          <ul className="pricing-features">
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>3 Fixed Matches a day for 1 month</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>First Half Correct Scores</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>100% Success Rate</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>VIP Telegram Group</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>24/7 Priority Support</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>Live Match Updates</span>
-            </li>
+          <ul className="megaodds-features">
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>3 Fixed Matches a day for 1 month</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>First Half Correct Scores</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>100% Success Rate</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>VIP Telegram Group</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>24/7 Priority Support</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>Live Match Updates</span></li>
           </ul>
-
-          <button 
-            className="pricing-btn pricing-btn-pro"
-            onClick={() => handlePlanSelect('pro')}
-          >
+          <button className="megaodds-btn megaodds-btn-pro" onClick={() => handlePlanSelect('pro')}>
             <span>Get Pro Access</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -343,55 +282,28 @@ function Pricing() {
           </button>
         </div>
 
-        {/* VIP PLAN */}
-        <div className="pricing-card">
-          <div className="pricing-card-header">
-            <div className="pricing-plan-icon">💎</div>
-            <h3 className="pricing-plan-name">VIP Elite</h3>
-            <p className="pricing-plan-desc">Maximum winning potential</p>
+        {/* VIP */}
+        <div className="megaodds-card">
+          <div className="megaodds-card-header">
+            <div className="megaodds-plan-icon">💎</div>
+            <h3 className="megaodds-plan-name">VIP Elite</h3>
+            <p className="megaodds-plan-desc">Maximum winning potential</p>
           </div>
-
-          <div className="pricing-amount">
-            <span className="pricing-currency">KES</span>
-            <span className="pricing-value">20,000</span>
-            <span className="pricing-period">/ month</span>
+          <div className="megaodds-amount">
+            <span className="megaodds-currency">KES</span>
+            <span className="megaodds-value">20,000</span>
+            <span className="megaodds-period">/ month</span>
           </div>
-
-          <ul className="pricing-features">
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>6 Fixed Matches a day for 1 month</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>First Half Correct Scores</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>100% Success Rate</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>Exclusive VIP Telegram</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>Personal Account Manager</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>Advanced Analytics Dashboard</span>
-            </li>
-            <li className="pricing-feature">
-              <span className="pricing-check">✓</span>
-              <span>Instant Notifications</span>
-            </li>
+          <ul className="megaodds-features">
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>6 Fixed Matches a day for 1 month</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>First Half Correct Scores</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>100% Success Rate</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>Exclusive VIP Telegram</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>Personal Account Manager</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>Advanced Analytics Dashboard</span></li>
+            <li className="megaodds-feature"><span className="megaodds-check">✓</span><span>Instant Notifications</span></li>
           </ul>
-
-          <button 
-            className="pricing-btn pricing-btn-vip"
-            onClick={() => handlePlanSelect('vip')}
-          >
+          <button className="megaodds-btn megaodds-btn-vip" onClick={() => handlePlanSelect('vip')}>
             <span>Go VIP Elite</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -401,24 +313,25 @@ function Pricing() {
 
       </section>
 
-      {/* Payment Modal */}
+      {/* PAYMENT MODAL */}
       {showModal && (
-        <div className="payment-modal-overlay" onClick={closeModal}>
-          <div className="payment-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>×</button>
-            
-            <div className="modal-header">
+        <div className="megaodds-modal-overlay" onClick={closeModal}>
+          <div className="megaodds-modal" onClick={(e) => e.stopPropagation()}>
+
+            <button className="megaodds-modal-close" onClick={closeModal}>×</button>
+
+            <div className="megaodds-modal-header">
               <h2>Complete Your Payment</h2>
-              <p className="modal-plan-name">{plans[selectedPlan]?.name} Plan</p>
+              <p className="megaodds-modal-plan-name">{plans[selectedPlan]?.name} Plan</p>
             </div>
 
-            <div className="modal-amount">
-              <span className="modal-currency">KES</span>
-              <span className="modal-value">{plans[selectedPlan]?.price.toLocaleString()}</span>
-              <span className="modal-period">/ {plans[selectedPlan]?.period}</span>
+            <div className="megaodds-modal-amount">
+              <span className="megaodds-modal-currency">KES</span>
+              <span className="megaodds-modal-value">{plans[selectedPlan]?.price.toLocaleString()}</span>
+              <span className="megaodds-modal-period">/ {plans[selectedPlan]?.period}</span>
             </div>
 
-            <div className="modal-form">
+            <div className="megaodds-modal-form">
               <label htmlFor="phone">M-Pesa Phone Number</label>
               <input
                 id="phone"
@@ -427,17 +340,17 @@ function Pricing() {
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 disabled={loading}
-                className="phone-input"
+                className="megaodds-phone-input"
               />
-              
+
               <button
                 onClick={initiatePayment}
                 disabled={loading || !phoneNumber}
-                className="pay-button"
+                className="megaodds-pay-button"
               >
                 {loading ? (
                   <>
-                    <span className="spinner"></span>
+                    <span className="megaodds-spinner"></span>
                     Processing...
                   </>
                 ) : (
@@ -454,74 +367,67 @@ function Pricing() {
               </button>
 
               {paymentStatus && (
-                <div className={`payment-status payment-status-${paymentStatus.type}`}>
+                <div className={`megaodds-payment-status megaodds-payment-status-${paymentStatus.type}`}>
                   {paymentStatus.message}
                 </div>
               )}
 
-              <div className="payment-info">
+              <div className="megaodds-payment-info">
                 <p>📱 You will receive an STK push on your phone</p>
                 <p>🔐 Enter your M-Pesa PIN to complete payment</p>
                 <p>⚡ VIP access is granted immediately after payment</p>
               </div>
             </div>
+
           </div>
         </div>
       )}
 
-      {/* Trust Indicators */}
-      <section className="pricing-trust">
-        <div className="trust-item">
-          <div className="trust-icon">🏆</div>
+      <section className="megaodds-trust">
+        <div className="megaodds-trust-item">
+          <div className="megaodds-trust-icon">🏆</div>
           <h4>Verified Results</h4>
           <p>All Games tracked & verified</p>
         </div>
-        <div className="trust-item">
-          <div className="trust-icon">🔒</div>
+        <div className="megaodds-trust-item">
+          <div className="megaodds-trust-icon">🔒</div>
           <h4>Secure Payment</h4>
           <p>Safe & encrypted M-Pesa transactions</p>
         </div>
-        <div className="trust-item">
-          <div className="trust-icon">⚡</div>
+        <div className="megaodds-trust-item">
+          <div className="megaodds-trust-icon">⚡</div>
           <h4>Instant Access</h4>
           <p>Get picks immediately after payment</p>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="pricing-faq">
-        <h2 className="faq-title">Frequently Asked Questions</h2>
-        
-        <div className="faq-grid">
-          <div className="faq-item">
+      <section className="megaodds-faq">
+        <h2 className="megaodds-faq-title">Frequently Asked Questions</h2>
+        <div className="megaodds-faq-grid">
+          <div className="megaodds-faq-item">
             <h3>What are "Fixed Matches"?</h3>
             <p>"Fixed matches" refer to sports games where the outcome has been pre-determined, usually illegally, rather than being decided fairly by the players' performance.</p>
-            <Link to="/Learn" className="faq-learn-more">
-              Learn more about fixed matches →
-            </Link>
+            <Link to="/Learn" className="megaodds-faq-learn-more">Learn more about fixed matches →</Link>
           </div>
-          
-          <div className="faq-item">
+          <div className="megaodds-faq-item">
             <h3>How do I receive the picks?</h3>
             <p>Immediately after payment, you'll be added to our private Telegram/WhatsApp group where we share all fixed matches 2-4 hours before kickoff. You also get direct VIP section access.</p>
           </div>
-          
-          <div className="faq-item">
+          <div className="megaodds-faq-item">
             <h3>Is M-Pesa payment secure?</h3>
             <p>Yes! We use Intasend's secure payment gateway. Your payment is encrypted and processed directly through M-Pesa's official system.</p>
           </div>
-          
-          <div className="faq-item">
+          <div className="megaodds-faq-item">
             <h3>Can I upgrade my plan?</h3>
             <p>Yes! You can upgrade anytime, and we'll credit the remaining value of your current plan toward the new one.</p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="pricing-footer">
+      <footer className="megaodds-footer">
         <p>© {new Date().getFullYear()} Mega-Odds. All rights reserved.</p>
       </footer>
+
     </div>
   );
 }
