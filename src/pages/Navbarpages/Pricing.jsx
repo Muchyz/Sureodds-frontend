@@ -515,6 +515,12 @@ function Pricing() {
                 </>
               ) : (
                 <>
+                  {paymentStatus && (
+                    <div className={`mpesa-status mpesa-status-${paymentStatus.type}`}>
+                      {paymentStatus.message}
+                    </div>
+                  )}
+
                   <div className="manual-payment-section">
                     <div className="manual-payment-header">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -546,11 +552,6 @@ function Pricing() {
                         <div className="payment-detail-item">
                           <span className="payment-detail-label">4. Amount</span>
                           <span className="payment-detail-value amount">KES {plans[selectedPlan]?.price.toLocaleString()}</span>
-                        </div>
-                        
-                        <div className="payment-detail-item">
-                          <span className="payment-detail-label">5. Reference</span>
-                          <span className="payment-detail-value selectable">{referenceNumber}</span>
                         </div>
                       </div>
 
@@ -602,12 +603,6 @@ function Pricing() {
                         </>
                       )}
                     </button>
-
-                    {paymentStatus && (
-                      <div className={`mpesa-status mpesa-status-${paymentStatus.type}`}>
-                        {paymentStatus.message}
-                      </div>
-                    )}
                   </div>
                 </>
               )}
