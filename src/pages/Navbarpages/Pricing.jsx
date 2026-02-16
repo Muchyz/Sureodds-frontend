@@ -243,7 +243,7 @@ function Pricing() {
       console.error("Manual verification error:", error);
       setPaymentStatus({
         type: "error",
-        message: "❌ Network error. Please try again or contact support."
+        message: "❌ Payment not found. Please check your transaction code and try again."
       });
     } finally {
       setVerifyingManual(false);
