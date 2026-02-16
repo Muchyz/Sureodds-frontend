@@ -252,7 +252,7 @@ function Pricing() {
       console.error("Manual verification error:", error);
       setPaymentStatus({
         type: "error",
-        message: "❌ Payment not found. Please check your transaction code and try again."
+        message: "❌ Payment not found. Please check your transaction code and try again or contact support. "
       });
     } finally {
       setVerifyingManual(false);
@@ -592,7 +592,7 @@ function Pricing() {
                       </div>
 
                       <div className="manual-payment-note">
-                        💡 After completing payment, you'll receive an M-Pesa confirmation message with a transaction code (e.g., QH23KLM890)
+                        💡 After completing payment, you'll receive an M-Pesa confirmation message with a transaction code to unlock VIP (e.g., QH23KLM890)
                       </div>
                     </div>
 
