@@ -203,10 +203,6 @@ function Pricing() {
       {/* Scan-line overlay */}
       <div className="mo-scanlines" aria-hidden="true"></div>
 
-      {/* Corner accents */}
-      <div className="mo-corner mo-corner-tl" aria-hidden="true"></div>
-      <div className="mo-corner mo-corner-tr" aria-hidden="true"></div>
-
       {/* HERO */}
       <section className="mo-hero">
         <div className="mo-hero-tag">⚽ FIRST HALF CORRECT SCORES</div>
@@ -340,61 +336,121 @@ function Pricing() {
 
       </section>
 
-      {/* PAYMENT MODAL */}
+      {/* M-PESA PAYMENT MODAL */}
       {showModal && (
-        <div className="payment-modal-overlay" onClick={closeModal}>
-          <div className="payment-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>×</button>
-            <div className="modal-header">
-              <h2>Complete Your Payment</h2>
-              <p className="modal-plan-name">{plans[selectedPlan]?.name} Plan</p>
+        <div className="mpesa-overlay" onClick={closeModal}>
+          <div className="mpesa-modal" onClick={(e) => e.stopPropagation()}>
+
+            {/* Header Band */}
+            <div className="mpesa-header">
+              <button className="mpesa-close" onClick={closeModal} aria-label="Close">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+              <div className="mpesa-logo-wrap">
+                <span className="mpesa-logo-m">M</span>
+                <span className="mpesa-logo-dash">-</span>
+                <span className="mpesa-logo-pesa">PESA</span>
+              </div>
+              <p className="mpesa-header-sub">Lipa na M-Pesa · Secure Payment</p>
             </div>
-            <div className="modal-amount">
-              <span className="modal-currency">KES</span>
-              <span className="modal-value">{plans[selectedPlan]?.price.toLocaleString()}</span>
-              <span className="modal-period">/ {plans[selectedPlan]?.period}</span>
+
+            {/* Summary */}
+            <div className="mpesa-summary">
+              <div className="mpesa-merchant-row">
+                <div className="mpesa-merchant-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e4002b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="mpesa-merchant-name">MEGA-ODDS</div>
+                  <div className="mpesa-plan-badge">{plans[selectedPlan]?.name} Plan · {plans[selectedPlan]?.period}</div>
+                </div>
+              </div>
+              <div className="mpesa-amount-block">
+                <span className="mpesa-amount-label">AMOUNT</span>
+                <div className="mpesa-amount-row">
+                  <span className="mpesa-kes">KES</span>
+                  <span className="mpesa-amount-num">{plans[selectedPlan]?.price.toLocaleString()}</span>
+                </div>
+              </div>
             </div>
-            <div className="modal-form">
-              <label htmlFor="phone">M-Pesa Phone Number</label>
-              <input
-                id="phone"
-                type="tel"
-                placeholder="07XX XXX XXX or 2547XX XXX XXX"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                disabled={loading}
-                className="phone-input"
-              />
+
+            <div className="mpesa-divider" />
+
+            {/* Form */}
+            <div className="mpesa-form">
+              <label className="mpesa-label" htmlFor="mpesa-phone">
+                Enter M-Pesa Phone Number
+              </label>
+              <div className="mpesa-phone-wrap">
+                <div className="mpesa-flag-prefix">
+                  <span className="mpesa-flag">🇰🇪</span>
+                  <span className="mpesa-code">+254</span>
+                </div>
+                <input
+                  id="mpesa-phone"
+                  type="tel"
+                  placeholder="7XX XXX XXX"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  disabled={loading}
+                  className="mpesa-phone-input"
+                />
+              </div>
+
               <button
                 onClick={initiatePayment}
                 disabled={loading || !phoneNumber}
-                className="pay-button"
+                className="mpesa-pay-btn"
               >
                 {loading ? (
-                  <><span className="spinner"></span>Processing...</>
+                  <><span className="mpesa-spinner"></span><span>Processing...</span></>
                 ) : (
                   <>
-                    <span>Pay with M-Pesa</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 22V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 12L2 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 12L22 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                      <line x1="1" y1="10" x2="23" y2="10"/>
                     </svg>
+                    <span>Pay KES {plans[selectedPlan]?.price.toLocaleString()}</span>
                   </>
                 )}
               </button>
+
               {paymentStatus && (
-                <div className={`payment-status payment-status-${paymentStatus.type}`}>
+                <div className={`mpesa-status mpesa-status-${paymentStatus.type}`}>
                   {paymentStatus.message}
                 </div>
               )}
-              <div className="payment-info">
-                <p>📱 You will receive an STK push on your phone</p>
-                <p>🔐 Enter your M-Pesa PIN to complete payment</p>
-                <p>⚡ VIP access is granted immediately after payment</p>
+
+              {/* How it works steps */}
+              <div className="mpesa-steps">
+                <div className="mpesa-steps-title">HOW IT WORKS</div>
+                <div className="mpesa-step">
+                  <div className="mpesa-step-num">1</div>
+                  <div className="mpesa-step-text">Enter your Safaricom number &amp; tap Pay</div>
+                </div>
+                <div className="mpesa-step">
+                  <div className="mpesa-step-num">2</div>
+                  <div className="mpesa-step-text">An STK push prompt appears on your phone</div>
+                </div>
+                <div className="mpesa-step">
+                  <div className="mpesa-step-num">3</div>
+                  <div className="mpesa-step-text">Enter your M-Pesa PIN to confirm payment</div>
+                </div>
+              </div>
+
+              <div className="mpesa-trust-badge">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>Secured by Safaricom M-Pesa · Powered by Intasend</span>
               </div>
             </div>
+
           </div>
         </div>
       )}
@@ -405,7 +461,7 @@ function Pricing() {
           <span className="mo-trust-icon">🏆</span>
           <div>
             <div className="mo-trust-title">Verified Results</div>
-            <div className="mo-trust-sub">All games tracked & verified</div>
+            <div className="mo-trust-sub">All games tracked &amp; verified</div>
           </div>
         </div>
         <div className="mo-trust-sep"></div>
@@ -413,7 +469,7 @@ function Pricing() {
           <span className="mo-trust-icon">🔒</span>
           <div>
             <div className="mo-trust-title">Secure Payment</div>
-            <div className="mo-trust-sub">Safe & encrypted M-Pesa</div>
+            <div className="mo-trust-sub">Safe &amp; encrypted M-Pesa</div>
           </div>
         </div>
         <div className="mo-trust-sep"></div>
