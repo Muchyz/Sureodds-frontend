@@ -236,7 +236,7 @@ function Pricing() {
       } else {
         setPaymentStatus({
           type: "error",
-          message: "❌ Payment not found. Please check your transaction code and try again."
+          message: "❌ Payment not found. Please check your transaction code and try again or contact support."
         });
       }
     } catch (error) {
