@@ -493,6 +493,51 @@
   letter-spacing: 0.5px;
 }
 
+.payment-detail-value.payment-number {
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+}
+
+.payment-value-with-copy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  background: #1b5e20;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+}
+
+.copy-btn:active {
+  transform: translateY(0);
+}
+
+.copy-btn svg {
+  flex-shrink: 0;
+}
+
 .payment-detail-value.selectable {
   user-select: all;
   background: #fff9e6;

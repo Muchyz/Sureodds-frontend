@@ -13,6 +13,15 @@ function Pricing() {
   const [referenceNumber, setReferenceNumber] = useState("");
   const [verifyingManual, setVerifyingManual] = useState(false);
 
+  const copyToClipboard = (text, label) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert(`${label} copied to clipboard!`);
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+      alert('Failed to copy. Please copy manually.');
+    });
+  };
+
   const plans = {
     starter: {
       name: "Starter",
@@ -542,12 +551,38 @@ function Pricing() {
                         
                         <div className="payment-detail-item highlight">
                           <span className="payment-detail-label">2. Business Number</span>
-                          <span className="payment-detail-value selectable">247247</span>
+                          <div className="payment-value-with-copy">
+                            <span className="payment-detail-value selectable payment-number">247247</span>
+                            <button 
+                              className="copy-btn"
+                              onClick={() => copyToClipboard('247247', 'Business Number')}
+                              type="button"
+                            >
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                              </svg>
+                              Copy
+                            </button>
+                          </div>
                         </div>
                         
                         <div className="payment-detail-item highlight">
                           <span className="payment-detail-label">3. Account Number</span>
-                          <span className="payment-detail-value selectable">0040179069768</span>
+                          <div className="payment-value-with-copy">
+                            <span className="payment-detail-value selectable payment-number">0040179069768</span>
+                            <button 
+                              className="copy-btn"
+                              onClick={() => copyToClipboard('0040179069768', 'Account Number')}
+                              type="button"
+                            >
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                              </svg>
+                              Copy
+                            </button>
+                          </div>
                         </div>
                         
                         <div className="payment-detail-item">
