@@ -197,16 +197,12 @@ function Pricing() {
   return (
     <div className="mo-page">
 
-      {/* Grid texture overlay */}
       <div className="mo-grid-texture" aria-hidden="true"></div>
-
-      {/* Scan-line overlay */}
       <div className="mo-scanlines" aria-hidden="true"></div>
 
       {/* HERO */}
       <section className="mo-hero">
         <div className="mo-hero-tag">⚽ FIRST HALF CORRECT SCORES</div>
-
         <div className="mo-hero-stat-row">
           <div className="mo-stat"><span className="mo-stat-num">100%</span><span className="mo-stat-label">Win Rate</span></div>
           <div className="mo-stat-divider"></div>
@@ -214,12 +210,10 @@ function Pricing() {
           <div className="mo-stat-divider"></div>
           <div className="mo-stat"><span className="mo-stat-num">24/7</span><span className="mo-stat-label">Support</span></div>
         </div>
-
         <h1 className="mo-hero-title">
           <span className="mo-title-top">PREMIUM FIXED</span>
           <span className="mo-title-bottom">MATCH PLANS</span>
         </h1>
-
         <p className="mo-hero-sub">
           Verified first-half correct scores. Guaranteed accuracy. Choose your tier.
         </p>
@@ -228,7 +222,6 @@ function Pricing() {
       {/* CARDS */}
       <section className="mo-cards">
 
-        {/* STARTER */}
         <div className="mo-card mo-card-cyan">
           <div className="mo-card-corner-tl"></div>
           <div className="mo-card-corner-br"></div>
@@ -262,7 +255,6 @@ function Pricing() {
           </button>
         </div>
 
-        {/* PRO */}
         <div className="mo-card mo-card-green mo-card-featured">
           <div className="mo-card-corner-tl"></div>
           <div className="mo-card-corner-br"></div>
@@ -298,7 +290,6 @@ function Pricing() {
           </button>
         </div>
 
-        {/* VIP */}
         <div className="mo-card mo-card-gold">
           <div className="mo-card-corner-tl"></div>
           <div className="mo-card-corner-br"></div>
@@ -341,26 +332,33 @@ function Pricing() {
         <div className="mpesa-overlay" onClick={closeModal}>
           <div className="mpesa-modal" onClick={(e) => e.stopPropagation()}>
 
-            {/* Header Band */}
+            {/* Green header with real M-Pesa logo SVG */}
             <div className="mpesa-header">
               <button className="mpesa-close" onClick={closeModal} aria-label="Close">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                   <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
               </button>
+
+              {/* M-Pesa official logo recreation */}
               <div className="mpesa-logo-wrap">
-                <span className="mpesa-logo-m">M</span>
-                <span className="mpesa-logo-dash">-</span>
-                <span className="mpesa-logo-pesa">PESA</span>
+                <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" className="mpesa-logo-svg">
+                  {/* M */}
+                  <text x="0" y="48" fontFamily="Arial Black, Arial" fontWeight="900" fontSize="52" fill="white">M</text>
+                  {/* red dash */}
+                  <rect x="58" y="10" width="8" height="40" rx="3" fill="#e4002b"/>
+                  {/* PESA in white */}
+                  <text x="72" y="48" fontFamily="Arial Black, Arial" fontWeight="900" fontSize="52" fill="white">PESA</text>
+                </svg>
               </div>
               <p className="mpesa-header-sub">Lipa na M-Pesa · Secure Payment</p>
             </div>
 
-            {/* Summary */}
+            {/* Summary row */}
             <div className="mpesa-summary">
               <div className="mpesa-merchant-row">
                 <div className="mpesa-merchant-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e4002b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
                     <polyline points="9 22 9 12 15 12 15 22"/>
                   </svg>
@@ -384,17 +382,18 @@ function Pricing() {
             {/* Form */}
             <div className="mpesa-form">
               <label className="mpesa-label" htmlFor="mpesa-phone">
-                Enter M-Pesa Phone Number
+                M-Pesa Phone Number
               </label>
               <div className="mpesa-phone-wrap">
-                <div className="mpesa-flag-prefix">
-                  <span className="mpesa-flag">🇰🇪</span>
-                  <span className="mpesa-code">+254</span>
-                </div>
+                <span className="mpesa-phone-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+                  </svg>
+                </span>
                 <input
                   id="mpesa-phone"
                   type="tel"
-                  placeholder="7XX XXX XXX"
+                  placeholder="e.g. 0712345678 or 254712345678"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   disabled={loading}
@@ -411,7 +410,7 @@ function Pricing() {
                   <><span className="mpesa-spinner"></span><span>Processing...</span></>
                 ) : (
                   <>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
                       <line x1="1" y1="10" x2="23" y2="10"/>
                     </svg>
@@ -426,7 +425,6 @@ function Pricing() {
                 </div>
               )}
 
-              {/* How it works steps */}
               <div className="mpesa-steps">
                 <div className="mpesa-steps-title">HOW IT WORKS</div>
                 <div className="mpesa-step">
@@ -444,7 +442,7 @@ function Pricing() {
               </div>
 
               <div className="mpesa-trust-badge">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
                 <span>Secured by Safaricom M-Pesa · Powered by Intasend</span>
@@ -513,7 +511,6 @@ function Pricing() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="mo-footer">
         <div className="mo-footer-line"></div>
         <p>© {new Date().getFullYear()} MEGA-ODDS. ALL RIGHTS RESERVED.</p>
