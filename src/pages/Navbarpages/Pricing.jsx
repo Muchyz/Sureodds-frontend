@@ -8,6 +8,10 @@ function Pricing() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
+  const [showManualPayment, setShowManualPayment] = useState(false);
+  const [transactionCode, setTransactionCode] = useState("");
+  const [referenceNumber, setReferenceNumber] = useState("");
+  const [verifyingManual, setVerifyingManual] = useState(false);
 
   const plans = {
     starter: {
@@ -73,6 +77,10 @@ function Pricing() {
     setShowModal(true);
     setPaymentStatus(null);
     setPhoneNumber("");
+    setShowManualPayment(false);
+    setTransactionCode("");
+    // Generate unique reference number for this transaction
+    setReferenceNumber(`MO${Date.now()}`);
   };
 
   const initiatePayment = async () => {
@@ -100,7 +108,8 @@ function Pricing() {
         body: JSON.stringify({
           amount: plan.price,
           phone_number: cleanPhone,
-          plan_name: `${plan.name} Plan - ${plan.period}`
+          plan_name: `${plan.name} Plan - ${plan.period}`,
+          reference_number: referenceNumber
         })
       });
       const data = await response.json();
@@ -111,18 +120,21 @@ function Pricing() {
         });
         pollPaymentStatus(data.invoice_id);
       } else {
+        // Show manual payment fallback
         setPaymentStatus({
           type: "error",
-          message: data.message || "Payment initiation failed. Please try again."
+          message: "⚠️ STK Push failed. Please use manual payment option below."
         });
+        setShowManualPayment(true);
         setLoading(false);
       }
     } catch (error) {
       console.error("Payment error:", error);
       setPaymentStatus({
         type: "error",
-        message: "Network error. Please check your connection and try again."
+        message: "⚠️ Connection error. Please use manual payment option below."
       });
+      setShowManualPayment(true);
       setLoading(false);
     }
   };
@@ -150,8 +162,9 @@ function Pricing() {
         } else if (data.status === "FAILED") {
           setPaymentStatus({
             type: "error",
-            message: "❌ Payment failed. Please try again or contact support."
+            message: "⚠️ Payment failed. Please use manual payment option below."
           });
+          setShowManualPayment(true);
           setLoading(false);
           return true;
         }
@@ -159,8 +172,9 @@ function Pricing() {
         if (attempts >= maxAttempts) {
           setPaymentStatus({
             type: "warning",
-            message: "⏱️ Payment is taking longer than expected. We'll notify you once it's confirmed."
+            message: "⏱️ Payment is taking longer than expected. You can use manual payment below."
           });
+          setShowManualPayment(true);
           setLoading(false);
           return true;
         }
@@ -173,8 +187,9 @@ function Pricing() {
         } else {
           setPaymentStatus({
             type: "warning",
-            message: "Unable to verify payment status. Please contact support if money was deducted."
+            message: "Unable to verify payment. You can use manual payment below."
           });
+          setShowManualPayment(true);
           setLoading(false);
         }
       }
@@ -182,8 +197,60 @@ function Pricing() {
     checkStatus();
   };
 
+  const verifyManualPayment = async () => {
+    if (!transactionCode) {
+      alert("Please enter your M-Pesa transaction code");
+      return;
+    }
+
+    setVerifyingManual(true);
+    
+    try {
+      const token = localStorage.getItem("token");
+      const plan = plans[selectedPlan];
+      
+      const response = await fetch("https://megaodds-backend.onrender.com/api/payment/verify-manual", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          transaction_code: transactionCode.toUpperCase(),
+          reference_number: referenceNumber,
+          amount: plan.price,
+          plan_name: `${plan.name} Plan - ${plan.period}`
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setPaymentStatus({
+          type: "success",
+          message: "🎉 Payment verified! Your VIP access has been activated. Redirecting..."
+        });
+        localStorage.setItem("is_vip", "1");
+        setTimeout(() => { window.location.href = "/vip-section"; }, 2000);
+      } else {
+        setPaymentStatus({
+          type: "error",
+          message: data.message || "❌ Invalid transaction code. Please check and try again."
+        });
+      }
+    } catch (error) {
+      console.error("Manual verification error:", error);
+      setPaymentStatus({
+        type: "error",
+        message: "Network error. Please try again or contact support."
+      });
+    } finally {
+      setVerifyingManual(false);
+    }
+  };
+
   const closeModal = () => {
-    if (loading) {
+    if (loading || verifyingManual) {
       const confirm = window.confirm("Payment is in progress. Are you sure you want to close?");
       if (!confirm) return;
     }
@@ -192,6 +259,9 @@ function Pricing() {
     setPaymentStatus(null);
     setSelectedPlan(null);
     setLoading(false);
+    setShowManualPayment(false);
+    setTransactionCode("");
+    setVerifyingManual(false);
   };
 
   return (
@@ -381,65 +451,166 @@ function Pricing() {
 
             {/* Form */}
             <div className="mpesa-form">
-              <label className="mpesa-label" htmlFor="mpesa-phone">
-                M-Pesa Phone Number
-              </label>
-              <div className="mpesa-phone-wrap">
-                <span className="mpesa-phone-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
-                  </svg>
-                </span>
-                <input
-                  id="mpesa-phone"
-                  type="tel"
-                  placeholder="e.g. 0712345678 or 254712345678"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  disabled={loading}
-                  className="mpesa-phone-input"
-                />
-              </div>
+              {!showManualPayment ? (
+                <>
+                  <label className="mpesa-label" htmlFor="mpesa-phone">
+                    M-Pesa Phone Number
+                  </label>
+                  <div className="mpesa-phone-wrap">
+                    <span className="mpesa-phone-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+                      </svg>
+                    </span>
+                    <input
+                      id="mpesa-phone"
+                      type="tel"
+                      placeholder="e.g. 0712345678 or 254712345678"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      disabled={loading}
+                      className="mpesa-phone-input"
+                    />
+                  </div>
 
-              <button
-                onClick={initiatePayment}
-                disabled={loading || !phoneNumber}
-                className="mpesa-pay-btn"
-              >
-                {loading ? (
-                  <><span className="mpesa-spinner"></span><span>Processing...</span></>
-                ) : (
-                  <>
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-                      <line x1="1" y1="10" x2="23" y2="10"/>
-                    </svg>
-                    <span>Pay KES {plans[selectedPlan]?.price.toLocaleString()}</span>
-                  </>
-                )}
-              </button>
+                  <button
+                    onClick={initiatePayment}
+                    disabled={loading || !phoneNumber}
+                    className="mpesa-pay-btn"
+                  >
+                    {loading ? (
+                      <><span className="mpesa-spinner"></span><span>Processing...</span></>
+                    ) : (
+                      <>
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                          <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                        <span>Pay KES {plans[selectedPlan]?.price.toLocaleString()}</span>
+                      </>
+                    )}
+                  </button>
 
-              {paymentStatus && (
-                <div className={`mpesa-status mpesa-status-${paymentStatus.type}`}>
-                  {paymentStatus.message}
-                </div>
+                  {paymentStatus && (
+                    <div className={`mpesa-status mpesa-status-${paymentStatus.type}`}>
+                      {paymentStatus.message}
+                    </div>
+                  )}
+
+                  <div className="mpesa-steps">
+                    <div className="mpesa-steps-title">HOW IT WORKS</div>
+                    <div className="mpesa-step">
+                      <div className="mpesa-step-num">1</div>
+                      <div className="mpesa-step-text">Enter your Safaricom number &amp; tap Pay</div>
+                    </div>
+                    <div className="mpesa-step">
+                      <div className="mpesa-step-num">2</div>
+                      <div className="mpesa-step-text">An STK push prompt appears on your phone</div>
+                    </div>
+                    <div className="mpesa-step">
+                      <div className="mpesa-step-num">3</div>
+                      <div className="mpesa-step-text">Enter your M-Pesa PIN to confirm payment</div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="manual-payment-section">
+                    <div className="manual-payment-header">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="2" y="5" width="20" height="14" rx="2"/>
+                        <line x1="2" y1="10" x2="22" y2="10"/>
+                      </svg>
+                      <h3>Manual Payment</h3>
+                    </div>
+                    
+                    <div className="manual-payment-instructions">
+                      <p className="manual-payment-title">Complete payment manually using these details:</p>
+                      
+                      <div className="payment-detail-box">
+                        <div className="payment-detail-item">
+                          <span className="payment-detail-label">1. Go to M-Pesa</span>
+                          <span className="payment-detail-value">Lipa na M-Pesa → Paybill</span>
+                        </div>
+                        
+                        <div className="payment-detail-item highlight">
+                          <span className="payment-detail-label">2. Business Number</span>
+                          <span className="payment-detail-value selectable">247247</span>
+                        </div>
+                        
+                        <div className="payment-detail-item highlight">
+                          <span className="payment-detail-label">3. Account Number</span>
+                          <span className="payment-detail-value selectable">0040179069768</span>
+                        </div>
+                        
+                        <div className="payment-detail-item">
+                          <span className="payment-detail-label">4. Amount</span>
+                          <span className="payment-detail-value amount">KES {plans[selectedPlan]?.price.toLocaleString()}</span>
+                        </div>
+                        
+                        <div className="payment-detail-item">
+                          <span className="payment-detail-label">5. Reference</span>
+                          <span className="payment-detail-value selectable">{referenceNumber}</span>
+                        </div>
+                      </div>
+
+                      <div className="manual-payment-note">
+                        💡 After completing payment, you'll receive an M-Pesa confirmation message with a transaction code (e.g., QH23KLM890)
+                      </div>
+                    </div>
+
+                    <div className="mpesa-divider" style={{margin: '20px 0'}} />
+
+                    <label className="mpesa-label" htmlFor="transaction-code">
+                      Enter M-Pesa Transaction Code
+                    </label>
+                    <div className="mpesa-phone-wrap">
+                      <span className="mpesa-phone-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                          <line x1="16" y1="13" x2="8" y2="13"/>
+                          <line x1="16" y1="17" x2="8" y2="17"/>
+                          <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                      </span>
+                      <input
+                        id="transaction-code"
+                        type="text"
+                        placeholder="e.g., QH23KLM890"
+                        value={transactionCode}
+                        onChange={(e) => setTransactionCode(e.target.value.toUpperCase())}
+                        disabled={verifyingManual}
+                        className="mpesa-phone-input"
+                        style={{textTransform: 'uppercase'}}
+                      />
+                    </div>
+
+                    <button
+                      onClick={verifyManualPayment}
+                      disabled={verifyingManual || !transactionCode}
+                      className="mpesa-pay-btn"
+                    >
+                      {verifyingManual ? (
+                        <><span className="mpesa-spinner"></span><span>Verifying...</span></>
+                      ) : (
+                        <>
+                          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                          </svg>
+                          <span>Verify Payment</span>
+                        </>
+                      )}
+                    </button>
+
+                    {paymentStatus && (
+                      <div className={`mpesa-status mpesa-status-${paymentStatus.type}`}>
+                        {paymentStatus.message}
+                      </div>
+                    )}
+                  </div>
+                </>
               )}
-
-              <div className="mpesa-steps">
-                <div className="mpesa-steps-title">HOW IT WORKS</div>
-                <div className="mpesa-step">
-                  <div className="mpesa-step-num">1</div>
-                  <div className="mpesa-step-text">Enter your Safaricom number &amp; tap Pay</div>
-                </div>
-                <div className="mpesa-step">
-                  <div className="mpesa-step-num">2</div>
-                  <div className="mpesa-step-text">An STK push prompt appears on your phone</div>
-                </div>
-                <div className="mpesa-step">
-                  <div className="mpesa-step-num">3</div>
-                  <div className="mpesa-step-text">Enter your M-Pesa PIN to confirm payment</div>
-                </div>
-              </div>
 
               <div className="mpesa-trust-badge">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

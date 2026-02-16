@@ -242,6 +242,8 @@
   box-shadow: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.06);
   animation: mpSlideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
   font-family: 'DM Sans', sans-serif;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 @keyframes mpSlideUp {
@@ -405,6 +407,125 @@
 .mpesa-trust-badge { display: flex; align-items: center; justify-content: center; gap: 5px; }
 .mpesa-trust-badge span { font-size: 10.5px; color: #888; text-align: center; line-height: 1.4; }
 
+/* ══════════════════════════════════════════════════
+   MANUAL PAYMENT SECTION
+══════════════════════════════════════════════════ */
+
+.manual-payment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.manual-payment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #2e7d32;
+}
+
+.manual-payment-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2e7d32;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.manual-payment-instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.manual-payment-title {
+  font-size: 13px;
+  color: #555;
+  font-weight: 600;
+  margin: 0;
+}
+
+.payment-detail-box {
+  background: #f1f8f1;
+  border: 2px solid #c8e6c9;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.payment-detail-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.payment-detail-item.highlight {
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #2e7d32;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+}
+
+.payment-detail-label {
+  font-size: 11px;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.payment-detail-value {
+  font-size: 16px;
+  color: #111;
+  font-weight: 700;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0.5px;
+}
+
+.payment-detail-value.selectable {
+  user-select: all;
+  background: #fff9e6;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px dashed #ffc107;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.payment-detail-value.selectable:hover {
+  background: #fff3cd;
+  border-color: #ff9800;
+}
+
+.payment-detail-value.amount {
+  color: #2e7d32;
+  font-size: 20px;
+}
+
+.manual-payment-note {
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #1565c0;
+  line-height: 1.6;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
 /* ── TRUST STRIP ── */
 .mo-trust {
   position: relative; z-index: 10; display: flex; align-items: center;
@@ -460,4 +581,20 @@
   .mpesa-modal { border-radius: 12px; }
   .mpesa-form { padding: 14px 14px 16px; }
   .mpesa-summary { padding: 12px 14px; }
+  
+  .payment-detail-box {
+    padding: 12px;
+  }
+  
+  .payment-detail-value {
+    font-size: 14px;
+  }
+  
+  .payment-detail-value.amount {
+    font-size: 18px;
+  }
+  
+  .manual-payment-note {
+    font-size: 11px;
+  }
 }
