@@ -592,14 +592,14 @@ function Pricing() {
                       </div>
 
                       <div className="manual-payment-note">
-                        💡 After completing payment, you'll receive an M-Pesa confirmation message with a transaction code to unlock VIP (e.g., QH23KLM890)
+                        💡 After completing payment, you'll receive an M-Pesa confirmation message with a transaction code (e.g., QH23KLM890)
                       </div>
                     </div>
 
                     <div className="mpesa-divider" style={{margin: '20px 0'}} />
 
                     <label className="mpesa-label" htmlFor="transaction-code">
-                      Enter M-Pesa Transaction Code
+                      Enter M-Pesa Transaction Code to unlock VIP
                     </label>
                     <div className="mpesa-phone-wrap">
                       <span className="mpesa-phone-icon">
@@ -635,7 +635,7 @@ function Pricing() {
                           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="20 6 9 17 4 12"/>
                           </svg>
-                          <span>Verify Payment</span>
+                          <span>Verify Payment </span>
                         </>
                       )}
                     </button>
