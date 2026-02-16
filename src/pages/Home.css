@@ -310,7 +310,10 @@ html { scroll-behavior: smooth; }
 @keyframes home-badgeSweep { 0%{left:-60%;}60%,100%{left:160%;} }
 
 .home-teams { font-family:var(--serif);font-size:20px;font-weight:700;display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px; }
-.home-team-name { color:var(--text-0); }
+.home-team-name { color:var(--text-0);
+font-size:0.7rem;
+
+}
 .home-vs-block { display:flex;align-items:center;gap:8px; }
 .home-vs-line { width:28px;height:1px;background:var(--text-3); }
 .home-vs-line.home-gold-line { background:var(--au-3); }
