@@ -609,290 +609,254 @@
 }
 
 /* ══════════════════════════════════════════════════
-   PAYMENT MODAL  — full styles for every state
+   PAYMENT MODAL — original old design (unchanged)
 ══════════════════════════════════════════════════ */
-.megaodds-modal-overlay {
+.payment-modal-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  backdrop-filter: blur(30px);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
   padding: 20px;
-  animation: modalOverlayFadeIn 0.6s ease;
+  animation: fadeIn 0.3s ease;
 }
 
-@keyframes modalOverlayFadeIn {
+@keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
 
-.megaodds-modal {
-  background: linear-gradient(135deg, rgba(26,26,26,0.98) 0%, rgba(15,15,15,0.98) 100%);
-  backdrop-filter: blur(60px) saturate(120%);
-  padding: 64px;
-  max-width: 600px;
+.payment-modal {
+  background: linear-gradient(135deg, rgba(15, 15, 25, 0.95), rgba(20, 20, 35, 0.95));
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 500px;
   width: 100%;
-  border: 1px solid rgba(212,175,55,0.2);
-  box-shadow:
-    0 48px 120px rgba(0,0,0,0.9),
-    0 0 100px rgba(212,175,55,0.15),
-    inset 0 1px 0 rgba(255,255,255,0.03),
-    inset 0 -1px 0 rgba(212,175,55,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   position: relative;
-  animation: modalSlideIn 0.8s cubic-bezier(0.19,1,0.22,1);
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes modalSlideIn {
-  from { transform: translateY(100px) scale(0.95); opacity: 0; }
-  to   { transform: translateY(0)      scale(1);    opacity: 1; }
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
 }
 
-.megaodds-modal-close {
+.modal-close {
   position: absolute;
-  top: 28px; right: 28px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(212,175,55,0.15);
-  color: var(--gold);
-  font-size: 20px;
-  width: 48px; height: 48px;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s;
-  line-height: 1;
+  transition: all 0.3s;
 }
 
-.megaodds-modal-close:hover {
-  background: rgba(212,175,55,0.1);
-  border-color: var(--gold);
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
   transform: rotate(90deg);
 }
 
-.megaodds-modal-header {
+.modal-header {
   text-align: center;
-  margin-bottom: 40px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid rgba(212,175,55,0.1);
-  position: relative;
+  margin-bottom: 24px;
 }
 
-.megaodds-modal-header::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  box-shadow: 0 0 16px var(--gold);
-  pointer-events: none;
-}
-
-.megaodds-modal-header h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 42px;
-  font-weight: 300;
-  margin-bottom: 12px;
-  color: var(--cream);
-  letter-spacing: -1px;
-}
-
-.megaodds-modal-plan-name {
-  font-size: 12px;
-  color: var(--gold);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
-
-.megaodds-modal-amount {
-  text-align: center;
-  padding: 36px 32px;
-  margin-bottom: 40px;
-  background: linear-gradient(135deg, rgba(212,175,55,0.04) 0%, rgba(212,175,55,0.02) 100%);
-  border-top: 1px solid rgba(212,175,55,0.1);
-  border-bottom: 1px solid rgba(212,175,55,0.1);
-}
-
-.megaodds-modal-currency {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  color: var(--gold);
-  margin-right: 6px;
-  font-weight: 400;
-}
-
-.megaodds-modal-value {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 72px;
-  font-weight: 300;
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+.modal-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #60a5fa, #f472b6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: -4px;
-  filter: drop-shadow(0 8px 32px rgba(212,175,55,0.4));
 }
 
-.megaodds-modal-period {
+.modal-plan-name {
+  font-size: 16px;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.modal-amount {
+  text-align: center;
+  padding: 24px 0;
+  margin-bottom: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-currency {
+  font-size: 18px;
+  color: #9ca3af;
+  margin-right: 4px;
+}
+
+.modal-value {
+  font-size: 48px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.modal-period {
   font-size: 14px;
-  color: rgba(245,245,240,0.4);
-  margin-left: 8px;
-  font-weight: 300;
+  color: #6b7280;
+  margin-left: 4px;
 }
 
-.megaodds-modal-form {
+.modal-form {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
 }
 
-.megaodds-modal-form label {
-  font-size: 11px;
+.modal-form label {
+  font-size: 14px;
   font-weight: 600;
-  color: var(--gold);
-  margin-bottom: -20px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
+  color: #e5e7eb;
+  margin-bottom: -12px;
 }
 
-.megaodds-phone-input {
-  padding: 20px 24px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(212,175,55,0.15);
-  color: var(--cream);
+.phone-input {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
   font-size: 16px;
   outline: none;
-  transition: all 0.5s;
-  font-weight: 400;
-  backdrop-filter: blur(10px);
+  transition: all 0.3s;
 }
 
-.megaodds-phone-input:focus {
-  border-color: var(--gold);
-  background: rgba(212,175,55,0.04);
-  box-shadow: 0 0 0 1px rgba(212,175,55,0.2), 0 12px 40px rgba(212,175,55,0.15);
+.phone-input:focus {
+  border-color: #22c55e;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
 }
 
-.megaodds-phone-input::placeholder { color: rgba(245,245,240,0.3); }
-.megaodds-phone-input:disabled     { opacity: 0.4; cursor: not-allowed; }
+.phone-input::placeholder { color: #6b7280; }
+.phone-input:disabled     { opacity: 0.5; cursor: not-allowed; }
 
-.megaodds-pay-button {
+.pay-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 22px 40px;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  gap: 10px;
+  padding: 18px 32px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   border: none;
-  color: var(--black);
-  font-size: 13px;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.6s;
-  box-shadow:
-    0 16px 48px rgba(212,175,55,0.4),
-    inset 0 1px 0 rgba(255,255,255,0.3),
-    inset 0 -1px 0 rgba(0,0,0,0.2);
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  position: relative;
-  overflow: hidden;
+  transition: all 0.4s;
+  box-shadow: 0 8px 30px rgba(34, 197, 94, 0.4);
 }
 
-.megaodds-pay-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.8s;
-  pointer-events: none;
+.pay-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(34, 197, 94, 0.5);
 }
 
-.megaodds-pay-button:hover:not(:disabled)::before { transform: translateX(100%); }
-
-.megaodds-pay-button:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow:
-    0 24px 64px rgba(212,175,55,0.6),
-    inset 0 1px 0 rgba(255,255,255,0.4),
-    inset 0 -1px 0 rgba(0,0,0,0.3);
-  filter: brightness(1.05);
+.pay-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.megaodds-pay-button:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* SPINNER */
-.megaodds-spinner {
-  width: 18px; height: 18px;
-  border: 3px solid rgba(0,0,0,0.2);
-  border-top-color: var(--black);
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* PAYMENT STATUS MESSAGES */
-.megaodds-payment-status {
-  padding: 18px 24px;
-  font-size: 13px;
+.payment-status {
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 14px;
   font-weight: 600;
   text-align: center;
-  animation: statusReveal 0.5s ease;
-  border: 1px solid;
-  letter-spacing: 0.5px;
+  animation: slideDown 0.3s ease;
 }
 
-@keyframes statusReveal {
-  from { opacity: 0; transform: translateY(-15px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes slideDown {
+  from { transform: translateY(-10px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
 }
 
-.megaodds-payment-status-info {
-  background: rgba(59,130,246,0.08);
-  border-color: rgba(59,130,246,0.3);
+.payment-status-info {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   color: #60a5fa;
 }
 
-.megaodds-payment-status-success {
-  background: rgba(212,175,55,0.08);
-  border-color: var(--gold);
-  color: var(--gold-light);
+.payment-status-success {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #22c55e;
 }
 
-.megaodds-payment-status-error {
-  background: rgba(239,68,68,0.08);
-  border-color: rgba(239,68,68,0.3);
-  color: #f87171;
+.payment-status-error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
 }
 
-.megaodds-payment-status-warning {
-  background: rgba(245,158,11,0.08);
-  border-color: rgba(245,158,11,0.3);
+.payment-status-warning {
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.3);
   color: #fbbf24;
 }
 
-/* PAYMENT INFO BOX */
-.megaodds-payment-info {
-  background: rgba(212,175,55,0.04);
-  border: 1px solid rgba(212,175,55,0.1);
-  padding: 24px;
+.payment-info {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 12px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.megaodds-payment-info p {
+.payment-info p {
   font-size: 13px;
-  color: rgba(245,245,240,0.6);
+  color: #d1d5db;
   margin: 0;
-  line-height: 1.7;
-  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* responsive modal */
+@media (max-width: 768px) {
+  .payment-modal       { padding: 28px 20px; }
+  .modal-header h2     { font-size: 24px; }
+  .modal-value         { font-size: 40px; }
+}
+
+@media (max-width: 500px) {
+  .phone-input { font-size: 16px; }
 }
 
 /* ── TRUST SECTION ── */
@@ -1102,14 +1066,14 @@
   .megaodds-trust-item           { min-width: 100%; }
   .megaodds-faq-grid             { grid-template-columns: 1fr; }
 
-  .megaodds-modal                { padding: 48px 28px; }
-  .megaodds-modal-header h2      { font-size: 32px; }
-  .megaodds-modal-value          { font-size: 56px; }
+  .payment-modal       { padding: 28px 20px; }
+  .modal-header h2     { font-size: 24px; }
+  .modal-value         { font-size: 40px; }
 }
 
 @media (max-width: 500px) {
   .megaodds-hero        { padding: 160px 20px 100px; }
   .megaodds-card        { padding: 44px 32px; }
-  .megaodds-phone-input { font-size: 16px; }
+  .phone-input { font-size: 16px; }
   .megaodds-value       { font-size: 72px; }
 }

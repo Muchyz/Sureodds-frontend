@@ -313,25 +313,24 @@ function Pricing() {
 
       </section>
 
-      {/* PAYMENT MODAL */}
+      {/* PAYMENT MODAL — original old design */}
       {showModal && (
-        <div className="megaodds-modal-overlay" onClick={closeModal}>
-          <div className="megaodds-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="payment-modal-overlay" onClick={closeModal}>
+          <div className="payment-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>×</button>
 
-            <button className="megaodds-modal-close" onClick={closeModal}>×</button>
-
-            <div className="megaodds-modal-header">
+            <div className="modal-header">
               <h2>Complete Your Payment</h2>
-              <p className="megaodds-modal-plan-name">{plans[selectedPlan]?.name} Plan</p>
+              <p className="modal-plan-name">{plans[selectedPlan]?.name} Plan</p>
             </div>
 
-            <div className="megaodds-modal-amount">
-              <span className="megaodds-modal-currency">KES</span>
-              <span className="megaodds-modal-value">{plans[selectedPlan]?.price.toLocaleString()}</span>
-              <span className="megaodds-modal-period">/ {plans[selectedPlan]?.period}</span>
+            <div className="modal-amount">
+              <span className="modal-currency">KES</span>
+              <span className="modal-value">{plans[selectedPlan]?.price.toLocaleString()}</span>
+              <span className="modal-period">/ {plans[selectedPlan]?.period}</span>
             </div>
 
-            <div className="megaodds-modal-form">
+            <div className="modal-form">
               <label htmlFor="phone">M-Pesa Phone Number</label>
               <input
                 id="phone"
@@ -340,17 +339,17 @@ function Pricing() {
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 disabled={loading}
-                className="megaodds-phone-input"
+                className="phone-input"
               />
 
               <button
                 onClick={initiatePayment}
                 disabled={loading || !phoneNumber}
-                className="megaodds-pay-button"
+                className="pay-button"
               >
                 {loading ? (
                   <>
-                    <span className="megaodds-spinner"></span>
+                    <span className="spinner"></span>
                     Processing...
                   </>
                 ) : (
@@ -367,18 +366,17 @@ function Pricing() {
               </button>
 
               {paymentStatus && (
-                <div className={`megaodds-payment-status megaodds-payment-status-${paymentStatus.type}`}>
+                <div className={`payment-status payment-status-${paymentStatus.type}`}>
                   {paymentStatus.message}
                 </div>
               )}
 
-              <div className="megaodds-payment-info">
+              <div className="payment-info">
                 <p>📱 You will receive an STK push on your phone</p>
                 <p>🔐 Enter your M-Pesa PIN to complete payment</p>
                 <p>⚡ VIP access is granted immediately after payment</p>
               </div>
             </div>
-
           </div>
         </div>
       )}
