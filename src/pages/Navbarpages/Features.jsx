@@ -241,7 +241,7 @@ function Features() {
               </div>
               <div className="bst__lf-header-right">
                 <span className="bst__lf-enc">AES-256 · ENCRYPTED</span>
-                <span className="bst__lf-lock">⬛ VIP ONLY</span>
+                <span className="bst__lf-lock">⛔️ VIP ONLY ⚠️ </span>
               </div>
             </div>
 
