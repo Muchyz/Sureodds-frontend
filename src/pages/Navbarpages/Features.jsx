@@ -5,14 +5,14 @@ import api from "@/api";
 
 function Features() {
   const [features, setFeatures] = useState([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const tickerRef = useRef(null);
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(true);
+  const [time, setTime]         = useState(new Date());
+  const clockRef = useRef(null);
 
   useEffect(() => {
     api.get("/features")
-      .then((res) => { setFeatures(res.data); setError(""); })
+      .then(r  => { setFeatures(r.data); setError(""); })
       .catch(() => {
         setError("Bets only visible to VIP's ...Upgrade to VIP to unlock features");
         setFeatures([]);
@@ -20,187 +20,210 @@ function Features() {
       .finally(() => setLoading(false));
   }, []);
 
-  const tickerItems = [
-    "REAL-TIME DATA", "EXPERT PICKS", "VIP ACCESS", "PROVEN RESULTS",
-    "INSIDER ANALYSIS", "DAILY BETS", "WIN SMARTER", "BET LIKE A PRO",
-  ];
+  // Live clock — pure UI drama
+  useEffect(() => {
+    const id = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const pad = n => String(n).padStart(2, "0");
+  const liveTime = `${pad(time.getHours())}:${pad(time.getMinutes())}:${pad(time.getSeconds())}`;
+
+  const tickerText = "WIN SMARTER · BET LIKE A PRO · REAL DATA · INSIDER EDGE · VIP ACCESS · EXPERT PICKS · LIVE ODDS · DAILY INTEL ·\u00A0";
 
   return (
-    <div className="ug-club__root">
+    <div className="bst__root">
 
-      {/* Texture layers */}
-      <div className="ug-club__felt-bg" />
-      <div className="ug-club__vignette" />
-
-      {/* Racing stripe top */}
-      <div className="ug-club__stripe-top">
-        <div className="ug-club__stripe-gold" />
-        <div className="ug-club__stripe-thin" />
+      {/* Top status bar */}
+      <div className="bst__statusbar">
+        <span className="bst__status-left">
+          <span className="bst__status-dot" />
+          LIVE
+        </span>
+        <span className="bst__status-mid">VIP INTELLIGENCE TERMINAL</span>
+        <span className="bst__status-right">{liveTime}</span>
       </div>
 
       {/* ── HERO ── */}
-      <header className="ug-club__hero">
+      <section className="bst__hero">
 
-        {/* Crest / emblem */}
-        <div className="ug-club__crest">
-          <div className="ug-club__crest-ring ug-club__crest-ring--outer" />
-          <div className="ug-club__crest-ring ug-club__crest-ring--inner" />
-          <span className="ug-club__crest-diamond">◆</span>
-        </div>
+        {/* Giant background number — pure brutalist decoration */}
+        <div className="bst__bg-num" aria-hidden="true">01</div>
 
-        <p className="ug-club__eyebrow">Members Only · Est. 2024</p>
-
-        <h1 className="ug-club__hero-title">
-          <span className="ug-club__hero-line ug-club__hero-line--1">WIN</span>
-          <span className="ug-club__hero-line ug-club__hero-line--2">SMARTER.</span>
-          <span className="ug-club__hero-line ug-club__hero-line--3">BET LIKE</span>
-          <span className="ug-club__hero-line ug-club__hero-line--4">A PRO.</span>
-        </h1>
-
-        <p className="ug-club__hero-sub">
-          Elite intelligence. Real data. Inside edge.<br />
-          Not tips — an unfair advantage.
-        </p>
-
-        <Link to="/pricing" className="ug-club__hero-cta">
-          <span className="ug-club__cta-track" />
-          <span className="ug-club__cta-label">Unlock VIP Access</span>
-          <span className="ug-club__cta-arrow">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
-        </Link>
-
-        {/* Scoreboard-style stats */}
-        <div className="ug-club__scoreboard">
-          {[
-            { val: "94%", lbl: "Accuracy" },
-            { val: "12K+", lbl: "Members" },
-            { val: "Daily", lbl: "Fresh Picks" },
-            { val: "24/7", lbl: "Live Data" },
-          ].map((s) => (
-            <div key={s.lbl} className="ug-club__score-cell">
-              <span className="ug-club__score-val">{s.val}</span>
-              <span className="ug-club__score-lbl">{s.lbl}</span>
+        <div className="bst__hero-grid">
+          {/* Left col — headline */}
+          <div className="bst__hero-left">
+            <div className="bst__tag-row">
+              <span className="bst__tag">◼ MEMBERS ONLY</span>
+              <span className="bst__tag bst__tag--hot">● LIVE</span>
             </div>
-          ))}
-        </div>
-      </header>
 
-      {/* ── TICKER ── */}
-      <div className="ug-club__ticker-wrap">
-        <div className="ug-club__ticker-inner" ref={tickerRef}>
-          {[...tickerItems, ...tickerItems].map((item, i) => (
-            <span key={i} className="ug-club__ticker-item">
-              <span className="ug-club__ticker-diamond">◆</span>
-              {item}
-            </span>
+            <h1 className="bst__headline">
+              <span className="bst__h-row">
+                <span className="bst__h-outline">WIN</span>
+              </span>
+              <span className="bst__h-row bst__h-row--indent">
+                <span className="bst__h-solid">SMARTER</span>
+                <span className="bst__h-period">.</span>
+              </span>
+              <span className="bst__h-rule" />
+              <span className="bst__h-row">
+                <span className="bst__h-solid bst__h-solid--amber">BET</span>
+                <span className="bst__h-outline bst__h-outline--sm">LIKE</span>
+              </span>
+              <span className="bst__h-row bst__h-row--right">
+                <span className="bst__h-solid">A PRO.</span>
+              </span>
+            </h1>
+
+            <p className="bst__sub">
+              Not tips. Not hunches.<br />
+              <em>Intelligence.</em> Real data. Inside edge.
+            </p>
+
+            <div className="bst__cta-row">
+              <Link to="/pricing" className="bst__cta">
+                UNLOCK VIP
+                <span className="bst__cta-flash" />
+              </Link>
+              <span className="bst__cta-note">No lock-in. Cancel anytime.</span>
+            </div>
+          </div>
+
+          {/* Right col — data panel */}
+          <div className="bst__hero-right">
+            <div className="bst__data-panel">
+              <div className="bst__data-header">SYSTEM STATUS</div>
+
+              {[
+                { label: "ACCURACY",    val: "94%",   bar: 94 },
+                { label: "MEMBERS",     val: "12,481", bar: 78 },
+                { label: "PICKS TODAY", val: "7",      bar: 70 },
+                { label: "WIN STREAK",  val: "23",     bar: 90 },
+              ].map(row => (
+                <div key={row.label} className="bst__data-row">
+                  <span className="bst__data-label">{row.label}</span>
+                  <div className="bst__data-bar-wrap">
+                    <div className="bst__data-bar" style={{ "--w": `${row.bar}%` }} />
+                  </div>
+                  <span className="bst__data-val">{row.val}</span>
+                </div>
+              ))}
+
+              <div className="bst__data-footer">
+                LAST UPDATED <span className="bst__data-time">{liveTime}</span>
+              </div>
+            </div>
+
+            {/* Trust flags */}
+            <div className="bst__flags">
+              {["Real-time Data", "Expert Analysis", "Proven Results"].map(f => (
+                <div key={f} className="bst__flag">✓ {f}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CRAWL TICKER ── */}
+      <div className="bst__crawl" aria-hidden="true">
+        <div className="bst__crawl-inner">
+          {Array(4).fill(tickerText).map((t, i) => (
+            <span key={i}>{t}</span>
           ))}
         </div>
       </div>
 
-      {/* ── SECTION HEADER ── */}
-      <div className="ug-club__section-hd">
-        <div className="ug-club__section-rule" />
-        <span className="ug-club__section-tag">VIP Intelligence Feed</span>
-        <div className="ug-club__section-rule" />
+      {/* ── SECTION LABEL ── */}
+      <div className="bst__feed-hd">
+        <span className="bst__feed-tag">▶ VIP FEED</span>
+        <div className="bst__feed-rule" />
+        <span className="bst__feed-count">
+          {!loading && !error ? `${features.length} ITEMS` : "——"}
+        </span>
       </div>
 
       {/* ── ERROR ── */}
       {error && (
-        <div className="ug-club__lockout">
-          <div className="ug-club__lockout-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
+        <div className="bst__error">
+          <div className="bst__error-code">
+            <span className="bst__error-num">403</span>
+            <span className="bst__error-label">ACCESS DENIED</span>
           </div>
-          <p className="ug-club__lockout-msg">{error}</p>
-          <Link to="/pricing" className="ug-club__lockout-cta">
-            View Membership Plans →
-          </Link>
+          <div className="bst__error-body">
+            <p className="bst__error-msg">{error}</p>
+            <Link to="/pricing" className="bst__error-cta">VIEW PLANS →</Link>
+          </div>
         </div>
       )}
 
       {/* ── LOADING ── */}
       {loading && !error && (
-        <div className="ug-club__loading">
-          <div className="ug-club__odds-board">
-            {["—", "—", "—"].map((_, i) => (
-              <div key={i} className="ug-club__odds-row">
-                <div className="ug-club__odds-shimmer" style={{ "--d": `${i * 0.15}s` }} />
-              </div>
-            ))}
-          </div>
-          <p className="ug-club__loading-lbl">Pulling live intelligence…</p>
+        <div className="bst__loading">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="bst__load-row" style={{ "--di": i }}>
+              <div className="bst__load-label" />
+              <div className="bst__load-bar" />
+              <div className="bst__load-val" />
+            </div>
+          ))}
         </div>
       )}
 
-      {/* ── FEATURES GRID ── */}
+      {/* ── FEATURES ── */}
       {!loading && !error && features.length > 0 && (
-        <section className="ug-club__grid">
-          {features.map((f, index) => (
-            <article
-              key={f.id}
-              className={`ug-club__card ${hoveredCard === f.id ? "ug-club__card--lit" : ""}`}
-              onMouseEnter={() => setHoveredCard(f.id)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={{ "--ci": index }}
-            >
-              {/* Gold top bar */}
-              <div className="ug-club__card-topbar" />
+        <section className="bst__grid">
+          {features.map((f, i) => (
+            <article key={f.id} className="bst__card" style={{ "--ci": i }}>
 
-              {/* Race number */}
-              <div className="ug-club__card-num">
-                <span>{String(index + 1).padStart(2, "0")}</span>
+              {/* Card index — oversized, bleeds */}
+              <div className="bst__card-num" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
               </div>
 
-              <div className="ug-club__card-body">
-                <div className="ug-club__card-meta">VIP · FEATURE</div>
-                <h3 className="ug-club__card-title">{f.title}</h3>
-                <p className="ug-club__card-desc">{f.description}</p>
+              <div className="bst__card-content">
+                <div className="bst__card-top">
+                  <span className="bst__card-tag">VIP · FEATURE</span>
+                  <span className="bst__card-status">● ACTIVE</span>
+                </div>
+
+                <h3 className="bst__card-title">{f.title}</h3>
+                <p className="bst__card-desc">{f.description}</p>
 
                 {f.image_url && (
-                  <div className="ug-club__card-img-frame">
-                    <img
-                      src={f.image_url}
-                      alt={f.title}
-                      className="ug-club__card-img"
-                      loading="lazy"
-                    />
-                    <div className="ug-club__card-img-overlay" />
+                  <div className="bst__card-img-wrap">
+                    <img src={f.image_url} alt={f.title} className="bst__card-img" loading="lazy" />
+                    <div className="bst__card-img-scan" />
                   </div>
                 )}
               </div>
 
-              <div className="ug-club__card-foot">
-                <div className="ug-club__card-foot-rule" />
-                <span className="ug-club__card-foot-lbl">Exclusive Access</span>
-                <span className="ug-club__card-foot-arrow">→</span>
+              <div className="bst__card-base">
+                <div className="bst__card-base-rule" />
+                <span className="bst__card-access">EXCLUSIVE ACCESS →</span>
               </div>
 
-              {/* Ambient glow */}
-              <div className="ug-club__card-glow" />
+              {/* Corner mark */}
+              <div className="bst__card-corner" />
             </article>
           ))}
         </section>
       )}
 
-      {/* ── FOOTER BAND ── */}
-      <footer className="ug-club__footer">
-        <div className="ug-club__footer-inner">
-          <div className="ug-club__footer-crest">◆</div>
-          <p className="ug-club__footer-copy">
-            Join 12,000+ members who hold the edge every day.
-          </p>
-          <Link to="/pricing" className="ug-club__footer-cta">
-            Become a Member
+      {/* ── FOOTER ── */}
+      <footer className="bst__footer">
+        <div className="bst__footer-left">
+          <p className="bst__footer-stat">12,000+</p>
+          <p className="bst__footer-stat-lbl">Members holding the edge</p>
+        </div>
+        <div className="bst__footer-center">
+          <Link to="/pricing" className="bst__footer-cta">
+            BECOME A MEMBER
           </Link>
         </div>
-        <div className="ug-club__stripe-bottom">
-          <div className="ug-club__stripe-gold" />
-          <div className="ug-club__stripe-thin" />
+        <div className="bst__footer-right">
+          <p className="bst__footer-stat">94%</p>
+          <p className="bst__footer-stat-lbl">Accuracy rate</p>
         </div>
       </footer>
 
