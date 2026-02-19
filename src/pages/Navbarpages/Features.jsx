@@ -8,7 +8,7 @@ function Features() {
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(true);
   const [time, setTime]         = useState(new Date());
-  const clockRef = useRef(null);
+  const [glitch, setGlitch]     = useState(false);
 
   useEffect(() => {
     api.get("/features")
@@ -20,211 +20,203 @@ function Features() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Live clock — pure UI drama
   useEffect(() => {
-    const id = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(id);
+    const clock = setInterval(() => setTime(new Date()), 1000);
+    // Random glitch effect
+    const glitcher = setInterval(() => {
+      setGlitch(true);
+      setTimeout(() => setGlitch(false), 120);
+    }, 4000 + Math.random() * 3000);
+    return () => { clearInterval(clock); clearInterval(glitcher); };
   }, []);
 
   const pad = n => String(n).padStart(2, "0");
   const liveTime = `${pad(time.getHours())}:${pad(time.getMinutes())}:${pad(time.getSeconds())}`;
 
-  const tickerText = "WIN SMARTER · BET LIKE A PRO · REAL DATA · INSIDER EDGE · VIP ACCESS · EXPERT PICKS · LIVE ODDS · DAILY INTEL ·\u00A0";
-
   return (
-    <div className="bst__root">
+    <div className={`npx__root ${glitch ? "npx__root--glitch" : ""}`}>
 
-      {/* Top status bar */}
-      <div className="bst__statusbar">
-        <span className="bst__status-left">
-          <span className="bst__status-dot" />
-          LIVE
-        </span>
-        <span className="bst__status-mid">VIP INTELLIGENCE TERMINAL</span>
-        <span className="bst__status-right">{liveTime}</span>
+      {/* CRT scanlines */}
+      <div className="npx__scanlines" />
+      {/* Grid overlay */}
+      <div className="npx__grid" />
+
+      {/* ── TOP BAR ── */}
+      <div className="npx__topbar">
+        <div className="npx__topbar-left">
+          <span className="npx__pill npx__pill--pink">◆ VIP</span>
+          <span className="npx__pill npx__pill--blue">LIVE</span>
+        </div>
+        <div className="npx__topbar-mid">
+          <span className="npx__logo">BET<span className="npx__logo-accent">PRO</span></span>
+        </div>
+        <div className="npx__topbar-right">
+          <span className="npx__clock">{liveTime}</span>
+        </div>
       </div>
 
       {/* ── HERO ── */}
-      <section className="bst__hero">
+      <section className="npx__hero">
 
-        {/* Giant background number — pure brutalist decoration */}
-        <div className="bst__bg-num" aria-hidden="true">01</div>
-
-        <div className="bst__hero-grid">
-          {/* Left col — headline */}
-          <div className="bst__hero-left">
-            <div className="bst__tag-row">
-              <span className="bst__tag">◼ MEMBERS ONLY</span>
-              <span className="bst__tag bst__tag--hot">● LIVE</span>
-            </div>
-
-            <h1 className="bst__headline">
-              <span className="bst__h-row">
-                <span className="bst__h-outline">WIN</span>
-              </span>
-              <span className="bst__h-row bst__h-row--indent">
-                <span className="bst__h-solid">SMARTER</span>
-                <span className="bst__h-period">.</span>
-              </span>
-              <span className="bst__h-rule" />
-              <span className="bst__h-row">
-                <span className="bst__h-solid bst__h-solid--amber">BET</span>
-                <span className="bst__h-outline bst__h-outline--sm">LIKE</span>
-              </span>
-              <span className="bst__h-row bst__h-row--right">
-                <span className="bst__h-solid">A PRO.</span>
-              </span>
-            </h1>
-
-            <p className="bst__sub">
-              Not tips. Not hunches.<br />
-              <em>Intelligence.</em> Real data. Inside edge.
-            </p>
-
-            <div className="bst__cta-row">
-              <Link to="/pricing" className="bst__cta">
-                UNLOCK VIP
-                <span className="bst__cta-flash" />
-              </Link>
-              <span className="bst__cta-note">No lock-in. Cancel anytime.</span>
-            </div>
-          </div>
-
-          {/* Right col — data panel */}
-          <div className="bst__hero-right">
-            <div className="bst__data-panel">
-              <div className="bst__data-header">SYSTEM STATUS</div>
-
-              {[
-                { label: "ACCURACY",    val: "94%",   bar: 94 },
-                { label: "MEMBERS",     val: "12,481", bar: 78 },
-                { label: "PICKS TODAY", val: "7",      bar: 70 },
-                { label: "WIN STREAK",  val: "23",     bar: 90 },
-              ].map(row => (
-                <div key={row.label} className="bst__data-row">
-                  <span className="bst__data-label">{row.label}</span>
-                  <div className="bst__data-bar-wrap">
-                    <div className="bst__data-bar" style={{ "--w": `${row.bar}%` }} />
-                  </div>
-                  <span className="bst__data-val">{row.val}</span>
-                </div>
-              ))}
-
-              <div className="bst__data-footer">
-                LAST UPDATED <span className="bst__data-time">{liveTime}</span>
-              </div>
-            </div>
-
-            {/* Trust flags */}
-            <div className="bst__flags">
-              {["Real-time Data", "Expert Analysis", "Proven Results"].map(f => (
-                <div key={f} className="bst__flag">✓ {f}</div>
-              ))}
-            </div>
-          </div>
+        {/* Stacked colliding type */}
+        <div className="npx__type-stack">
+          <span className="npx__t1">WIN</span>
+          <span className="npx__t2">SMARTER</span>
+          <span className="npx__t3">BET LIKE</span>
+          <span className="npx__t4">A&nbsp;PRO</span>
+          {/* Ghost duplicate for glitch depth */}
+          <span className="npx__t2-ghost" aria-hidden="true">SMARTER</span>
         </div>
+
+        {/* Floating side panel */}
+        <div className="npx__hero-panel">
+          <div className="npx__panel-header">
+            <span className="npx__panel-dot npx__panel-dot--pink" />
+            <span className="npx__panel-dot npx__panel-dot--blue" />
+            <span className="npx__panel-dot npx__panel-dot--white" />
+            <span className="npx__panel-title">INTEL FEED</span>
+          </div>
+
+          <div className="npx__panel-rows">
+            {[
+              { k: "ACCURACY",   v: "94%",   c: "pink"  },
+              { k: "MEMBERS",    v: "12K+",  c: "blue"  },
+              { k: "WIN STREAK", v: "23×",   c: "pink"  },
+              { k: "PICKS/DAY",  v: "7",     c: "white" },
+            ].map(r => (
+              <div key={r.k} className="npx__panel-row">
+                <span className="npx__panel-key">{r.k}</span>
+                <span className={`npx__panel-val npx__panel-val--${r.c}`}>{r.v}</span>
+              </div>
+            ))}
+          </div>
+
+          <Link to="/pricing" className="npx__panel-cta">
+            <span className="npx__cta-inner">UNLOCK VIP</span>
+            <span className="npx__cta-bg" />
+          </Link>
+
+          <p className="npx__panel-note">Members only · No lock-in</p>
+        </div>
+
+        {/* Bottom hero sub */}
+        <div className="npx__hero-sub-wrap">
+          <div className="npx__sub-rule" />
+          <p className="npx__hero-sub">
+            Not tips. <em>Intelligence.</em> Real data. Inside edge. The unfair advantage.
+          </p>
+          <div className="npx__sub-rule npx__sub-rule--blue" />
+        </div>
+
       </section>
 
-      {/* ── CRAWL TICKER ── */}
-      <div className="bst__crawl" aria-hidden="true">
-        <div className="bst__crawl-inner">
-          {Array(4).fill(tickerText).map((t, i) => (
-            <span key={i}>{t}</span>
+      {/* ── MARQUEE ── */}
+      <div className="npx__marquee-wrap">
+        <div className="npx__marquee-track">
+          {Array(6).fill("WIN SMARTER · REAL DATA · EXPERT PICKS · VIP ACCESS · DAILY INTEL · LIVE ODDS · INSIDE EDGE · BET LIKE A PRO · ").map((t, i) => (
+            <span key={i} className="npx__marquee-text">{t}</span>
           ))}
         </div>
       </div>
 
-      {/* ── SECTION LABEL ── */}
-      <div className="bst__feed-hd">
-        <span className="bst__feed-tag">▶ VIP FEED</span>
-        <div className="bst__feed-rule" />
-        <span className="bst__feed-count">
-          {!loading && !error ? `${features.length} ITEMS` : "——"}
+      {/* Second marquee — opposite direction */}
+      <div className="npx__marquee-wrap npx__marquee-wrap--rev">
+        <div className="npx__marquee-track npx__marquee-track--rev">
+          {Array(6).fill("◆ EXCLUSIVE ◆ INSIDER ◆ PREMIUM ◆ MEMBERS ONLY ◆ PROVEN ◆ 94% ACCURACY ◆ ").map((t, i) => (
+            <span key={i} className="npx__marquee-text npx__marquee-text--dim">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* ── SECTION HEADER ── */}
+      <div className="npx__section-hd">
+        <span className="npx__section-num">01</span>
+        <span className="npx__section-label">VIP FEATURES</span>
+        <span className="npx__section-count">
+          {!loading && !error ? `[${features.length}]` : "[—]"}
         </span>
       </div>
 
       {/* ── ERROR ── */}
       {error && (
-        <div className="bst__error">
-          <div className="bst__error-code">
-            <span className="bst__error-num">403</span>
-            <span className="bst__error-label">ACCESS DENIED</span>
+        <div className="npx__error">
+          <div className="npx__error-head">
+            <span className="npx__error-x">✕</span>
+            <span className="npx__error-title">ACCESS LOCKED</span>
           </div>
-          <div className="bst__error-body">
-            <p className="bst__error-msg">{error}</p>
-            <Link to="/pricing" className="bst__error-cta">VIEW PLANS →</Link>
-          </div>
+          <p className="npx__error-msg">{error}</p>
+          <Link to="/pricing" className="npx__error-cta">UPGRADE NOW →</Link>
         </div>
       )}
 
       {/* ── LOADING ── */}
       {loading && !error && (
-        <div className="bst__loading">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="bst__load-row" style={{ "--di": i }}>
-              <div className="bst__load-label" />
-              <div className="bst__load-bar" />
-              <div className="bst__load-val" />
+        <div className="npx__loading">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="npx__load-bar-wrap" style={{ "--li": i }}>
+              <div className="npx__load-bar" />
             </div>
           ))}
+          <span className="npx__load-label">LOADING INTEL…</span>
         </div>
       )}
 
       {/* ── FEATURES ── */}
       {!loading && !error && features.length > 0 && (
-        <section className="bst__grid">
+        <section className="npx__grid">
           {features.map((f, i) => (
-            <article key={f.id} className="bst__card" style={{ "--ci": i }}>
+            <article
+              key={f.id}
+              className="npx__card"
+              style={{ "--ci": i }}
+            >
+              {/* Colour accent edge — alternates pink/blue */}
+              <div className={`npx__card-edge npx__card-edge--${i % 2 === 0 ? "pink" : "blue"}`} />
 
-              {/* Card index — oversized, bleeds */}
-              <div className="bst__card-num" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-
-              <div className="bst__card-content">
-                <div className="bst__card-top">
-                  <span className="bst__card-tag">VIP · FEATURE</span>
-                  <span className="bst__card-status">● ACTIVE</span>
+              <div className="npx__card-inner">
+                {/* Number + tag row */}
+                <div className="npx__card-toprow">
+                  <span className="npx__card-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className={`npx__card-badge npx__card-badge--${i % 2 === 0 ? "pink" : "blue"}`}>
+                    VIP
+                  </span>
                 </div>
 
-                <h3 className="bst__card-title">{f.title}</h3>
-                <p className="bst__card-desc">{f.description}</p>
+                <h3 className="npx__card-title">{f.title}</h3>
+                <p className="npx__card-desc">{f.description}</p>
 
                 {f.image_url && (
-                  <div className="bst__card-img-wrap">
-                    <img src={f.image_url} alt={f.title} className="bst__card-img" loading="lazy" />
-                    <div className="bst__card-img-scan" />
+                  <div className="npx__card-img-wrap">
+                    <img src={f.image_url} alt={f.title} className="npx__card-img" loading="lazy" />
+                    <div className="npx__card-img-tint" />
                   </div>
                 )}
-              </div>
 
-              <div className="bst__card-base">
-                <div className="bst__card-base-rule" />
-                <span className="bst__card-access">EXCLUSIVE ACCESS →</span>
+                <div className="npx__card-foot">
+                  <span className="npx__card-foot-arrow">→</span>
+                  <span className="npx__card-foot-label">EXCLUSIVE ACCESS</span>
+                </div>
               </div>
-
-              {/* Corner mark */}
-              <div className="bst__card-corner" />
             </article>
           ))}
         </section>
       )}
 
       {/* ── FOOTER ── */}
-      <footer className="bst__footer">
-        <div className="bst__footer-left">
-          <p className="bst__footer-stat">12,000+</p>
-          <p className="bst__footer-stat-lbl">Members holding the edge</p>
-        </div>
-        <div className="bst__footer-center">
-          <Link to="/pricing" className="bst__footer-cta">
-            BECOME A MEMBER
+      <footer className="npx__footer">
+        <div className="npx__footer-noise" />
+        <div className="npx__footer-inner">
+          <div className="npx__footer-logo">
+            BET<span className="npx__logo-accent">PRO</span>
+          </div>
+          <p className="npx__footer-copy">
+            12,000+ members holding the edge every day.
+          </p>
+          <Link to="/pricing" className="npx__footer-cta">
+            JOIN NOW
           </Link>
         </div>
-        <div className="bst__footer-right">
-          <p className="bst__footer-stat">94%</p>
-          <p className="bst__footer-stat-lbl">Accuracy rate</p>
-        </div>
+        <div className="npx__footer-bar" />
       </footer>
 
     </div>
