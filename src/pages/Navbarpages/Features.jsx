@@ -20,7 +20,6 @@ function Features() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Live clock — pure UI drama
   useEffect(() => {
     const id = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(id);
@@ -46,8 +45,6 @@ function Features() {
 
       {/* ── HERO ── */}
       <section className="bst__hero">
-
-        {/* Giant background number — pure brutalist decoration */}
         <div className="bst__bg-num" aria-hidden="true">01</div>
 
         <div className="bst__hero-grid">
@@ -96,10 +93,10 @@ function Features() {
               <div className="bst__data-header">SYSTEM STATUS</div>
 
               {[
-                { label: "ACCURACY",    val: "94%",   bar: 94 },
-                { label: "MEMBERS",     val: "12,481", bar: 78 },
-                { label: "PICKS TODAY", val: "7",      bar: 70 },
-                { label: "WIN STREAK",  val: "23",     bar: 90 },
+                { label: "ACCURACY",    val: "100%",  bar: 100 },
+                { label: "MEMBERS",     val: "12,481", bar: 78  },
+                { label: "PICKS TODAY", val: "7",      bar: 70  },
+                { label: "WIN STREAK",  val: "23",     bar: 90  },
               ].map(row => (
                 <div key={row.label} className="bst__data-row">
                   <span className="bst__data-label">{row.label}</span>
@@ -115,9 +112,8 @@ function Features() {
               </div>
             </div>
 
-            {/* Trust flags */}
             <div className="bst__flags">
-              {["Real-time Data", "Expert Analysis", "Proven Results"].map(f => (
+              {["Real-time Data", "Expert Analysis", "100% Proven Results"].map(f => (
                 <div key={f} className="bst__flag">✓ {f}</div>
               ))}
             </div>
@@ -134,13 +130,34 @@ function Features() {
         </div>
       </div>
 
-      {/* ── SECTION LABEL ── */}
+      {/* ── VIP FEED HEADER ── */}
       <div className="bst__feed-hd">
-        <span className="bst__feed-tag">▶ VIP FEED</span>
-        <div className="bst__feed-rule" />
-        <span className="bst__feed-count">
-          {!loading && !error ? `${features.length} ITEMS` : "——"}
-        </span>
+        <div className="bst__feed-hd-left">
+          <div className="bst__feed-live-dot" />
+          <div className="bst__feed-hd-titles">
+            <span className="bst__feed-eyebrow">MEMBERS ONLY</span>
+            <span className="bst__feed-title">VIP Intelligence Feed</span>
+          </div>
+        </div>
+
+        <div className="bst__feed-hd-meta">
+          <div className="bst__feed-stat">
+            <span className="bst__feed-stat-val">100%</span>
+            <span className="bst__feed-stat-lbl">Accuracy</span>
+          </div>
+          <div className="bst__feed-stat-divider" />
+          <div className="bst__feed-stat">
+            <span className="bst__feed-stat-val">
+              {!loading && !error ? features.length : "—"}
+            </span>
+            <span className="bst__feed-stat-lbl">Features</span>
+          </div>
+          <div className="bst__feed-stat-divider" />
+          <div className="bst__feed-stat">
+            <span className="bst__feed-stat-val bst__feed-stat-val--live">{liveTime}</span>
+            <span className="bst__feed-stat-lbl">Live</span>
+          </div>
+        </div>
       </div>
 
       {/* ── ERROR ── */}
@@ -175,8 +192,6 @@ function Features() {
         <section className="bst__grid">
           {features.map((f, i) => (
             <article key={f.id} className="bst__card" style={{ "--ci": i }}>
-
-              {/* Card index — oversized, bleeds */}
               <div className="bst__card-num" aria-hidden="true">
                 {String(i + 1).padStart(2, "0")}
               </div>
@@ -203,7 +218,6 @@ function Features() {
                 <span className="bst__card-access">EXCLUSIVE ACCESS →</span>
               </div>
 
-              {/* Corner mark */}
               <div className="bst__card-corner" />
             </article>
           ))}
@@ -222,7 +236,7 @@ function Features() {
           </Link>
         </div>
         <div className="bst__footer-right">
-          <p className="bst__footer-stat">94%</p>
+          <p className="bst__footer-stat">100%</p>
           <p className="bst__footer-stat-lbl">Accuracy rate</p>
         </div>
       </footer>
