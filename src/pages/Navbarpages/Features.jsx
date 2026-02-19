@@ -210,7 +210,7 @@ function Features() {
             <span className="bst__error-label">ACCESS DENIED</span>
           </div>
           <div className="bst__error-body">
-            <p className="bst__error-msg">{error}</p>
+            <p className="bst__error-label">{error}</p>
             <Link to="/pricing" className="bst__error-cta">VIEW PLANS →</Link>
           </div>
         </div>
