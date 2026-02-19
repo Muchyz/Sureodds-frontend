@@ -572,6 +572,7 @@
 /* ── ERROR ──────────────────────────────────────────────────────────────── */
 .bst__error {
   display: flex;
+  height: 40vh;
   max-width: 860px;
   margin: 24px auto 60px;
   border: 1px solid var(--bt-rule);

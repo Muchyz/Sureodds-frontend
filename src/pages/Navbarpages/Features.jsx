@@ -135,9 +135,9 @@ function Features() {
 
               {[
                 { label: "ACCURACY",    val: "100%",   bar: 100 },
-                { label: "MEMBERS",     val: "12,481", bar: 78  },
-                { label: "PICKS TODAY", val: "7",      bar: 70  },
-                { label: "WIN STREAK",  val: "23",     bar: 90  },
+                { label: "MEMBERS",     val: "12,500", bar: 78  },
+                { label: "PICKS TODAY", val: "6",      bar: 70  },
+                { label: "WIN RATE",  val: "100%",     bar: 100  },
               ].map(row => (
                 <div key={row.label} className="bst__data-row">
                   <span className="bst__data-label">{row.label}</span>
@@ -154,7 +154,7 @@ function Features() {
             </div>
 
             <div className="bst__flags">
-              {["Real-time Data", "Expert Analysis", "100% Proven Results"].map(f => (
+              {["Real-time Data", "1st Half Fixed CS", "100% Proven Results"].map(f => (
                 <div key={f} className="bst__flag">
                   <span className="bst__flag-check">✓</span>
                   {f}
