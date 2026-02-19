@@ -79,6 +79,7 @@ body {
   color: var(--color-black);
   font-size: 10px;
   font-weight: 700;
+  margin-top: 40px ;
   letter-spacing: 2px;
   margin-bottom: calc(var(--spacing-unit) * 3);
   animation: pulse-badge 2s ease-in-out infinite;
