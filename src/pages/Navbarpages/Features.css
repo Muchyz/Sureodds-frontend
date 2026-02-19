@@ -170,7 +170,7 @@
 /* Each line collides with the next */
 .npx__t1 {
   font-family: var(--np-display);
-  font-size: clamp(6rem, 18vw, 16rem);
+  font-size: clamp(2.8rem, 14vw, 16rem);
   font-weight: 800;
   color: transparent;
   -webkit-text-stroke: 2px var(--np-white);
@@ -180,12 +180,12 @@
 
 .npx__t2 {
   font-family: var(--np-display);
-  font-size: clamp(6rem, 18vw, 16rem);
+  font-size: clamp(2.8rem, 14vw, 16rem);
   font-weight: 800;
   color: var(--np-pink);
   letter-spacing: -0.03em;
   text-shadow: 0 0 60px var(--np-pink-glow), 0 0 120px rgba(255,45,120,0.15);
-  margin-top: -16px;
+  margin-top: -8px;
   position: relative;
   z-index: 2;
   animation: npx-rise 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s backwards;
@@ -194,10 +194,10 @@
 /* Ghost behind for depth/glitch */
 .npx__t2-ghost {
   position: absolute;
-  top: calc(clamp(6rem,18vw,16rem) * 0.85 - 16px);
+  top: calc(clamp(2.8rem, 14vw, 16rem) * 0.85 - 8px);
   left: 3px;
   font-family: var(--np-display);
-  font-size: clamp(6rem, 18vw, 16rem);
+  font-size: clamp(2.8rem, 14vw, 16rem);
   font-weight: 800;
   color: var(--np-blue);
   letter-spacing: -0.03em;
@@ -208,22 +208,22 @@
 
 .npx__t3 {
   font-family: var(--np-display);
-  font-size: clamp(3rem, 9vw, 8rem);
+  font-size: clamp(1.4rem, 7vw, 8rem);
   font-weight: 800;
   color: var(--np-white-dim);
   letter-spacing: 0.08em;
-  margin-top: 8px;
+  margin-top: 6px;
   animation: npx-rise 0.7s cubic-bezier(0.16,1,0.3,1) 0.16s backwards;
 }
 
 .npx__t4 {
   font-family: var(--np-display);
-  font-size: clamp(5rem, 15vw, 13rem);
+  font-size: clamp(2.4rem, 12vw, 13rem);
   font-weight: 800;
   color: var(--np-blue);
   letter-spacing: -0.02em;
   text-shadow: 0 0 60px var(--np-blue-glow), 0 0 120px rgba(0,212,255,0.1);
-  margin-top: -8px;
+  margin-top: -4px;
   animation: npx-rise 0.7s cubic-bezier(0.16,1,0.3,1) 0.22s backwards;
 }
 
@@ -442,7 +442,7 @@
 
 .npx__section-num {
   font-family: var(--np-display);
-  font-size: 4rem;
+  font-size: clamp(2rem, 8vw, 4rem);
   font-weight: 800;
   color: var(--np-pink);
   line-height: 1;
@@ -679,7 +679,7 @@
 
 .npx__card-title {
   font-family: var(--np-display);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.3rem, 5vw, 2rem);
   font-weight: 800;
   letter-spacing: 0.02em;
   line-height: 1.1;
@@ -785,7 +785,7 @@
 
 .npx__footer-logo {
   font-family: var(--np-display);
-  font-size: 2.2rem;
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
   font-weight: 800;
   letter-spacing: 0.04em;
 }
@@ -875,28 +875,102 @@
 }
 
 /* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+
+/* Tablet */
 @media (max-width: 1024px) {
   .npx__hero {
     grid-template-columns: 1fr;
     grid-template-areas: "stack" "panel" "sub";
-    gap: 40px;
+    gap: 36px 0;
+    padding: 48px 32px 40px;
   }
-  .npx__hero-panel { position: static; max-width: 480px; }
+  .npx__hero-panel {
+    position: static;
+    max-width: 100%;
+  }
+  .npx__t1, .npx__t2 { font-size: clamp(4rem, 14vw, 11rem); }
+  .npx__t3            { font-size: clamp(2rem, 7vw,  5rem);  }
+  .npx__t4            { font-size: clamp(3.5rem, 12vw, 9rem); }
+  .npx__t2-ghost      { display: none; }
+  .npx__grid          { padding: 24px 32px 64px; }
+  .npx__section-hd    { padding: 36px 32px 24px; }
 }
 
+/* Large phone / small tablet */
 @media (max-width: 768px) {
-  .npx__hero      { padding: 40px 24px 40px; }
-  .npx__section-hd { padding: 32px 24px 20px; }
-  .npx__grid      { padding: 24px 24px 60px; grid-template-columns: 1fr; gap: 12px; }
-  .npx__footer-inner { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
-  .npx__footer-copy  { text-align: left; }
-  .npx__t2-ghost     { display: none; }
+  .npx__topbar        { padding: 10px 20px; }
+  .npx__status-mid    { display: none; }          /* hide long title text */
+  .npx__hero          { padding: 36px 20px 32px; gap: 28px 0; }
+  .npx__type-stack    { padding-bottom: 0; }
+
+  .npx__t1            { font-size: clamp(3rem, 16vw, 6rem);  -webkit-text-stroke-width: 1.5px; }
+  .npx__t2            { font-size: clamp(3rem, 16vw, 6rem);  margin-top: -8px; }
+  .npx__t3            { font-size: clamp(1.6rem, 8vw, 3rem); margin-top: 4px; }
+  .npx__t4            { font-size: clamp(2.5rem, 14vw, 5rem); margin-top: -4px; }
+
+  /* Panel — full width, compact */
+  .npx__hero-panel    { max-width: 100%; }
+  .npx__panel-row     { padding: 10px 16px; }
+  .npx__panel-val     { font-size: 0.9rem; }
+
+  /* Sub-headline strip */
+  .npx__hero-sub-wrap { gap: 12px; }
+  .npx__sub-rule      { flex: 0 0 24px; }
+  .npx__hero-sub      { font-size: 0.95rem; }
+
+  /* Section header */
+  .npx__section-hd    { padding: 28px 20px 18px; gap: 10px; }
+  .npx__section-num   { font-size: 2.5rem; }
+  .npx__section-label { font-size: 0.62rem; letter-spacing: 0.18em; }
+
+  /* Features grid */
+  .npx__grid          { padding: 16px 20px 56px; grid-template-columns: 1fr; gap: 10px; }
+  .npx__card-inner    { padding: 22px 20px 0 24px; }
+  .npx__card-num      { font-size: 2.5rem; }
+  .npx__card-title    { font-size: 1.4rem; }
+  .npx__card-desc     { font-size: 0.9rem; }
+  .npx__card-foot     { padding: 14px 20px 18px 24px; }
+
+  /* Error */
+  .npx__error         { margin: 24px 20px 48px; padding: 28px 24px; }
+  .npx__error-title   { font-size: 1.4rem; }
+  .npx__error-num     { font-size: 3.5rem; }
+
+  /* Loading */
+  .npx__loading       { padding: 0 20px; }
+
+  /* Footer */
+  .npx__footer-inner  { padding: 36px 20px; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .npx__footer-logo   { font-size: 1.8rem; }
+  .npx__footer-copy   { text-align: left; font-size: 0.95rem; }
+  .npx__footer-cta    { padding: 12px 28px; font-size: 1rem; }
 }
 
-@media (max-width: 480px) {
-  .npx__topbar   { padding: 10px 16px; }
-  .npx__t1, .npx__t2, .npx__t4 { font-size: clamp(4rem, 22vw, 8rem); }
-  .npx__t3       { font-size: clamp(2rem, 11vw, 4rem); }
+/* Small phone */
+@media (max-width: 390px) {
+  .npx__topbar        { padding: 8px 16px; }
+  .npx__logo          { font-size: 1.1rem; }
+  .npx__pill          { padding: 4px 10px; font-size: 0.5rem; }
+
+  .npx__hero          { padding: 28px 16px 24px; }
+  .npx__t1            { font-size: clamp(2.4rem, 18vw, 4rem); -webkit-text-stroke-width: 1px; }
+  .npx__t2            { font-size: clamp(2.4rem, 18vw, 4rem); margin-top: -6px; }
+  .npx__t3            { font-size: clamp(1.3rem, 9vw, 2rem);  }
+  .npx__t4            { font-size: clamp(2rem, 16vw, 3.5rem); }
+
+  .npx__panel-cta     { margin: 14px; padding: 14px; }
+  .npx__panel-key     { font-size: 0.5rem; }
+  .npx__panel-val     { font-size: 0.85rem; }
+
+  .npx__section-hd    { padding: 22px 16px 16px; }
+  .npx__section-num   { font-size: 2rem; }
+
+  .npx__grid          { padding: 12px 16px 48px; }
+  .npx__card-inner    { padding: 18px 16px 0 20px; }
+  .npx__card-title    { font-size: 1.25rem; }
+  .npx__card-foot     { padding: 12px 16px 16px 20px; }
+
+  .npx__footer-inner  { padding: 28px 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
