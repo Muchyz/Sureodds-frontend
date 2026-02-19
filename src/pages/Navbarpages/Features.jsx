@@ -436,8 +436,8 @@ function Features() {
             <p className="bst__footer-stat-lbl">Members holding the edge</p>
           </div>
           <div className="bst__footer-center">
-            <Link to="/pricing" className="bst__footer-cta">
-              BECOME A MEMBER
+            <Link to="/testimonials" className="bst__footer-cta">
+              CHECK MEMBERS
               <span className="bst__footer-cta-flash" />
             </Link>
           </div>
