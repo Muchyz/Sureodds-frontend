@@ -619,7 +619,7 @@
 .bst__error-msg {
   font-family: var(--bt-body);
   font-size: 1.05rem;
-  font-style: italic;
+  font-weight:bold;
   color: var(--bt-white-dim);
   line-height: 1.65;
   margin: 0;
