@@ -60,6 +60,15 @@ function Features() {
   const liveTime = `${pad(time.getHours())}:${pad(time.getMinutes())}:${pad(time.getSeconds())}`;
   const tickerText = "WIN SMARTER · BET LIKE A PRO · REAL DATA · INSIDER EDGE · VIP ACCESS · EXPERT PICKS · LIVE ODDS · DAILY INTEL ·\u00A0";
 
+  // Fake feed items for locked state
+  const lockedFeeds = [
+    { label: "MATCH ANALYSIS",   confidence: 97, match: "███████ vs ████████",   market: "1ST HALF RESULT" },
+    { label: "CORNER INTEL",     confidence: 94, match: "█████ vs ██████████",  market: "OVER 4.5 CORNERS" },
+    { label: "GOAL LINE PICK",   confidence: 91, match: "█████████ vs ██████",  market: "BTTS — YES" },
+    { label: "CS PREDICTION",    confidence: 99, match: "███████ vs █████████", market: "CORRECT SCORE" },
+    { label: "VALUE ACCUMULATOR",confidence: 88, match: "██████ vs ███████",    market: "ASIAN HANDICAP" },
+  ];
+
   return (
     <div className="bst__root">
 
@@ -202,17 +211,157 @@ function Features() {
         </div>
       </div>
 
-      {/* ── ERROR ── */}
+      {/* ── ERROR — locked state with perpetual loading feed ── */}
       {error && (
-        <div className="bst__error">
-          <div className="bst__error-code">
-            <span className="bst__error-num">403</span>
-            <span className="bst__error-label">ACCESS DENIED</span>
+        <div className="bst__locked-root">
+
+          {/* Access denied banner */}
+          <div className="bst__error">
+            <div className="bst__error-code">
+              <span className="bst__error-num">403</span>
+              <span className="bst__error-label">ACCESS DENIED</span>
+            </div>
+            <div className="bst__error-body">
+              <p className="bst__error-label">{error}</p>
+              <Link to="/pricing" className="bst__error-cta">VIEW PLANS →</Link>
+            </div>
           </div>
-          <div className="bst__error-body">
-            <p className="bst__error-label">{error}</p>
-            <Link to="/pricing" className="bst__error-cta">VIEW PLANS →</Link>
-          </div>
+
+          {/* ── PERPETUAL LOCKED FEED ── */}
+          <div className="bst__locked-feed">
+
+            {/* Feed ambient header */}
+            <div className="bst__lf-header">
+              <div className="bst__lf-header-left">
+                <div className="bst__lf-pulse-ring">
+                  <div className="bst__lf-pulse-core" />
+                </div>
+                <span className="bst__lf-header-label">LIVE INTELLIGENCE FEED</span>
+                <span className="bst__lf-header-count">{lockedFeeds.length} PICKS PROCESSING</span>
+              </div>
+              <div className="bst__lf-header-right">
+                <span className="bst__lf-enc">AES-256 · ENCRYPTED</span>
+                <span className="bst__lf-lock">⬛ VIP ONLY</span>
+              </div>
+            </div>
+
+            {/* Radar / orbital animation */}
+            <div className="bst__radar-wrap" aria-hidden="true">
+              <div className="bst__radar">
+                <div className="bst__radar-ring bst__radar-ring--1" />
+                <div className="bst__radar-ring bst__radar-ring--2" />
+                <div className="bst__radar-ring bst__radar-ring--3" />
+                <div className="bst__radar-sweep" />
+                {/* Blips */}
+                <div className="bst__radar-blip" style={{ "--bx": "62%", "--by": "28%", "--bd": "0s"   }} />
+                <div className="bst__radar-blip" style={{ "--bx": "25%", "--by": "58%", "--bd": "0.6s" }} />
+                <div className="bst__radar-blip" style={{ "--bx": "74%", "--by": "65%", "--bd": "1.3s" }} />
+                <div className="bst__radar-blip" style={{ "--bx": "44%", "--by": "76%", "--bd": "2.1s" }} />
+                <div className="bst__radar-blip" style={{ "--bx": "82%", "--by": "42%", "--bd": "0.9s" }} />
+                {/* Center label */}
+                <div className="bst__radar-center">
+                  <span className="bst__radar-center-txt">SCANNING</span>
+                  <span className="bst__radar-center-dots">
+                    <span /><span /><span />
+                  </span>
+                </div>
+              </div>
+
+              {/* Side stats */}
+              <div className="bst__radar-stats">
+                {[
+                  { label: "SIGNAL STRENGTH", val: "98.4%", bar: 98 },
+                  { label: "DATA STREAMS",    val: "47",    bar: 62 },
+                  { label: "PICKS LOCKED",    val: "6",     bar: 75 },
+                  { label: "ODDS SYNCED",     val: "YES",   bar: 100 },
+                ].map((s, i) => (
+                  <div key={s.label} className="bst__rstat" style={{ "--rsi": i }}>
+                    <div className="bst__rstat-top">
+                      <span className="bst__rstat-label">{s.label}</span>
+                      <span className="bst__rstat-val">{s.val}</span>
+                    </div>
+                    <div className="bst__rstat-track">
+                      <div className="bst__rstat-fill" style={{ "--rw": `${s.bar}%` }} />
+                      <div className="bst__rstat-glint" />
+                    </div>
+                  </div>
+                ))}
+
+                <div className="bst__rstat-cta-wrap">
+                  <Link to="/pricing" className="bst__rstat-cta">
+                    UNLOCK FEED
+                    <span className="bst__rstat-cta-arrow">→</span>
+                    <span className="bst__rstat-cta-flash" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Locked pick rows */}
+            <div className="bst__locked-picks">
+              {lockedFeeds.map((pick, i) => (
+                <div key={i} className="bst__lpick" style={{ "--lpi": i }}>
+
+                  {/* Left accent */}
+                  <div className="bst__lpick-rail" />
+
+                  <div className="bst__lpick-index">{pad(i + 1)}</div>
+
+                  <div className="bst__lpick-body">
+                    <div className="bst__lpick-top">
+                      <span className="bst__lpick-label">{pick.label}</span>
+                      <span className="bst__lpick-market">{pick.market}</span>
+                    </div>
+                    <div className="bst__lpick-match">{pick.match}</div>
+                  </div>
+
+                  <div className="bst__lpick-confidence">
+                    <div className="bst__lpick-conf-arc">
+                      <svg viewBox="0 0 60 60" className="bst__lpick-arc-svg">
+                        <circle cx="30" cy="30" r="24" className="bst__lpick-arc-bg" />
+                        <circle cx="30" cy="30" r="24" className="bst__lpick-arc-fill"
+                          style={{ "--pct": `${(pick.confidence / 100) * 150.8}` }} />
+                      </svg>
+                      <span className="bst__lpick-conf-val">{pick.confidence}</span>
+                    </div>
+                    <span className="bst__lpick-conf-lbl">CONF%</span>
+                  </div>
+
+                  {/* Lock overlay */}
+                  <div className="bst__lpick-lock">
+                    <div className="bst__lpick-lock-inner">
+                      <span className="bst__lpick-lock-icon">⬛</span>
+                      <span className="bst__lpick-lock-txt">VIP ONLY</span>
+                    </div>
+                    <div className="bst__lpick-lock-scan" />
+                  </div>
+
+                  {/* Shimmer sweep */}
+                  <div className="bst__lpick-shimmer" />
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom CTA bar */}
+            <div className="bst__locked-footer">
+              <div className="bst__locked-footer-left">
+                <div className="bst__lf-spin">
+                  <div className="bst__lf-spin-ring" />
+                  <div className="bst__lf-spin-ring bst__lf-spin-ring--2" />
+                  <div className="bst__lf-spin-dot" />
+                </div>
+                <div>
+                  <p className="bst__lf-foot-title">Intelligence loading…</p>
+                  <p className="bst__lf-foot-sub">Awaiting VIP authentication to decrypt feed</p>
+                </div>
+              </div>
+              <Link to="/pricing" className="bst__lf-foot-cta">
+                SUBSCRIBE NOW
+                <span className="bst__lf-foot-cta-flash" />
+              </Link>
+            </div>
+
+          </div>{/* /bst__locked-feed */}
         </div>
       )}
 
