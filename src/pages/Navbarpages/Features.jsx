@@ -241,7 +241,7 @@ function Features() {
               </div>
               <div className="bst__lf-header-right">
                 <span className="bst__lf-enc">AES-256 · ENCRYPTED</span>
-                <span className="bst__lf-lock">⛔️ VIP ONLY ⚠️ </span>
+                
               </div>
             </div>
 
@@ -330,8 +330,8 @@ function Features() {
                   {/* Lock overlay */}
                   <div className="bst__lpick-lock">
                     <div className="bst__lpick-lock-inner">
-                      <span className="bst__lpick-lock-icon">⬛</span>
-                      <span className="bst__lpick-lock-txt">VIP ONLY</span>
+                      <span className="bst__lpick-lock-icon">⛔️/span>
+                      <span className="bst__lpick-lock-txt">VIP ONLY ⚠️</span>
                     </div>
                     <div className="bst__lpick-lock-scan" />
                   </div>
