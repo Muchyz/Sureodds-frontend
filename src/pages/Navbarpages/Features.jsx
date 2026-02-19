@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import "./Features.css";
 import api from "@/api";
@@ -8,7 +8,7 @@ function Features() {
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(true);
   const [time, setTime]         = useState(new Date());
-  const clockRef = useRef(null);
+  const gridRef                 = useRef(null);
 
   useEffect(() => {
     api.get("/features")
@@ -20,20 +20,50 @@ function Features() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Live clock
   useEffect(() => {
     const id = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
 
+  // Scroll-triggered card reveal via IntersectionObserver
+  useEffect(() => {
+    if (!gridRef.current) return;
+    const cards = gridRef.current.querySelectorAll(".bst__card");
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("bst__card--visible");
+          obs.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.12 }
+    );
+    cards.forEach(c => obs.observe(c));
+    return () => obs.disconnect();
+  }, [features]);
+
+  // 3D tilt on cards
+  const handleTilt = useCallback(e => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 10;
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * -10;
+    card.style.transform = `perspective(800px) rotateX(${y}deg) rotateY(${x}deg) translateY(-6px)`;
+  }, []);
+
+  const resetTilt = useCallback(e => {
+    e.currentTarget.style.transform = "";
+  }, []);
+
   const pad = n => String(n).padStart(2, "0");
   const liveTime = `${pad(time.getHours())}:${pad(time.getMinutes())}:${pad(time.getSeconds())}`;
-
   const tickerText = "WIN SMARTER · BET LIKE A PRO · REAL DATA · INSIDER EDGE · VIP ACCESS · EXPERT PICKS · LIVE ODDS · DAILY INTEL ·\u00A0";
 
   return (
     <div className="bst__root">
 
-      {/* Top status bar */}
+      {/* ── OUR STATUS BAR — sits below app navbar ── */}
       <div className="bst__statusbar">
         <span className="bst__status-left">
           <span className="bst__status-dot" />
@@ -45,14 +75,19 @@ function Features() {
 
       {/* ── HERO ── */}
       <section className="bst__hero">
-        <div className="bst__bg-num" aria-hidden="true">01</div>
+        <div className="bst__hero-texture" aria-hidden="true" />
+        <div className="bst__bg-num"      aria-hidden="true">01</div>
 
         <div className="bst__hero-grid">
-          {/* Left col — headline */}
+
+          {/* Left — headline */}
           <div className="bst__hero-left">
             <div className="bst__tag-row">
               <span className="bst__tag">◼ MEMBERS ONLY</span>
-              <span className="bst__tag bst__tag--hot">● LIVE</span>
+              <span className="bst__tag bst__tag--hot">
+                <span className="bst__tag-dot" />
+                LIVE
+              </span>
             </div>
 
             <h1 className="bst__headline">
@@ -87,13 +122,19 @@ function Features() {
             </div>
           </div>
 
-          {/* Right col — data panel */}
+          {/* Right — data panel */}
           <div className="bst__hero-right">
             <div className="bst__data-panel">
-              <div className="bst__data-header">SYSTEM STATUS</div>
+              <div className="bst__data-header">
+                <span>SYSTEM STATUS</span>
+                <span className="bst__data-header-live">
+                  <span className="bst__data-hd-dot" />
+                  LIVE
+                </span>
+              </div>
 
               {[
-                { label: "ACCURACY",    val: "100%",  bar: 100 },
+                { label: "ACCURACY",    val: "100%",   bar: 100 },
                 { label: "MEMBERS",     val: "12,481", bar: 78  },
                 { label: "PICKS TODAY", val: "7",      bar: 70  },
                 { label: "WIN STREAK",  val: "23",     bar: 90  },
@@ -114,7 +155,10 @@ function Features() {
 
             <div className="bst__flags">
               {["Real-time Data", "Expert Analysis", "100% Proven Results"].map(f => (
-                <div key={f} className="bst__flag">✓ {f}</div>
+                <div key={f} className="bst__flag">
+                  <span className="bst__flag-check">✓</span>
+                  {f}
+                </div>
               ))}
             </div>
           </div>
@@ -124,9 +168,7 @@ function Features() {
       {/* ── CRAWL TICKER ── */}
       <div className="bst__crawl" aria-hidden="true">
         <div className="bst__crawl-inner">
-          {Array(4).fill(tickerText).map((t, i) => (
-            <span key={i}>{t}</span>
-          ))}
+          {Array(4).fill(tickerText).map((t, i) => <span key={i}>{t}</span>)}
         </div>
       </div>
 
@@ -189,9 +231,18 @@ function Features() {
 
       {/* ── FEATURES ── */}
       {!loading && !error && features.length > 0 && (
-        <section className="bst__grid">
+        <section className="bst__grid" ref={gridRef}>
           {features.map((f, i) => (
-            <article key={f.id} className="bst__card" style={{ "--ci": i }}>
+            <article
+              key={f.id}
+              className="bst__card"
+              style={{ "--ci": i }}
+              onMouseMove={handleTilt}
+              onMouseLeave={resetTilt}
+            >
+              {/* Sliding amber left border */}
+              <div className="bst__card-rail" />
+
               <div className="bst__card-num" aria-hidden="true">
                 {String(i + 1).padStart(2, "0")}
               </div>
@@ -199,7 +250,10 @@ function Features() {
               <div className="bst__card-content">
                 <div className="bst__card-top">
                   <span className="bst__card-tag">VIP · FEATURE</span>
-                  <span className="bst__card-status">● ACTIVE</span>
+                  <span className="bst__card-status">
+                    <span className="bst__card-status-dot" />
+                    ACTIVE
+                  </span>
                 </div>
 
                 <h3 className="bst__card-title">{f.title}</h3>
@@ -226,18 +280,22 @@ function Features() {
 
       {/* ── FOOTER ── */}
       <footer className="bst__footer">
-        <div className="bst__footer-left">
-          <p className="bst__footer-stat">12,000+</p>
-          <p className="bst__footer-stat-lbl">Members holding the edge</p>
-        </div>
-        <div className="bst__footer-center">
-          <Link to="/pricing" className="bst__footer-cta">
-            BECOME A MEMBER
-          </Link>
-        </div>
-        <div className="bst__footer-right">
-          <p className="bst__footer-stat">100%</p>
-          <p className="bst__footer-stat-lbl">Accuracy rate</p>
+        <div className="bst__footer-topline" />
+        <div className="bst__footer-inner">
+          <div className="bst__footer-left">
+            <p className="bst__footer-stat">12,000+</p>
+            <p className="bst__footer-stat-lbl">Members holding the edge</p>
+          </div>
+          <div className="bst__footer-center">
+            <Link to="/pricing" className="bst__footer-cta">
+              BECOME A MEMBER
+              <span className="bst__footer-cta-flash" />
+            </Link>
+          </div>
+          <div className="bst__footer-right">
+            <p className="bst__footer-stat">100%</p>
+            <p className="bst__footer-stat-lbl">Accuracy rate</p>
+          </div>
         </div>
       </footer>
 
