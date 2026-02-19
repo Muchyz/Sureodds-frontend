@@ -432,7 +432,7 @@ function Features() {
         <div className="bst__footer-topline" />
         <div className="bst__footer-inner">
           <div className="bst__footer-left">
-            <p className="bst__footer-stat">12,000+</p>
+            <p className="bst__footer-stat">12,500+</p>
             <p className="bst__footer-stat-lbl">Members holding the edge</p>
           </div>
           <div className="bst__footer-center">
