@@ -118,7 +118,7 @@ function Features() {
             </h1>
 
             <p className="bst__sub">
-              Not tips. Not hunches.<br />
+              Verified tips. Fixed Matches.<br />
               <em>Intelligence.</em> Real data. Inside edge.
             </p>
 
@@ -144,7 +144,7 @@ function Features() {
 
               {[
                 { label: "ACCURACY",    val: "100%",   bar: 100 },
-                { label: "MEMBERS",     val: "12,500", bar: 78  },
+                { label: "MEMBERS",     val: "12,500+", bar: 78  },
                 { label: "PICKS TODAY", val: "6",      bar: 70  },
                 { label: "WIN RATE",  val: "100%",     bar: 100  },
               ].map(row => (
@@ -330,7 +330,7 @@ function Features() {
                   {/* Lock overlay */}
                   <div className="bst__lpick-lock">
                     <div className="bst__lpick-lock-inner">
-                      <span className="bst__lpick-lock-icon">⛔️/span>
+                      <span className="bst__lpick-lock-icon">⛔️</span>
                       <span className="bst__lpick-lock-txt">VIP ONLY ⚠️</span>
                     </div>
                     <div className="bst__lpick-lock-scan" />
