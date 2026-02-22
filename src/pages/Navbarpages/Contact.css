@@ -336,7 +336,7 @@
 }
 .contact-page .em-orb-dot {
   position:absolute; top:0; left:50%; transform:translateX(-50%);
-  width:6px; height:6px; border-radius:50%;
+  width:8px; height:8px; border-radius:50%;
   background:#00ff88;
   box-shadow:0 0 14px #00ff88, 0 0 28px rgba(0,255,136,0.4);
 }
@@ -390,7 +390,6 @@
     inset 0 1px 0 rgba(255,255,255,0.07);
 }
 
-/* Top stripe per platform */
 .contact-page .vcard-stripe {
   position:absolute; top:0; left:0; right:0; height:3px; z-index:3;
 }
@@ -403,7 +402,6 @@
   box-shadow:0 0 20px rgba(34,221,255,0.6);
 }
 
-/* Glow halo */
 .contact-page .vcard-glow {
   position:absolute; inset:-80px; opacity:0; filter:blur(80px);
   pointer-events:none; z-index:0;
@@ -413,10 +411,8 @@
 .contact-page .wa-glow { background:radial-gradient(circle,rgba(0,255,136,0.35),transparent 60%); }
 .contact-page .tg-glow { background:radial-gradient(circle,rgba(34,221,255,0.3),transparent 60%); }
 
-/* Glint */
 .contact-page .vcard-glint { position:absolute; inset:0; pointer-events:none; z-index:2; }
 
-/* Foil diagonal shimmer */
 .contact-page .vcard-foil {
   position:absolute; inset:0; pointer-events:none; z-index:1;
   background:linear-gradient(115deg,
@@ -435,14 +431,12 @@
   transition:transform 1s ease, opacity 150ms ease;
 }
 
-/* Inner content */
 .contact-page .vcard-inner {
   position:relative; z-index:3;
   padding:34px 30px 28px;
   display:flex; flex-direction:column; gap:22px;
 }
 
-/* Card header */
 .contact-page .vc-header {
   display:flex; align-items:center; justify-content:space-between;
   padding-bottom:22px;
@@ -451,7 +445,6 @@
 .contact-page .wa-accent .vc-header { border-bottom-color:rgba(0,255,136,0.12); }
 .contact-page .tg-accent .vc-header { border-bottom-color:rgba(34,221,255,0.12); }
 
-/* EMV chip */
 .contact-page .vc-chip { display:flex; }
 .contact-page .chip-face {
   width:46px; height:36px; border-radius:6px; overflow:hidden; position:relative;
@@ -482,7 +475,6 @@
   background:linear-gradient(135deg,rgba(242,196,56,0.15),rgba(242,196,56,0.08));
 }
 
-/* Platform icon */
 .contact-page .vc-icon-wrap {
   position:relative; width:48px; height:48px; border-radius:14px;
   display:flex; align-items:center; justify-content:center;
@@ -505,7 +497,6 @@
   border:1px solid rgba(255,255,255,0.12);
 }
 
-/* Eyebrow */
 .contact-page .vc-eyebrow { display:flex; align-items:center; gap:10px; }
 .contact-page .vc-ew-bar { width:20px; height:1px; background:linear-gradient(90deg,#b07c08,#f2c438); }
 .contact-page .vc-ew-txt {
@@ -514,13 +505,11 @@
   text-transform:uppercase; color:#d4a020;
 }
 
-/* Name */
 .contact-page .vc-name {
   font-family:'Bebas Neue',sans-serif; font-size:38px;
   letter-spacing:0.05em; color:rgba(255,255,255,0.95); line-height:1;
 }
 
-/* Card number */
 .contact-page .vc-num {
   display:flex; align-items:center; gap:12px;
   font-family:'Share Tech Mono',monospace; font-size:18px;
@@ -532,7 +521,6 @@
 .contact-page .vc-seg { color:rgba(255,255,255,0.60); }
 .contact-page .vc-seg:first-child { color:#d4a020; font-weight:700; }
 
-/* Meta row */
 .contact-page .vc-meta {
   display:grid; grid-template-columns:repeat(3,1fr);
   border:1px solid rgba(255,255,255,0.10); border-radius:10px; overflow:hidden;
@@ -564,10 +552,8 @@
   0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,0.3)} 60%{box-shadow:0 0 0 5px rgba(0,255,136,0)}
 }
 
-/* Desc */
 .contact-page .vc-desc { font-size:14px; line-height:1.78; color:rgba(255,255,255,0.60); }
 
-/* CTA */
 .contact-page .vc-cta {
   position:relative; overflow:hidden;
   display:flex; align-items:center; gap:12px;
@@ -606,7 +592,6 @@
 .contact-page .cta-arr  { flex-shrink:0; transition:transform 250ms cubic-bezier(0.22,1,0.36,1); }
 .contact-page .vc-cta:hover .cta-arr { transform:translateX(6px); }
 
-/* Card foot */
 .contact-page .vc-foot {
   display:flex; align-items:center; gap:8px;
   font-family:'Share Tech Mono',monospace;
@@ -644,12 +629,89 @@
   font-size:10px; letter-spacing:0.14em; color:rgba(255,255,255,0.32);
 }
 
-/* ─── Responsive ─────────────────────────────────────────── */
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+
 @media(max-width:900px){
-  .contact-page .hero { grid-template-columns:1fr; }
-  .contact-page .hero-r { display:none; }
-  .contact-page .hl-top,.contact-page .hl-main,.contact-page .hl-stroke,.contact-page .hl-period { font-size:clamp(42px,11vw,70px); }
+
+  /* Hero becomes single column, emblem overlays top-right */
+  .contact-page .hero {
+    grid-template-columns: 1fr;
+    position: relative;
+    overflow: visible;
+  }
+
+  /* Float emblem top-right as overlay — full appearance, just smaller */
+  .contact-page .hero-r {
+    display: flex;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 180px;
+    height: 180px;
+    pointer-events: none;
+    z-index: 4;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Scale the whole emblem down */
+  .contact-page .emblem {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Scale the inner face circle proportionally (136/240 * 180 ≈ 102px) */
+  .contact-page .em-face {
+    width: 102px;
+    height: 102px;
+  }
+
+  /* Scale MO text down proportionally */
+  .contact-page .em-mo {
+    font-size: 34px;
+  }
+
+  /* Slightly smaller crown/tag text */
+  .contact-page .em-crown {
+    font-size: 6px;
+    letter-spacing: 0.2em;
+  }
+  .contact-page .em-tag {
+    font-size: 6px;
+    letter-spacing: 0.16em;
+  }
+  .contact-page .em-sub-tag {
+    font-size: 5px;
+  }
+  .contact-page .em-rule {
+    width: 30px;
+  }
+
+  /* Orbit ring — sized to match emblem */
+  .contact-page .em-orbit-ring {
+    position: absolute;
+    top: 6px; left: 6px; right: 6px; bottom: 6px;
+    width: auto; height: auto;
+    border-radius: 50%;
+  }
+
+  /* Green dot — slightly larger for visibility */
+  .contact-page .em-orb-dot {
+    width: 9px;
+    height: 9px;
+    box-shadow: 0 0 16px #00ff88, 0 0 32px rgba(0,255,136,0.6);
+  }
+
+  .contact-page .hl-top,
+  .contact-page .hl-main,
+  .contact-page .hl-stroke,
+  .contact-page .hl-period {
+    font-size: clamp(42px, 11vw, 70px);
+  }
 }
+
 @media(max-width:700px){
   .contact-page .cards-wrap { grid-template-columns:1fr; }
   .contact-page .pg-main { padding:48px 20px 52px; gap:52px; }
@@ -657,17 +719,34 @@
   .contact-page .vc-num { font-size:14px; gap:8px; }
   .contact-page .vc-meta { grid-template-columns:1fr 1fr 1fr; }
   .contact-page .vmi-lbl { font-size:8px; }
+
+  .contact-page .hero-r { width:155px; height:155px; top:-6px; right:-6px; }
+  .contact-page .emblem  { width:155px; height:155px; }
+  .contact-page .em-face { width:88px; height:88px; }
+  .contact-page .em-mo   { font-size:28px; }
 }
+
 @media(max-width:440px){
   .contact-page .stats-grid { max-width:100%; }
   .contact-page .stat-num { font-size:24px; }
   .contact-page .vc-num { flex-wrap:wrap; }
+
+  .contact-page .hero-r { width:130px; height:130px; top:-4px; right:-4px; }
+  .contact-page .emblem  { width:130px; height:130px; }
+  .contact-page .em-face { width:74px; height:74px; }
+  .contact-page .em-mo   { font-size:24px; }
+  .contact-page .em-crown,.contact-page .em-tag,.contact-page .em-sub-tag { font-size:5px; }
 }
 
 /* ─── Accessibility ──────────────────────────────────────── */
 @media(prefers-reduced-motion:reduce){
-  .contact-page *,.contact-page *::before,.contact-page *::after{animation:none!important;transition-duration:0.01ms!important}
-  .contact-page .hero,.contact-page .cards-wrap,.contact-page .section-div,.contact-page .pg-footer{opacity:1!important;transform:none!important}
-  .contact-page{opacity:1!important}
+  .contact-page *,.contact-page *::before,.contact-page *::after{
+    animation:none!important; transition-duration:0.01ms!important;
+  }
+  .contact-page .hero,.contact-page .cards-wrap,
+  .contact-page .section-div,.contact-page .pg-footer{
+    opacity:1!important; transform:none!important;
+  }
+  .contact-page{ opacity:1!important; }
 }
 .contact-page .vc-cta:focus-visible { outline:2px solid #f2c438; outline-offset:4px; }

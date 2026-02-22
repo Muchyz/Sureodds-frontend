@@ -197,7 +197,7 @@ export default function Contact() {
 
             <div className="eyebrow-row">
               <span className="eyebrow-pulse"><span /></span>
-              <span className="eyebrow-txt">Private Members Concierge</span>
+              <span className="eyebrow-txt">Private Concierge</span>
             </div>
 
             <h1 className="headline">
@@ -217,7 +217,7 @@ export default function Contact() {
 
             <p className="hero-body">
               Direct line to our VIP team. No bots, no queues, no delays.
-              Trusted by Kenya's most serious bettors every day, every night.
+              Trusted by most serious bettors every day, every night.
             </p>
 
             {/* Stats */}
