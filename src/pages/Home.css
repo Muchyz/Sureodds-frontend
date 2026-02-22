@@ -557,7 +557,7 @@ body { background: var(--void); overflow-x: hidden; }
 ══════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .hero__container { grid-template-columns: 1fr; gap: 40px; padding-inline: var(--px); }
-  .hero__right { order: -1; width: 100%; max-width: 100%; overflow: hidden; }
+  .hero__right { order: -1; width: 90%; max-width: 100%; overflow: hidden; }
   .hpanel { width: 100%; max-width: 100%; padding: 28px 24px; }
   .hero__float-accent { display: none; }
   .hpanel__stats { grid-template-columns: 1fr 1fr; }

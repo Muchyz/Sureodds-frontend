@@ -359,21 +359,21 @@ export default function Home() {
         <nav className="footer__nav">
           <div className="footer__col">
             <span className="footer__col-label">Intelligence</span>
-            <a href="/features"     className="footer__link">VIP Picks</a>
-            <a href="/learn"        className="footer__link">What's fixed matches</a>
-            <a href="/testimonials" className="footer__link">Testimonials</a>
+            <Link to="/features"     className="footer__link">VIP Picks</Link>
+            <Link to="/learn"        className="footer__link">What's fixed matches</Link>
+            <Link to="/testimonials" className="footer__link">Testimonials</Link>
           </div>
           <div className="footer__col">
             <span className="footer__col-label">Account</span>
-            <a href="/signup"   className="footer__link">Join the Network</a>
-            <a href="/login"    className="footer__link">Sign In</a>
-            <a href="/pricing"  className="footer__link">Upgrade to VIP</a>
+            <Link to="/signup"   className="footer__link">Join the Network</Link>
+            <Link to="/login"    className="footer__link">Sign In</Link>
+            <Link to="/pricing"  className="footer__link">Upgrade to VIP</Link>
           </div>
           <div className="footer__col">
             <span className="footer__col-label">Company</span>
-            <a href="/features"     className="footer__link">How It Works</a>
-            <a href="/testimonials" className="footer__link">Testimonials</a>
-            <a href="/learn"        className="footer__link">Track Record</a>
+            <Link to="/about"        className="footer__link">How It Works</Link>
+            <Link to="/contact"      className="footer__link">Contact Us</Link>
+            <Link to="/testimonials" className="footer__link">Members</Link>
           </div>
         </nav>
         <div className="footer__base">
