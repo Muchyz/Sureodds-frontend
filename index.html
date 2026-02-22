@@ -2,12 +2,97 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fixed Matches</title>
+    <title>Mega-Odds</title>
+
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Marcellus+SC&family=Tenor+Sans&display=block"
+    />
+
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { background: #02020a; overflow-x: hidden; }
+
+      #root { opacity: 0; transition: opacity 0.5s ease; }
+      #root.ready { opacity: 1; }
+
+      #app-loader {
+        position: fixed; inset: 0; z-index: 99999;
+        background: #02020a;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 32px;
+        transition: opacity 0.5s ease;
+      }
+      #app-loader.hidden { opacity: 0; pointer-events: none; }
+
+      .loader-wordmark {
+        font-family: 'Cinzel', 'Times New Roman', serif;
+        font-size: clamp(22px, 5vw, 38px);
+        font-weight: 400; letter-spacing: 12px; text-transform: uppercase;
+        color: #d4a843; text-shadow: 0 0 40px rgba(212,168,67,0.4);
+      }
+      .loader-bar {
+        width: 120px; height: 1px;
+        background: rgba(212,168,67,0.15);
+        border-radius: 1px; overflow: hidden; position: relative;
+      }
+      .loader-bar::after {
+        content: ''; position: absolute; top: 0; left: -60%;
+        width: 50%; height: 100%;
+        background: linear-gradient(90deg, transparent, #d4a843, #fffbf0, #d4a843, transparent);
+        animation: loader-sweep 1.4s ease-in-out infinite;
+      }
+      @keyframes loader-sweep { 0% { left: -60%; } 100% { left: 110%; } }
+
+      .loader-sub {
+        font-family: 'Tenor Sans', sans-serif;
+        font-size: 8px; letter-spacing: 5px;
+        text-transform: uppercase; color: rgba(212,168,67,0.45);
+      }
+      .loader-corner {
+        position: absolute; width: 18px; height: 18px;
+        border-color: rgba(212,168,67,0.3); border-style: solid;
+      }
+      .loader-corner--tl { top: 24px; left: 24px; border-width: 1px 0 0 1px; }
+      .loader-corner--tr { top: 24px; right: 24px; border-width: 1px 1px 0 0; }
+      .loader-corner--bl { bottom: 24px; left: 24px; border-width: 0 0 1px 1px; }
+      .loader-corner--br { bottom: 24px; right: 24px; border-width: 0 1px 1px 0; }
+    </style>
   </head>
   <body>
+
+    <div id="app-loader" aria-hidden="true">
+      <span class="loader-corner loader-corner--tl"></span>
+      <span class="loader-corner loader-corner--tr"></span>
+      <span class="loader-corner loader-corner--bl"></span>
+      <span class="loader-corner loader-corner--br"></span>
+      <div class="loader-wordmark">Mega-Odds</div>
+      <div class="loader-bar"></div>
+      <div class="loader-sub">Loading intelligence</div>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      function revealApp() {
+        var loader = document.getElementById('app-loader');
+        var root   = document.getElementById('root');
+        if (!loader || !root) return;
+        root.classList.add('ready');
+        loader.classList.add('hidden');
+        setTimeout(function() {
+          if (loader.parentNode) loader.parentNode.removeChild(loader);
+        }, 600);
+      }
+      window.addEventListener('app:ready', revealApp);
+      // Safety fallback — always reveal after 4s
+      setTimeout(revealApp, 4000);
+    </script>
   </body>
 </html>

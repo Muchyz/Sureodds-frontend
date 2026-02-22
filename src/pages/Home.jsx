@@ -163,6 +163,66 @@ function PickCard({ pick, index, gold = false }) {
   );
 }
 
+/* ── Skeleton Pick Card ── */
+function SkeletonCard({ index, gold = false }) {
+  return (
+    <div
+      className={`pcard pcard--skeleton ${gold ? "pcard--gold pcard--skeleton-gold" : ""}`}
+      style={{ "--delay": `${index * 0.08}s`, opacity: 1, animation: "none" }}
+    >
+      {gold && <div className="pcard__shimmer" />}
+
+      <header className="pcard__head" style={{ marginBottom: 22 }}>
+        <div className="skel skel--badge" />
+        <div className="skel skel--num" />
+      </header>
+
+      <div className="pcard__matchup" style={{ marginBottom: 20 }}>
+        <div className="skel skel--team" />
+        <div className="vs__ring" style={{ flexShrink: 0 }}>
+          <span className="vs__text" style={{ opacity: 0.15 }}>VS</span>
+        </div>
+        <div className="skel skel--team skel--team-r" />
+      </div>
+
+      <div className="pcard__line" style={{ marginBottom: 18, opacity: 0.4 }} />
+
+      <footer className="pcard__foot">
+        {[0,1,2].map(i => (
+          <div key={i} className="pcard__datum">
+            <div className="skel skel--label" />
+            <div className={`skel skel--val ${i === 2 ? "skel--val-odds" : ""}`} />
+          </div>
+        ))}
+      </footer>
+    </div>
+  );
+}
+
+/* ── Skeleton Section ── */
+function SkeletonSection({ tag, title, sub, count = 3, gold = false }) {
+  return (
+    <section className={`section ${gold ? "section--vip" : ""}`}>
+      {gold && <div className="section__vip-aura" aria-hidden="true" />}
+      <div className="section__container">
+        <div className="section__head">
+          <div className="section__meta">
+            <span className="section__tag" style={{ color: gold ? "var(--g4)" : undefined }}>{tag}</span>
+            <h2 className={`section__title ${gold ? "section__title--gold" : ""}`}>{title}</h2>
+            <p className="section__sub">{sub}</p>
+          </div>
+          <div className="skel skel--count" />
+        </div>
+        <div className="cards-grid">
+          {Array.from({ length: count }).map((_, i) => (
+            <SkeletonCard key={i} index={i} gold={gold} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ══════════════════════════
    MAIN PAGE
 ══════════════════════════ */
@@ -176,8 +236,16 @@ export default function Home() {
   useEffect(() => {
     setLoggedIn(!!localStorage.getItem("token"));
     load();
-    const t = setTimeout(() => setMounted(true), 100);
-    return () => clearTimeout(t);
+    // Wait for fonts, then fire app:ready to dismiss the index.html splash screen
+    const reveal = () => {
+      setMounted(true);
+      window.dispatchEvent(new Event('app:ready'));
+    };
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => setTimeout(reveal, 80));
+    } else {
+      setTimeout(reveal, 600);
+    }
   }, []);
 
   async function load() {
@@ -281,7 +349,14 @@ export default function Home() {
       </section>
 
       {/* ════ YESTERDAY PICKS ════ */}
-      {!loading && yesterday.length > 0 && (
+      {loading ? (
+        <SkeletonSection
+          tag="Yesterday · Results"
+          title="Previous Picks"
+          sub="Full transparency — every result, unedited."
+          count={3}
+        />
+      ) : yesterday.length > 0 && (
         <section className="section">
           <div className="section__container">
             <div className="section__head">
@@ -300,7 +375,14 @@ export default function Home() {
       )}
 
       {/* ════ FREE PICKS ════ */}
-      {!loading && free.length > 0 && (
+      {loading ? (
+        <SkeletonSection
+          tag="Today · Complimentary"
+          title="Today's Free Picks"
+          sub="A window into our methodology. The real edge is reserved for members."
+          count={3}
+        />
+      ) : free.length > 0 && (
         <section className="section">
           <div className="section__container">
             <div className="section__head">
@@ -319,7 +401,15 @@ export default function Home() {
       )}
 
       {/* ════ VIP PICKS ════ */}
-      {!loading && vip.length > 0 && (
+      {loading ? (
+        <SkeletonSection
+          tag="Members Only · Classified"
+          title="VIP Intelligence"
+          sub="Fixed match intelligence from verified insiders. Active members only."
+          count={3}
+          gold
+        />
+      ) : vip.length > 0 && (
         <section className="section section--vip">
           <div className="section__vip-aura" aria-hidden="true" />
           <div className="section__container">

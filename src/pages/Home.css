@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Optima:wght@400;700&family=Canela:ital,wght@0,300;0,400;1,300;1,400&family=Saol+Display:ital,wght@0,300;0,400;1,300&family=Editoria+Classic:ital,wght@1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Tenor+Sans&family=IM+Fell+English:ital@0;1&family=Libre+Caslon+Display&family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Marcellus+SC&display=swap');
-
 /* ══════════════════════════════════════════════════════════
    DESIGN TOKENS
 ══════════════════════════════════════════════════════════ */
@@ -233,9 +230,8 @@ body { background: var(--void); overflow-x: hidden; }
 .hero__right {
   position: relative;
   opacity: 0; animation: fadeUp 1.1s .3s var(--e1) forwards;
-  /* contain so stats can't bleed out */
   min-width: 0;
-  overflow: hidden;          /* ← was overflow:visible; this is the fix */
+  overflow: hidden;
 }
 
 .hpanel {
@@ -285,7 +281,6 @@ body { background: var(--void); overflow-x: hidden; }
 .hpanel__live { display: flex; align-items: center; gap: 7px; font-family: var(--fMono); font-size: 7.5px; letter-spacing: 3px; color: #3ecf8e; }
 .live__pip { width: 6px; height: 6px; border-radius: 50%; background: #3ecf8e; box-shadow: 0 0 8px #3ecf8e; animation: blink 1.3s ease-in-out infinite; }
 
-/* Stats grid — constrained so numbers never overflow the panel */
 .hpanel__stats {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 4px; margin-bottom: 28px;
@@ -299,7 +294,6 @@ body { background: var(--void); overflow-x: hidden; }
 .hstat:hover { background: rgba(255,255,255,.04); }
 .hstat__num {
   font-family: var(--fDisplay);
-  /* Responsive: shrink on smaller panels */
   font-size: clamp(22px, 4vw, 34px);
   font-weight: 400; letter-spacing: -1px; line-height: 1;
   background: linear-gradient(135deg, var(--g0), var(--g1), var(--g3));
@@ -369,21 +363,18 @@ body { background: var(--void); overflow-x: hidden; }
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr)); gap: 16px; }
 
 /* ══════════════════════════════════════════════════════════
-   PICK CARD  —  richer dark background matching screenshot
+   PICK CARD
 ══════════════════════════════════════════════════════════ */
 .pcard {
   position: relative; border-radius: 16px;
   padding: 28px 24px 22px; overflow: hidden;
   will-change: transform; cursor: default;
-
-  /* ← Key change: solid dark navy instead of near-transparent */
   background: linear-gradient(145deg, #111827 0%, #0d1520 60%, #0a1018 100%);
   border: 1px solid rgba(255,255,255,.07);
   box-shadow:
     0 0 0 1px rgba(0,0,0,.5),
     0 20px 60px rgba(0,0,0,.55),
     0 4px 16px rgba(0,0,0,.4);
-
   opacity: 0;
   animation: cardReveal .65s calc(var(--delay, 0s) + .1s) var(--e1) both;
   transition: box-shadow .4s var(--e2), border-color .4s;
@@ -405,7 +396,6 @@ body { background: var(--void); overflow-x: hidden; }
 }
 .pcard:hover .pcard__glow { opacity: 1; }
 
-/* VIP variant — gold tint over the same dark base */
 .pcard--gold {
   background: linear-gradient(145deg, #141820 0%, #0f1a14 50%, #0a1210 100%);
   border-color: rgba(var(--gr),.18);
@@ -551,6 +541,74 @@ body { background: var(--void); overflow-x: hidden; }
 .footer__base-inner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 0; }
 .footer__copy { font-family: var(--fMono); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--ft-copy); }
 .footer__copy-sep { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--ft-border); margin-inline: 14px; vertical-align: middle; flex-shrink: 0; }
+
+/* ══════════════════════════════════════════════════════════
+   SKELETON LOADERS
+══════════════════════════════════════════════════════════ */
+@keyframes skel-sweep {
+  0%   { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(250%) skewX(-12deg); opacity: 0; }
+}
+@keyframes skel-breathe {
+  0%, 100% { opacity: .55; }
+  50%       { opacity: .85; }
+}
+.skel {
+  position: relative; overflow: hidden; border-radius: 4px;
+  background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.07) 50%, rgba(255,255,255,.04) 100%);
+  animation: skel-breathe 2s ease-in-out infinite;
+}
+.skel::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(var(--gr),.18) 50%, transparent 70%);
+  animation: skel-sweep 2.4s ease-in-out infinite;
+}
+.pcard--skeleton-gold .skel::after {
+  background: linear-gradient(105deg, transparent 25%, rgba(var(--gr),.32) 50%, transparent 75%);
+  animation-duration: 2s;
+}
+.skel--badge  { width: 96px; height: 22px; border-radius: 100px; }
+.skel--num    { width: 22px; height: 12px; }
+.skel--team   { flex: 1; height: 16px; max-width: 110px; }
+.skel--team-r { margin-left: auto; }
+.skel--label  { width: 48px; height: 8px; margin-inline: auto; }
+.skel--val    { height: 26px; width: 100%; border-radius: 4px; }
+.skel--val-odds {
+  height: 26px;
+  background: linear-gradient(135deg, rgba(62,207,142,.06) 0%, rgba(62,207,142,.1) 50%, rgba(62,207,142,.06) 100%);
+}
+.skel--val-odds::after {
+  background: linear-gradient(105deg, transparent 30%, rgba(62,207,142,.22) 50%, transparent 70%);
+}
+.skel--count { width: 60px; height: 18px; align-self: flex-end; margin-bottom: 6px; }
+
+.cards-grid > .pcard--skeleton:nth-child(1) .skel::after { animation-delay: 0s;   }
+.cards-grid > .pcard--skeleton:nth-child(2) .skel::after { animation-delay: 0.3s; }
+.cards-grid > .pcard--skeleton:nth-child(3) .skel::after { animation-delay: 0.6s; }
+.cards-grid > .pcard--skeleton:nth-child(4) .skel::after { animation-delay: 0.9s; }
+.cards-grid > .pcard--skeleton:nth-child(5) .skel::after { animation-delay: 1.2s; }
+.cards-grid > .pcard--skeleton:nth-child(6) .skel::after { animation-delay: 1.5s; }
+
+.cards-grid > .pcard--skeleton:nth-child(1) { animation-delay: 0s;    }
+.cards-grid > .pcard--skeleton:nth-child(2) { animation-delay: 0.15s; }
+.cards-grid > .pcard--skeleton:nth-child(3) { animation-delay: 0.3s;  }
+.cards-grid > .pcard--skeleton:nth-child(4) { animation-delay: 0.45s; }
+.cards-grid > .pcard--skeleton:nth-child(5) { animation-delay: 0.6s;  }
+.cards-grid > .pcard--skeleton:nth-child(6) { animation-delay: 0.75s; }
+
+.pcard--skeleton {
+  animation: skel-breathe 2s ease-in-out infinite !important;
+  opacity: 1 !important;
+  cursor: default;
+}
+.pcard--skeleton:hover {
+  border-color: inherit;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.5), 0 20px 60px rgba(0,0,0,.55), 0 4px 16px rgba(0,0,0,.4);
+  transform: none !important;
+}
+.pcard--skeleton-gold:hover { border-color: rgba(var(--gr),.18); }
 
 /* ══════════════════════════════════════════════════════════
    RESPONSIVE — Tablet
