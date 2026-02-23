@@ -179,6 +179,7 @@ body { background: var(--void); overflow-x: hidden; }
   min-height: calc(100vh - var(--bar));
   display: flex; flex-direction: column; justify-content: center;
   padding-block: 100px 80px;
+  overflow: hidden;
 }
 .hero__container {
   width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--px);
@@ -194,25 +195,59 @@ body { background: var(--void); overflow-x: hidden; }
 }
 .eyebrow__gem { font-size: 7px; color: var(--g3); }
 .eyebrow__dot { width: 3px; height: 3px; border-radius: 50%; background: var(--g5); }
+
+/* ── Hero Title — Redesigned ── */
 .hero__title { display: flex; flex-direction: column; line-height: .84; margin-bottom: 40px; gap: 0; }
-.ht__line { display: block; font-family: var(--fDisplay); font-weight: 400; text-transform: uppercase; letter-spacing: 4px; opacity: 0; }
-.ht__line--1 { font-size: clamp(58px, 9vw, 130px); color: var(--t0); animation: revealLine 1s .08s var(--e1) forwards; }
-.ht__line--2 { display: flex; align-items: baseline; gap: 18px; animation: revealLine 1s .2s var(--e1) forwards; }
-.ht__line--2 em { font-family: var(--fBody); font-size: clamp(30px, 4vw, 58px); font-style: italic; font-weight: 300; color: var(--t2); letter-spacing: 0; }
+.ht__line { display: block; opacity: 0; }
+
+/* Line 1: "INSIDER" — mono label with rule */
+.ht__line--1 {
+  display: flex; align-items: center; gap: 18px;
+  margin-bottom: 8px;
+  animation: fadeUp 0.9s 0.08s var(--e1) forwards;
+}
+.ht__line--1::before {
+  content: ''; display: inline-block;
+  width: 36px; height: 1px; flex-shrink: 0;
+  background: linear-gradient(90deg, var(--g3), var(--g5));
+}
+.ht__word {
+  font-family: var(--fMono); font-size: clamp(10px, 1vw, 13px);
+  letter-spacing: 6px; text-transform: uppercase;
+  color: var(--g3); font-weight: 400;
+}
+
+/* Line 2: "INTELLIGENCE" — massive gold word */
+.ht__line--2 { animation: revealLine 1s 0.18s var(--e1) forwards; overflow: hidden; }
 .ht__line--2 strong {
-  font-family: var(--fDisplay); font-size: clamp(58px, 9vw, 130px); font-weight: 400; letter-spacing: 4px;
-  background: linear-gradient(135deg, var(--g0) 0%, var(--g1) 15%, var(--g2) 30%, var(--g3) 45%, var(--g2) 55%, var(--g3) 65%, var(--g4) 78%, var(--g3) 88%, var(--g2) 100%);
+  display: block;
+  font-family: var(--fDisplay); font-size: clamp(52px, 8.5vw, 118px);
+  font-weight: 400; letter-spacing: 2px; text-transform: uppercase; line-height: 0.9;
+  background: linear-gradient(135deg, var(--g0) 0%, var(--g1) 15%, var(--g2) 30%, var(--g3) 48%, var(--g2) 56%, var(--g3) 66%, var(--g4) 80%, var(--g3) 90%, var(--g2) 100%);
   background-size: 300% auto;
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   animation: goldFlow 6s 1.5s ease-in-out infinite;
-  filter: drop-shadow(0 0 40px rgba(var(--gr),.35));
+  filter: drop-shadow(0 0 50px rgba(var(--gr), .28));
 }
+
+/* Line 3: "That Wins." — italic qualifier */
+.ht__line--3 { display: block; animation: revealLine 1s 0.32s var(--e1) forwards; }
+.ht__sub-label {
+  font-family: var(--fBody); font-size: clamp(22px, 3.2vw, 42px);
+  font-style: italic; font-weight: 300; color: var(--t2); letter-spacing: 0.5px; line-height: 1.2;
+}
+.ht__period {
+  font-family: var(--fBody); font-size: clamp(22px, 3.2vw, 42px); font-style: italic;
+  color: var(--g4); -webkit-text-fill-color: var(--g4);
+  filter: drop-shadow(0 0 14px var(--g3));
+  animation: pulsePeriod 3s ease-in-out infinite;
+}
+
 @keyframes goldFlow { 0%,100%{background-position:0% center} 50%{background-position:100% center} }
-.ht__period { -webkit-text-fill-color: var(--g4); filter: drop-shadow(0 0 18px var(--g3)); animation: pulsePeriod 3s ease-in-out infinite; }
 @keyframes pulsePeriod { 0%,100%{opacity:1} 50%{opacity:.4} }
-.ht__line--3 { font-size: clamp(54px, 8.5vw, 118px); color: transparent; -webkit-text-stroke: 1.5px rgba(237,233,225,.1); animation: revealLine 1s .34s var(--e1) forwards; }
 @keyframes revealLine { from{opacity:0;transform:translateY(30px) skewY(1deg)} to{opacity:1;transform:translateY(0) skewY(0)} }
 @keyframes fadeUp    { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
 .hero__desc { font-size: 15px; font-weight: 300; font-style: italic; color: var(--t2); line-height: 1.9; max-width: 420px; margin-bottom: 44px; opacity: 0; animation: fadeUp .9s .44s var(--e1) forwards; }
 .hero__desc em { color: var(--g3); font-style: italic; }
 .hero__actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; opacity: 0; animation: fadeUp .9s .52s var(--e1) forwards; }
@@ -614,9 +649,9 @@ body { background: var(--void); overflow-x: hidden; }
    RESPONSIVE — Tablet
 ══════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .hero__container { grid-template-columns: 1fr; gap: 40px; padding-inline: var(--px); }
-  .hero__right { order: -1; width: 90%; max-width: 100%; overflow: hidden; }
-  .hpanel { width: 100%; max-width: 100%; padding: 28px 24px; }
+  .hero__container { grid-template-columns: 1fr; gap: 40px; padding-inline: var(--px); width: 100%; }
+  .hero__right { order: -1; width: 100%; max-width: 100%; overflow: hidden; }
+  .hpanel { width: 100%; max-width: 100%; padding: 28px 24px; box-sizing: border-box; }
   .hero__float-accent { display: none; }
   .hpanel__stats { grid-template-columns: 1fr 1fr; }
   .section { padding-block: 72px; }
@@ -635,10 +670,8 @@ body { background: var(--void); overflow-x: hidden; }
   .ticker { display: none; }
   .page  { padding-top: var(--nav); }
   .hero { padding-block: 48px 56px; min-height: auto; }
-  .ht__line--1           { font-size: clamp(50px, 16vw, 90px); }
-  .ht__line--2 strong    { font-size: clamp(50px, 16vw, 90px); }
-  .ht__line--2 em        { font-size: clamp(24px, 8vw, 40px); }
-  .ht__line--3           { font-size: clamp(44px, 14vw, 80px); }
+  .ht__line--2 strong    { font-size: clamp(44px, 14vw, 80px); }
+  .ht__sub-label, .ht__period { font-size: clamp(18px, 6vw, 30px); }
   .hero__actions { flex-direction: column; width: 100%; }
   .cta--primary, .cta--ghost { width: 100%; justify-content: center; }
   .hero__scroll-hint { display: none; }

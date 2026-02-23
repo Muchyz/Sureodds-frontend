@@ -236,7 +236,6 @@ export default function Home() {
   useEffect(() => {
     setLoggedIn(!!localStorage.getItem("token"));
     load();
-    // Wait for fonts, then fire app:ready to dismiss the index.html splash screen
     const reveal = () => {
       setMounted(true);
       window.dispatchEvent(new Event('app:ready'));
@@ -280,19 +279,28 @@ export default function Home() {
               <div className="eyebrow__gem">◆</div>
               <span>Private Intelligence Network</span>
               <div className="eyebrow__dot" />
-              <span>Est. 2021</span>
+              <span>Est.2026</span>
             </div>
+
+            {/* ── Redesigned Hero Title ── */}
             <h1 className="hero__title">
-              <span className="ht__line ht__line--1">Outsmart</span>
-              <span className="ht__line ht__line--2">
-                <em>the</em><strong>Odds</strong><span className="ht__period">.</span>
+              <span className="ht__line ht__line--1">
+                <span className="ht__word">Insider</span>
               </span>
-              <span className="ht__line ht__line--3">Every Bet.</span>
+              <span className="ht__line ht__line--2">
+                <strong>100%</strong>
+              </span>
+              <span className="ht__line ht__line--3">
+                <span className="ht__sub-label">Sure Wins</span>
+                <span className="ht__period">.</span>
+              </span>
             </h1>
+
             <p className="hero__desc">
-              Verified insider intelligence, delivered before the market moves.
-              Not prediction — <em>knowledge</em>.
+              Verified intelligence from inside the game, delivered before
+              the market moves. mastery of — <em>a system</em>.
             </p>
+
             <div className="hero__actions">
               {loggedIn ? (
                 <>
