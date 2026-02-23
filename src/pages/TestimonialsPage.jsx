@@ -188,10 +188,6 @@ export default function TestimonialsPage() {
                 Browse Members
                 <ArrowUpRight size={13} />
               </Link>
-              <button className="ts-btn-ghost" onClick={() => searchRef.current?.focus()}>
-                <Search size={13} />
-                Search Stories
-              </button>
             </div>
           </div>
 
