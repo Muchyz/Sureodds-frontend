@@ -102,13 +102,11 @@ function PicksTab() {
         <button className={`tab ${activeTab==="yesterday"?"active":""}`} onClick={() => { setActiveTab("yesterday"); resetForm(); }}>🔥 Yesterday's Picks</button>
         <button className={`tab ${activeTab==="today"?"active":""}`}     onClick={() => { setActiveTab("today");     resetForm(); }}>👑 Today's VIP Picks</button>
       </div>
-
       {!showForm && (
         <div className="add-pick-section">
           <button className="btn-add-main" onClick={() => setShowForm(true)}>➕ Add New Pick</button>
         </div>
       )}
-
       {showForm && (
         <div className="form-container">
           <div className="form-header">
@@ -118,11 +116,11 @@ function PicksTab() {
           <form onSubmit={handleSubmit} className="pick-form">
             <div className="form-grid">
               {[
-                { name:"team1",      label:"Team 1 (Home) 🏠",    placeholder:"e.g., Mantova 1911" },
-                { name:"team2",      label:"Team 2 (Away) ✈️",    placeholder:"e.g., SSC Bari" },
-                { name:"time",       label:"Time ⏰",              placeholder:"e.g., 17:00" },
-                { name:"prediction", label:"Prediction ⚽",        placeholder:"e.g., 1st Half: 1:1" },
-                { name:"odds",       label:"Odds 💰",              placeholder:"e.g., 8.20" },
+                { name:"team1",      label:"Team 1 (Home) 🏠", placeholder:"e.g., Mantova 1911" },
+                { name:"team2",      label:"Team 2 (Away) ✈️", placeholder:"e.g., SSC Bari" },
+                { name:"time",       label:"Time ⏰",           placeholder:"e.g., 17:00" },
+                { name:"prediction", label:"Prediction ⚽",     placeholder:"e.g., 1st Half: 1:1" },
+                { name:"odds",       label:"Odds 💰",           placeholder:"e.g., 8.20" },
               ].map(f => (
                 <div key={f.name} className="form-group">
                   <label>{f.label}</label>
@@ -143,8 +141,8 @@ function PicksTab() {
               </label>
             </div>
             <div className="form-actions">
-              <button type="submit"  className="btn-submit">{isEditing ? "💾 Update Pick" : "➕ Create Pick"}</button>
-              <button type="button"  className="btn-cancel" onClick={resetForm}>❌ Cancel</button>
+              <button type="submit" className="btn-submit">{isEditing ? "💾 Update Pick" : "➕ Create Pick"}</button>
+              <button type="button" className="btn-cancel" onClick={resetForm}>❌ Cancel</button>
             </div>
           </form>
         </div>
@@ -160,7 +158,8 @@ function PicksTab() {
 const EMPTY_REVIEW = {
   name: "", location: "Nairobi", badge: "Starter", rating: 5,
   review_text: "", status: "offline", verified: true,
-  member_since: "", likes: 0, is_visible: true,
+  member_since: "", email: "", phone: "",
+  likes: 0, is_visible: true,
 };
 
 const LOCATIONS = [
@@ -168,6 +167,9 @@ const LOCATIONS = [
   "Kitale","Machakos","Meru","Nyeri","Kericho","Kakamega","Kisii","Embu",
   "Kilifi","Homa Bay","Bungoma","Nanyuki","Kajiado","Kitui","Ruiru","Kiambu",
 ];
+
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const YEARS  = ["2023","2024","2025"];
 
 function ReviewsTab() {
   const [reviews,     setReviews]     = useState([]);
@@ -221,6 +223,8 @@ function ReviewsTab() {
       status:       review.status,
       verified:     Boolean(review.verified),
       member_since: review.member_since,
+      email:        review.email        || "",
+      phone:        review.phone        || "",
       likes:        review.likes,
       is_visible:   Boolean(review.is_visible),
     });
@@ -236,7 +240,7 @@ function ReviewsTab() {
 
   const handleToggleVisible = async (review) => {
     try {
-      await api.put(`/api/reviews/${review.id}`, { ...review, is_visible: review.is_visible ? 0 : 1 });
+      await api.put(`/api/reviews/${review.id}`, { ...review, is_visible: !review.is_visible });
       fetchReviews();
     } catch (err) { alert("❌ Failed to update visibility."); }
   };
@@ -246,14 +250,18 @@ function ReviewsTab() {
   };
 
   const filtered = reviews.filter(r => {
-    const matchBadge = filterBadge === 'all' || r.badge === filterBadge;
-    const q = search.toLowerCase();
+    const matchBadge  = filterBadge === 'all' || r.badge === filterBadge;
+    const q           = search.toLowerCase();
     const matchSearch = r.name.toLowerCase().includes(q) || r.location.toLowerCase().includes(q);
     return matchBadge && matchSearch;
   });
 
-  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const YEARS  = ['2023','2024','2025'];
+  // Shared textarea style
+  const taStyle = {
+    padding:'14px 16px', borderRadius:'10px', border:'1.5px solid rgba(255,255,255,0.1)',
+    background:'rgba(255,255,255,0.05)', color:'white', fontSize:'15px',
+    resize:'vertical', fontFamily:'inherit', backdropFilter:'blur(10px)', transition:'all 0.3s',
+  };
 
   return (
     <>
@@ -268,6 +276,7 @@ function ReviewsTab() {
             <h2>{isEditing ? "✏️ Edit Review" : "➕ Add Review"}</h2>
             <button className="btn-close" onClick={resetForm}>✕</button>
           </div>
+
           <form onSubmit={handleSubmit} className="pick-form">
             <div className="form-grid">
 
@@ -321,6 +330,24 @@ function ReviewsTab() {
                 </select>
               </div>
 
+              {/* Email */}
+              <div className="form-group">
+                <label>Email Address 📧</label>
+                <input
+                  type="email" name="email" value={formData.email}
+                  onChange={handleChange} placeholder="e.g., dennis.kamau@gmail.com"
+                />
+              </div>
+
+              {/* Phone */}
+              <div className="form-group">
+                <label>Phone Number 📱</label>
+                <input
+                  type="text" name="phone" value={formData.phone}
+                  onChange={handleChange} placeholder="e.g., +254701234567"
+                />
+              </div>
+
               {/* Likes */}
               <div className="form-group">
                 <label>Likes Count ❤️</label>
@@ -330,26 +357,23 @@ function ReviewsTab() {
             </div>
 
             {/* Review Text */}
-            <div className="form-group" style={{marginTop: '4px'}}>
+            <div className="form-group" style={{marginTop:'4px'}}>
               <label>Review Text 💬</label>
               <textarea
-                name="review_text"
-                value={formData.review_text}
+                name="review_text" value={formData.review_text}
                 onChange={handleChange}
                 placeholder="Write the member's review here..."
-                required
-                rows={5}
-                style={{ padding:'14px 16px', borderRadius:'10px', border:'1.5px solid rgba(255,255,255,0.1)', background:'rgba(255,255,255,0.05)', color:'white', fontSize:'15px', resize:'vertical', fontFamily:'inherit', backdropFilter:'blur(10px)', transition:'all 0.3s' }}
+                required rows={5} style={taStyle}
               />
             </div>
 
             {/* Checkboxes */}
-            <div style={{ display:'flex', gap:'16px', flexWrap:'wrap' }}>
-              <label className="checkbox-label" style={{ flex:1, minWidth:'180px' }}>
+            <div style={{display:'flex', gap:'16px', flexWrap:'wrap'}}>
+              <label className="checkbox-label" style={{flex:1, minWidth:'180px'}}>
                 <input type="checkbox" name="verified" checked={formData.verified} onChange={handleChange}/>
                 <span>✅ Verified Member</span>
               </label>
-              <label className="checkbox-label" style={{ flex:1, minWidth:'180px' }}>
+              <label className="checkbox-label" style={{flex:1, minWidth:'180px'}}>
                 <input type="checkbox" name="is_visible" checked={formData.is_visible} onChange={handleChange}/>
                 <span>👁️ Visible to Public</span>
               </label>
@@ -366,24 +390,23 @@ function ReviewsTab() {
       {/* ── Filter Bar ── */}
       <div className="reviews-filter-bar">
         <input
-          type="text"
-          placeholder="🔍 Search name or location..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
+          type="text" placeholder="🔍 Search name or location..."
+          value={search} onChange={e => setSearch(e.target.value)}
           className="reviews-search-input"
         />
         <div className="reviews-filter-btns">
           {['all','Starter','Pro','VIP Elite'].map(b => (
-            <button key={b} className={`tab ${filterBadge===b?'active':''}`} style={{padding:'8px 16px', fontSize:'13px'}} onClick={() => setFilterBadge(b)}>
+            <button key={b} className={`tab ${filterBadge===b?'active':''}`}
+              style={{padding:'8px 16px', fontSize:'13px'}} onClick={() => setFilterBadge(b)}>
               {b === 'all' ? 'All' : b}
             </button>
           ))}
         </div>
       </div>
 
-      {/* ── Reviews Count ── */}
-      <p style={{ color:'#9ca3af', fontSize:'14px', marginBottom:'20px', textAlign:'center' }}>
-        {filtered.length} review{filtered.length !== 1 ? 's' : ''} found
+      {/* ── Count ── */}
+      <p style={{color:'#9ca3af', fontSize:'14px', marginBottom:'20px', textAlign:'center'}}>
+        {filtered.length} review{filtered.length !== 1 ? 's' : ''}
         {!loading && ` · ${reviews.filter(r=>r.is_visible).length} visible · ${reviews.filter(r=>!r.is_visible).length} hidden`}
       </p>
 
@@ -396,46 +419,38 @@ function ReviewsTab() {
         <div className="picks-grid">
           {filtered.map(review => (
             <div key={review.id} className={`admin-pick-card review-card ${!review.is_visible ? 'review-hidden' : ''}`}>
-              {/* Visibility badge */}
               <div className={`vip-badge-admin ${review.is_visible ? 'visible-badge' : 'hidden-badge'}`}>
                 {review.is_visible ? '👁️ Visible' : '🚫 Hidden'}
               </div>
 
-              {/* Header */}
               <div className="pick-header" style={{paddingRight:'90px'}}>
                 <h3 style={{fontSize:'16px'}}>{review.name}</h3>
-                <span className={`status-badge ${review.status}`} style={{fontSize:'10px'}}>
-                  {review.status}
-                </span>
+                <span className={`status-badge ${review.status}`} style={{fontSize:'10px'}}>{review.status}</span>
               </div>
 
-              {/* Details */}
               <div className="pick-details">
                 <div className="detail-row"><span className="label">📍 Location:</span><span className="value">{review.location}</span></div>
                 <div className="detail-row"><span className="label">🏅 Badge:</span><span className="value">{review.badge}</span></div>
-                <div className="detail-row">
-                  <span className="label">⭐ Rating:</span>
-                  <span className="value">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
-                </div>
+                <div className="detail-row"><span className="label">⭐ Rating:</span><span className="value">{'★'.repeat(review.rating)}{'☆'.repeat(5-review.rating)}</span></div>
                 <div className="detail-row"><span className="label">📅 Since:</span><span className="value">{review.member_since || '—'}</span></div>
+                <div className="detail-row"><span className="label">📧 Email:</span><span className="value" style={{fontSize:'12px', wordBreak:'break-all'}}>{review.email || '—'}</span></div>
+                <div className="detail-row"><span className="label">📱 Phone:</span><span className="value">{review.phone || '—'}</span></div>
                 <div className="detail-row"><span className="label">❤️ Likes:</span><span className="value">{review.likes}</span></div>
                 <div className="detail-row"><span className="label">✅ Verified:</span><span className="value">{review.verified ? 'Yes' : 'No'}</span></div>
               </div>
 
               {/* Review text preview */}
-              <div style={{ background:'rgba(255,255,255,0.03)', borderRadius:'8px', padding:'10px 12px', marginBottom:'16px', border:'1px solid rgba(255,255,255,0.06)' }}>
-                <p style={{ color:'#d1d5db', fontSize:'13px', lineHeight:'1.6', display:'-webkit-box', WebkitLineClamp:3, WebkitBoxOrient:'vertical', overflow:'hidden' }}>
+              <div style={{background:'rgba(255,255,255,0.03)', borderRadius:'8px', padding:'10px 12px', marginBottom:'16px', border:'1px solid rgba(255,255,255,0.06)'}}>
+                <p style={{color:'#d1d5db', fontSize:'13px', lineHeight:'1.6', display:'-webkit-box', WebkitLineClamp:3, WebkitBoxOrient:'vertical', overflow:'hidden'}}>
                   "{review.review_text}"
                 </p>
               </div>
 
-              {/* Actions */}
               <div className="pick-actions" style={{flexWrap:'wrap', gap:'8px'}}>
-                <button className="btn-edit"   onClick={() => handleEdit(review)} style={{flex:'1 1 80px'}}>✏️ Edit</button>
+                <button className="btn-edit" onClick={() => handleEdit(review)} style={{flex:'1 1 80px'}}>✏️ Edit</button>
                 <button
-                  className="btn-edit"
-                  onClick={() => handleToggleVisible(review)}
-                  style={{ flex:'1 1 80px', background: review.is_visible ? 'rgba(251,191,36,0.15)' : 'rgba(34,197,94,0.15)', color: review.is_visible ? '#fbbf24' : '#22c55e', border: `1.5px solid ${review.is_visible ? 'rgba(251,191,36,0.3)' : 'rgba(34,197,94,0.3)'}` }}
+                  className="btn-edit" onClick={() => handleToggleVisible(review)}
+                  style={{flex:'1 1 80px', background: review.is_visible ? 'rgba(251,191,36,0.15)' : 'rgba(34,197,94,0.15)', color: review.is_visible ? '#fbbf24' : '#22c55e', border:`1.5px solid ${review.is_visible ? 'rgba(251,191,36,0.3)' : 'rgba(34,197,94,0.3)'}`}}
                 >
                   {review.is_visible ? '🚫 Hide' : '👁️ Show'}
                 </button>
@@ -452,24 +467,16 @@ function ReviewsTab() {
 // ── Root Admin ───────────────────────────────────────────────────
 function Admin() {
   const [mainTab, setMainTab] = useState('picks');
-
   return (
     <div className="admin-container">
       <div className="admin-header">
         <h1>🎯 Admin Dashboard</h1>
         <p>Manage picks and member reviews</p>
       </div>
-
-      {/* Main tab switcher */}
       <div className="admin-tabs" style={{marginBottom:'32px'}}>
-        <button className={`tab ${mainTab==='picks'  ?'active':''}`} onClick={() => setMainTab('picks')}>
-          ⚽ Picks Manager
-        </button>
-        <button className={`tab ${mainTab==='reviews'?'active':''}`} onClick={() => setMainTab('reviews')}>
-          💬 Reviews Manager
-        </button>
+        <button className={`tab ${mainTab==='picks'  ?'active':''}`} onClick={() => setMainTab('picks')}>⚽ Picks Manager</button>
+        <button className={`tab ${mainTab==='reviews'?'active':''}`} onClick={() => setMainTab('reviews')}>💬 Reviews Manager</button>
       </div>
-
       <div className="admin-content">
         {mainTab === 'picks'   && <PicksTab/>}
         {mainTab === 'reviews' && <ReviewsTab/>}

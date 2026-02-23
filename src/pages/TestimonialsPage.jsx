@@ -1,18 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Clock, CheckCircle, Award, Zap, MapPin, Users, ChevronDown, X, Send,
-  Calendar, Phone, Star, TrendingUp, Shield,
+  Calendar, Mail, Phone, Star, TrendingUp, Shield,
   Heart, MessageCircle, Filter, Search
 } from 'lucide-react';
 import './TestimonialsPage.css';
 import api from '../api';
 
-// ── Helpers ─────────────────────────────────────────────────────
-const maskPhone = (phone) => {
-  if (!phone || phone.length < 10) return phone;
-  return `${phone.substring(0, 7)}***${phone.substring(phone.length - 3)}`;
-};
-
+// ── Helpers ──────────────────────────────────────────────────────
 const BADGE_STYLES = {
   'Starter':   { gradient: 'linear-gradient(to right,#9ca3af,#4b5563)', border: 'rgba(107,114,128,0.3)' },
   'Pro':       { gradient: 'linear-gradient(to right,#3b82f6,#4f46e5)', border: 'rgba(59,130,246,0.3)'  },
@@ -31,37 +26,34 @@ const AVATAR_COLORS = [
 ];
 
 const getAvatarColor = (name) => AVATAR_COLORS[name.charCodeAt(0) % AVATAR_COLORS.length];
-
-const getInitials = (name) =>
-  name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+const getInitials    = (name) => name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
 
 const timeAgo = (dateStr) => {
   const diff = (Date.now() - new Date(dateStr)) / 1000;
-  if (diff < 60)   return 'Just now';
-  if (diff < 3600) return `${Math.floor(diff/60)} minutes ago`;
-  if (diff < 86400)return `${Math.floor(diff/3600)} hours ago`;
+  if (diff < 60)     return 'Just now';
+  if (diff < 3600)   return `${Math.floor(diff/60)} minutes ago`;
+  if (diff < 86400)  return `${Math.floor(diff/3600)} hours ago`;
   if (diff < 604800) return `${Math.floor(diff/86400)} days ago`;
   return `${Math.floor(diff/604800)} weeks ago`;
 };
 
-// ── Main Component ───────────────────────────────────────────────
+// ── Main Component ────────────────────────────────────────────────
 const TestimonialsPage = () => {
-  const [reviews,         setReviews]         = useState([]);
-  const [loading,         setLoading]         = useState(true);
-  const [error,           setError]           = useState(null);
+  const [reviews,           setReviews]           = useState([]);
+  const [loading,           setLoading]           = useState(true);
+  const [error,             setError]             = useState(null);
   const [activeSubscribers, setActiveSubscribers] = useState(347);
-  const [displayCount,    setDisplayCount]    = useState(15);
-  const [expandedCards,   setExpandedCards]   = useState(new Set());
-  const [likedCards,      setLikedCards]      = useState(new Set());
-  const [commentText,     setCommentText]     = useState('');
+  const [displayCount,      setDisplayCount]      = useState(15);
+  const [expandedCards,     setExpandedCards]     = useState(new Set());
+  const [likedCards,        setLikedCards]        = useState(new Set());
+  const [commentText,       setCommentText]       = useState('');
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
-  const [selectedProfile, setSelectedProfile] = useState(null);
-  const [filterBadge,     setFilterBadge]     = useState('all');
-  const [searchQuery,     setSearchQuery]     = useState('');
-  const [showFilters,     setShowFilters]     = useState(false);
+  const [selectedProfile,   setSelectedProfile]   = useState(null);
+  const [filterBadge,       setFilterBadge]       = useState('all');
+  const [searchQuery,       setSearchQuery]       = useState('');
+  const [showFilters,       setShowFilters]       = useState(false);
   const searchInputRef = useRef(null);
 
-  // Fetch reviews from database
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -78,55 +70,46 @@ const TestimonialsPage = () => {
     fetchReviews();
   }, []);
 
-  // Animate active subscriber count
   useEffect(() => {
     const micro = setInterval(() => {
-      setActiveSubscribers(prev => {
-        const change = Math.floor(Math.random() * 11) - 5;
-        return Math.max(100, Math.min(900, prev + change));
-      });
+      setActiveSubscribers(prev => Math.max(100, Math.min(900, prev + Math.floor(Math.random()*11)-5)));
     }, 30000);
     return () => clearInterval(micro);
   }, []);
 
   const filteredReviews = reviews.filter(r => {
     const matchesBadge  = filterBadge === 'all' || r.badge === filterBadge;
-    const q = searchQuery.toLowerCase();
+    const q             = searchQuery.toLowerCase();
     const matchesSearch = r.name.toLowerCase().includes(q)
       || r.location.toLowerCase().includes(q)
       || r.review_text.toLowerCase().includes(q);
     return matchesBadge && matchesSearch;
   });
 
-  const loadMore = () => setDisplayCount(prev => Math.min(prev + 15, filteredReviews.length));
-
-  const toggleExpanded = (id) => setExpandedCards(prev => {
-    const s = new Set(prev); s.has(id) ? s.delete(id) : s.add(id); return s;
-  });
-
-  const toggleLike = (id) => setLikedCards(prev => {
-    const s = new Set(prev); s.has(id) ? s.delete(id) : s.add(id); return s;
-  });
+  const loadMore       = () => setDisplayCount(prev => Math.min(prev + 15, filteredReviews.length));
+  const toggleExpanded = (id) => setExpandedCards(prev => { const s=new Set(prev); s.has(id)?s.delete(id):s.add(id); return s; });
+  const toggleLike     = (id) => setLikedCards(prev => { const s=new Set(prev); s.has(id)?s.delete(id):s.add(id); return s; });
+  const truncateText   = (text, max=150) => text.length<=max ? text : text.substr(0,max)+'...';
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     if (commentText.trim()) setShowSubscriptionModal(true);
   };
 
-  const truncateText = (text, max = 150) =>
-    text.length <= max ? text : text.substr(0, max) + '...';
-
-  // ── Loading skeleton ───────────────────────────────────────────
+  // ── Loading ────────────────────────────────────────────────────
   if (loading) return (
     <div className="testimonials-page">
       <div className="bg-animation">
-        <div className="bg-blob bg-blob-1" /><div className="bg-blob bg-blob-2" /><div className="bg-blob bg-blob-3" />
+        <div className="bg-blob bg-blob-1"/><div className="bg-blob bg-blob-2"/><div className="bg-blob bg-blob-3"/>
       </div>
       <div className="container">
         <div className="loading-grid">
-          {[...Array(6)].map((_, i) => (
+          {[...Array(6)].map((_,i) => (
             <div key={i} className="skeleton-card">
-              <div className="skeleton-header"><div className="skeleton-avatar"/><div className="skeleton-lines"><div className="skeleton-line w60"/><div className="skeleton-line w40"/></div></div>
+              <div className="skeleton-header">
+                <div className="skeleton-avatar"/>
+                <div className="skeleton-lines"><div className="skeleton-line w60"/><div className="skeleton-line w40"/></div>
+              </div>
               <div className="skeleton-line w100" style={{margin:'12px 0'}}/>
               <div className="skeleton-line w80"/>
               <div className="skeleton-line w90" style={{marginTop:6}}/>
@@ -157,14 +140,12 @@ const TestimonialsPage = () => {
         {/* ── Header ── */}
         <div className="header-section">
           <div className="live-badge">
-            <Zap className="icon-zap" />
+            <Zap className="icon-zap"/>
             <span className="badge-text">Live Community</span>
             <div className="pulse-dots"><div className="pulse-dot pulse-dot-animated"/><div className="pulse-dot"/></div>
           </div>
           <h1 className="main-title">Member Success Stories</h1>
-          <p className="main-subtitle">
-            Join our thriving community of satisfied members across Kenya. See what our members are saying!
-          </p>
+          <p className="main-subtitle">Join our thriving community of satisfied members across Kenya. See what our members are saying!</p>
           <div className="stats-bar">
             <div className="stat-card stat-card-pulse">
               <div className="stat-icon-wrapper"><Users className="stat-icon"/></div>
@@ -189,11 +170,9 @@ const TestimonialsPage = () => {
           <div className="search-wrapper">
             <Search className="search-icon"/>
             <input
-              ref={searchInputRef}
-              type="text"
+              ref={searchInputRef} type="text"
               placeholder="Search by name, location, or content..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
+              value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
               className="search-input"
             />
             {searchQuery && (
@@ -203,17 +182,16 @@ const TestimonialsPage = () => {
             )}
           </div>
           <button onClick={() => setShowFilters(!showFilters)} className="filter-toggle">
-            <Filter className="filter-icon"/>
-            Filters
-            <ChevronDown className={`chevron-icon ${showFilters ? 'rotated' : ''}`}/>
+            <Filter className="filter-icon"/>Filters
+            <ChevronDown className={`chevron-icon ${showFilters?'rotated':''}`}/>
           </button>
         </div>
 
         {showFilters && (
           <div className="filter-options">
             {['all','Starter','Pro','VIP Elite'].map(b => (
-              <button key={b} onClick={() => setFilterBadge(b)} className={`filter-btn ${filterBadge === b ? 'active' : ''}`}>
-                {b === 'all' ? 'All Members' : b}
+              <button key={b} onClick={() => setFilterBadge(b)} className={`filter-btn ${filterBadge===b?'active':''}`}>
+                {b==='all'?'All Members':b}
               </button>
             ))}
           </div>
@@ -221,12 +199,10 @@ const TestimonialsPage = () => {
 
         <div className="results-info">
           <p className="results-text">
-            Showing <span className="highlight">{Math.min(displayCount, filteredReviews.length)}</span> of{' '}
+            Showing <span className="highlight">{Math.min(displayCount,filteredReviews.length)}</span> of{' '}
             <span className="highlight">{filteredReviews.length}</span> testimonials
-            {(searchQuery || filterBadge !== 'all') && (
-              <button onClick={() => { setSearchQuery(''); setFilterBadge('all'); }} className="clear-filters">
-                Clear filters
-              </button>
+            {(searchQuery || filterBadge!=='all') && (
+              <button onClick={() => { setSearchQuery(''); setFilterBadge('all'); }} className="clear-filters">Clear filters</button>
             )}
           </p>
         </div>
@@ -239,20 +215,18 @@ const TestimonialsPage = () => {
             const shouldTrunc = review.review_text.length > 150;
             const badgeStyle  = BADGE_STYLES[review.badge] || BADGE_STYLES['Starter'];
             const avatarColor = getAvatarColor(review.name);
-            const initials    = getInitials(review.name);
 
             return (
               <div
                 key={review.id}
                 className="testimonial-card visible"
-                style={{ animationDelay: `${(index % 15) * 0.04}s` }}
+                style={{ animationDelay:`${(index%15)*0.04}s` }}
               >
                 <div className="card-inner">
-                  {/* Header */}
                   <div className="card-header">
                     <div className="profile-section" onClick={() => setSelectedProfile(review)}>
                       <div className="avatar" style={{ background: avatarColor }}>
-                        {initials}
+                        {getInitials(review.name)}
                         <div className="avatar-ring"/>
                       </div>
                       <div className="profile-info">
@@ -260,9 +234,7 @@ const TestimonialsPage = () => {
                           <h3 className="profile-name">{review.name}</h3>
                           {Boolean(review.verified) && <CheckCircle className="verified-icon"/>}
                         </div>
-                        <div className="location-row">
-                          <MapPin className="location-icon"/>{review.location}
-                        </div>
+                        <div className="location-row"><MapPin className="location-icon"/>{review.location}</div>
                       </div>
                     </div>
                     <div className={`status-badge ${review.status}`}>
@@ -270,44 +242,36 @@ const TestimonialsPage = () => {
                     </div>
                   </div>
 
-                  {/* Badge & Rating */}
                   <div className="badge-rating-row">
-                    <div
-                      className="member-badge"
-                      style={{ background: badgeStyle.gradient, border: `1px solid ${badgeStyle.border}` }}
-                    >
+                    <div className="member-badge" style={{ background: badgeStyle.gradient, border:`1px solid ${badgeStyle.border}` }}>
                       <Award className="badge-icon"/>
                       <span className="badge-name">{review.badge}</span>
                     </div>
                     <div className="rating-stars">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`star-icon ${i < review.rating ? 'filled' : ''}`}/>
+                      {[...Array(5)].map((_,i) => (
+                        <Star key={i} className={`star-icon ${i<review.rating?'filled':''}`}/>
                       ))}
                     </div>
                   </div>
 
-                  {/* Comment */}
                   <div className="comment-section">
                     <p className="comment-text">
-                      "{isExpanded || !shouldTrunc ? review.review_text : truncateText(review.review_text)}"
+                      "{isExpanded||!shouldTrunc ? review.review_text : truncateText(review.review_text)}"
                     </p>
                     {shouldTrunc && (
                       <button onClick={() => toggleExpanded(review.id)} className="read-more-btn">
-                        {isExpanded ? 'Show less' : 'Read more'}
-                        <ChevronDown className={`chevron-icon ${isExpanded ? 'rotated' : ''}`}/>
+                        {isExpanded?'Show less':'Read more'}
+                        <ChevronDown className={`chevron-icon ${isExpanded?'rotated':''}`}/>
                       </button>
                     )}
                   </div>
 
-                  {/* Footer */}
                   <div className="card-footer">
-                    <div className="time-stamp">
-                      <Clock className="clock-icon"/>{timeAgo(review.created_at)}
-                    </div>
+                    <div className="time-stamp"><Clock className="clock-icon"/>{timeAgo(review.created_at)}</div>
                     <div className="card-actions">
-                      <button onClick={() => toggleLike(review.id)} className={`like-btn ${isLiked ? 'liked' : ''}`}>
+                      <button onClick={() => toggleLike(review.id)} className={`like-btn ${isLiked?'liked':''}`}>
                         <Heart className="heart-icon"/>
-                        <span className="like-count">{review.likes + (isLiked ? 1 : 0)}</span>
+                        <span className="like-count">{review.likes+(isLiked?1:0)}</span>
                       </button>
                       <button className="comment-btn"><MessageCircle className="message-icon"/></button>
                     </div>
@@ -318,7 +282,6 @@ const TestimonialsPage = () => {
           })}
         </div>
 
-        {/* No Results */}
         {filteredReviews.length === 0 && !loading && (
           <div className="no-results">
             <Search className="no-results-icon"/>
@@ -328,17 +291,12 @@ const TestimonialsPage = () => {
           </div>
         )}
 
-        {/* Comment Form */}
+        {/* ── Comment Form ── */}
         <div className="comment-form-section">
           <div className="comment-form-container">
             <h2 className="form-title"><Send className="send-icon"/>Share Your Success Story</h2>
             <form onSubmit={handleCommentSubmit} className="comment-form">
-              <textarea
-                value={commentText}
-                onChange={e => setCommentText(e.target.value)}
-                placeholder="Tell us about your experience with our community..."
-                className="comment-textarea"
-              />
+              <textarea value={commentText} onChange={e => setCommentText(e.target.value)} placeholder="Tell us about your experience..." className="comment-textarea"/>
               <button type="submit" className="submit-btn" disabled={!commentText.trim()}>
                 <Send className="btn-icon"/>Post Comment
               </button>
@@ -346,7 +304,6 @@ const TestimonialsPage = () => {
           </div>
         </div>
 
-        {/* Load More */}
         {displayCount < filteredReviews.length && (
           <div className="load-more-section">
             <button onClick={loadMore} className="load-more-btn">
@@ -355,14 +312,14 @@ const TestimonialsPage = () => {
           </div>
         )}
 
-        {/* CTA */}
+        {/* ── CTA ── */}
         <div className="cta-section">
           <div className="cta-container">
             <div className="cta-overlay"/>
             <div className="cta-content">
               <div className="cta-badge"><Shield className="cta-badge-icon"/><span>Trusted by 10,000+ Members</span></div>
               <h2 className="cta-title">Ready to Join Our Community?</h2>
-              <p className="cta-text">Be part of our growing community of satisfied members across Kenya. Your success story starts here!</p>
+              <p className="cta-text">Be part of our growing community of satisfied members across Kenya.</p>
               <a href="/pricing" className="cta-btn-link">
                 <button className="cta-btn">Join Now <span className="arrow">→</span></button>
               </a>
@@ -392,9 +349,9 @@ const TestimonialsPage = () => {
             </div>
             <div className="plans-list">
               {[
-                { cls:'starter-plan', name:'Starter Plan',   tag:'Basic Access',  desc:'Perfect for getting started',  features:['Basic Tips','Community Access'], tagCls:'' },
-                { cls:'pro-plan',     name:'Pro Plan',        tag:'Popular',        desc:'Advanced features with priority', features:['Premium Tips','Priority Support','Advanced Analytics'], tagCls:'popular', ribbon:true },
-                { cls:'vip-plan',     name:'VIP Elite Plan',  tag:'Premium',        desc:'Exclusive benefits, full access', features:['VIP Tips','1-on-1 Consultation','Full Access'], tagCls:'premium' },
+                { cls:'starter-plan', name:'Starter Plan',  tag:'Basic Access', desc:'Perfect for getting started',       features:['Basic Tips','Community Access'],                          tagCls:'' },
+                { cls:'pro-plan',     name:'Pro Plan',       tag:'Popular',      desc:'Advanced features with priority',    features:['Premium Tips','Priority Support','Advanced Analytics'],   tagCls:'popular', ribbon:true },
+                { cls:'vip-plan',     name:'VIP Elite Plan', tag:'Premium',      desc:'Exclusive benefits, full access',    features:['VIP Tips','1-on-1 Consultation','Full Access'],           tagCls:'premium' },
               ].map(p => (
                 <div key={p.name} className={`plan-card ${p.cls}`}>
                   {p.ribbon && <div className="plan-ribbon">Most Popular</div>}
@@ -411,11 +368,12 @@ const TestimonialsPage = () => {
         </div>
       )}
 
-      {/* ── Profile Modal ── */}
+      {/* ── Profile Modal — Full Details ── */}
       {selectedProfile && (
         <div className="modal-overlay" onClick={() => setSelectedProfile(null)}>
           <div className="modal-content profile-modal" onClick={e => e.stopPropagation()}>
             <button onClick={() => setSelectedProfile(null)} className="modal-close"><X className="close-icon"/></button>
+
             <div className="profile-modal-header">
               <div className="profile-avatar" style={{ background: getAvatarColor(selectedProfile.name) }}>
                 {getInitials(selectedProfile.name)}
@@ -427,7 +385,7 @@ const TestimonialsPage = () => {
               </div>
               <div
                 className="profile-badge"
-                style={{ background: (BADGE_STYLES[selectedProfile.badge] || BADGE_STYLES['Starter']).gradient }}
+                style={{ background: (BADGE_STYLES[selectedProfile.badge]||BADGE_STYLES['Starter']).gradient }}
               >
                 <Award className="profile-badge-icon"/>
                 <span className="profile-badge-name">{selectedProfile.badge}</span>
@@ -437,23 +395,61 @@ const TestimonialsPage = () => {
                   <div className="profile-status-dot"/>{selectedProfile.status}
                 </div>
                 <div className="profile-rating">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`star-icon-small ${i < selectedProfile.rating ? 'filled' : ''}`}/>
+                  {[...Array(5)].map((_,i) => (
+                    <Star key={i} className={`star-icon-small ${i<selectedProfile.rating?'filled':''}`}/>
                   ))}
                   <span className="rating-text">{selectedProfile.rating}.0</span>
                 </div>
               </div>
             </div>
+
+            {/* Detail cards — same layout as original */}
             <div className="profile-details">
+
+              {/* Location */}
               <div className="detail-card">
                 <div className="detail-header"><MapPin className="detail-icon"/><span className="detail-label">Location</span></div>
                 <p className="detail-value">{selectedProfile.location}, Kenya</p>
               </div>
+
+              {/* Email — masked, admin-only note */}
+              <div className="detail-card contact-card">
+                <div className="detail-header"><Mail className="detail-icon"/><span className="detail-label">Email</span></div>
+                {selectedProfile.email ? (
+                  <p className="detail-value masked">{selectedProfile.email}</p>
+                ) : (
+                  <div className="contact-locked">
+                    <p className="lock-message">
+                      <Shield className="shield-icon"/>
+                      User email is only visible to admin for security
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Phone — masked */}
+              <div className="detail-card contact-card">
+                <div className="detail-header"><Phone className="detail-icon"/><span className="detail-label">Phone</span></div>
+                {selectedProfile.phone ? (
+                  <p className="detail-value masked">{selectedProfile.phone}</p>
+                ) : (
+                  <div className="contact-locked">
+                    <p className="lock-message">
+                      <Shield className="shield-icon"/>
+                      Phone number is private
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Member Since */}
               <div className="detail-card">
                 <div className="detail-header"><Calendar className="detail-icon"/><span className="detail-label">Member Since</span></div>
-                <p className="detail-value">{selectedProfile.member_since}</p>
+                <p className="detail-value">{selectedProfile.member_since || '—'}</p>
               </div>
+
             </div>
+
             <button onClick={() => setSelectedProfile(null)} className="modal-action-btn">Close Profile</button>
           </div>
         </div>
