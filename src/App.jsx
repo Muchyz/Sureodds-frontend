@@ -20,6 +20,7 @@ import Contact from "./pages/Navbarpages/Contact";
 import Matches from "./pages/Navbarpages/Matches";
 import AdminFeatures from "./pages/AdminFeatures";
 import Admin from './Admin';
+import Members from "./pages/Members";
 
 function App() {
   return (
@@ -85,6 +86,9 @@ function App() {
         />
         
         <Route path="/vip-access-denied" element={<VipAccessDenied />} />
+        
+          <Route path="/members"  element={<Members/>} />
+      
 
 
         <Route
