@@ -509,33 +509,60 @@ export default function TestimonialsPage() {
 
         {/* ══ CTA SECTION ══ */}
         <section className="ts-cta-section">
-          <div className="ts-cta-bg-text" aria-hidden="true">JOIN</div>
-          <div className="ts-cta-inner">
-            <div className="ts-cta-badge">
-              <Shield size={11} />Trusted by 10,000+ Members
+
+          {/* Left — dark features panel */}
+          <div className="ts-cta-left">
+            <div className="ts-cta-left-eyebrow">
+              Why Members Stay
             </div>
-            <h2 className="ts-cta-title">
-              Your winning streak<br />starts <em>here.</em>
+            <h2 className="ts-cta-left-title">
+              Kenya's most<br />
+              <span>trusted</span> betting<br />
+              community.
             </h2>
-            <p className="ts-cta-sub">
-              Join Kenya's most trusted sports betting community. Expert tips, real results, and unmatched community support.
+            <p className="ts-cta-left-desc">
+              Expert tips, real results, and unmatched support — built for serious bettors across Kenya.
             </p>
-            <div className="ts-cta-btns">
-              <Link to="/pricing" className="ts-btn-gold ts-btn-lg">
-                Join Now <ArrowRight size={15} />
-              </Link>
-              <Link to="/members" className="ts-btn-ghost ts-btn-lg">
-                <Users size={14} /> View All Members
-              </Link>
-            </div>
             <div className="ts-cta-pills">
-              {['24/7 Support','Expert Picks','Proven Results','Kenyan Community'].map(f => (
-                <div key={f} className="ts-cta-pill">
-                  <CheckCircle size={11} />{f}
+              {[
+                { label: '24/7 Support',      icon: <Shield size={14}/> },
+                { label: 'Expert Picks',      icon: <Star size={14}/> },
+                { label: 'Proven Results',    icon: <TrendingUp size={14}/> },
+                { label: 'Kenyan Community',  icon: <Users size={14}/> },
+              ].map(f => (
+                <div key={f.label} className="ts-cta-pill">
+                  <div className="ts-cta-pill-icon">{f.icon}</div>
+                  {f.label}
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Right — gold action panel */}
+          <div className="ts-cta-right">
+            <div className="ts-cta-inner">
+              <div className="ts-cta-badge">
+                <Shield size={10} />Trusted by 10,000+ Members
+              </div>
+              <h2 className="ts-cta-title">
+                Your winning<br />
+                streak starts<br />
+                <em>here.</em>
+              </h2>
+              <p className="ts-cta-sub">
+                Join now and get instant access to expert picks, community insights, and daily tips.
+              </p>
+              <div className="ts-cta-btns">
+                <Link to="/pricing" className="ts-btn-gold ts-btn-lg">
+                  Join Now <ArrowRight size={15} />
+                </Link>
+                <Link to="/members" className="ts-btn-ghost ts-btn-lg">
+                  <Users size={14} /> View All Members
+                </Link>
+              </div>
+            </div>
+          </div>
+
         </section>
 
         <footer className="ts-page-footer">
