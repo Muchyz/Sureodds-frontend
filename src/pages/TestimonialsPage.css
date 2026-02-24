@@ -160,6 +160,7 @@ html { scroll-behavior: smooth; }
   background: linear-gradient(90deg, transparent, rgba(245,166,35,0.3), transparent);
 }
 
+/* Original LIVE tag — untouched */
 .ts-ticker-tag {
   display: flex;
   align-items: center;
@@ -177,21 +178,45 @@ html { scroll-behavior: smooth; }
   padding-right: 28px;
 }
 
+/* ── Ticker track — classic dark chamber ── */
 .ts-ticker-track {
   flex: 1;
   overflow: hidden;
-  padding: 0 24px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
+  position: relative;
+  background: #07090e;
+  border-left: 1px solid rgba(245,166,35,0.1);
+}
+
+/* Soft edge fades */
+.ts-ticker-track::before,
+.ts-ticker-track::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 48px;
+  pointer-events: none;
+  z-index: 1;
+}
+.ts-ticker-track::before {
+  left: 0;
+  background: linear-gradient(90deg, #07090e, transparent);
+}
+.ts-ticker-track::after {
+  right: 0;
+  background: linear-gradient(270deg, #07090e, transparent);
 }
 
 .ts-ticker-item {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--ash);
+  font-weight: 400;
+  color: rgba(210,200,175,0.55);
   white-space: nowrap;
   animation: ticker-enter 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
 }
 
 @keyframes ticker-enter {
@@ -199,18 +224,31 @@ html { scroll-behavior: smooth; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Online count — classic engraved panel ── */
 .ts-ticker-count {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   padding: 0 22px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10.5px;
+  font-weight: 400;
   color: var(--signal);
   flex-shrink: 0;
-  border-left: 1px solid var(--border);
   height: 100%;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
+  background: #06080d;
+  border-left: 1px solid rgba(255,255,255,0.04);
+  position: relative;
+}
+
+/* Hairline gold top-edge accent on count panel */
+.ts-ticker-count::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,166,35,0.2), transparent);
 }
 
 .ts-pulse-dot {
@@ -300,41 +338,86 @@ html { scroll-behavior: smooth; }
   max-width: 100px;
 }
 
-/* Hero title — editorial treatment */
-.ts-hero-title {
-  font-family: var(--font-edit);
-  font-size: clamp(68px, 11vw, 140px);
-  font-weight: 900;
-  line-height: 0.88;
-  letter-spacing: -0.02em;
-  color: var(--snow);
-  margin-bottom: 32px;
+/* ══════════════════════════════════════════════════════
+   HERO TITLE + DESC — LUXURY RESTYLED ONLY
+══════════════════════════════════════════════════════ */
+
+/* Import Cormorant just for these elements */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap');
+
+/* Gold foil animation */
+@keyframes foil-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
+.ts-hero-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(72px, 11vw, 148px);
+  font-weight: 300;
+  line-height: 0.88;
+  letter-spacing: -0.025em;
+  color: var(--snow);
+  margin-bottom: 32px;
+  position: relative;
+}
+
+/* "Real" lines — whisper thin, purely typographic */
 .ts-hero-title em {
   font-style: italic;
-  background: var(--gold-grad);
+  font-weight: 300;
+  display: block;
+  background: linear-gradient(105deg,
+    #9a7020 0%,
+    #d4a840 15%,
+    #f5d070 30%,
+    #e8c050 45%,
+    #c8900a 55%,
+    #f0d878 68%,
+    #c9a030 80%,
+    #e8c050 90%,
+    #9a7020 100%
+  );
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: block;
+  animation: foil-shimmer 5s ease-in-out infinite;
 }
 
+/* "Voices." — elegant ghost outline */
 .ts-hero-outline {
   color: transparent;
-  -webkit-text-stroke: 2px rgba(240,236,227,0.18);
+  -webkit-text-stroke: 1.5px rgba(240,236,227,0.15);
   display: block;
   font-style: normal;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  position: relative;
 }
 
+/* Delicate gold rule beneath the title block */
+.ts-hero-title::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(245,166,35,0.8), rgba(245,166,35,0.1));
+  margin-top: 34px;
+}
+
+/* Description — refined editorial italic */
 .ts-hero-desc {
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.75;
-  color: var(--ash);
-  max-width: 440px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px;
   font-weight: 300;
+  font-style: italic;
+  line-height: 1.85;
+  color: rgba(240,236,227,0.45);
+  max-width: 440px;
   margin-bottom: 40px;
+  letter-spacing: 0.01em;
 }
 
 .ts-hero-actions {
@@ -355,7 +438,6 @@ html { scroll-behavior: smooth; }
   overflow: hidden;
 }
 
-/* Decorative corner accent */
 .ts-stats-panel::before {
   content: '';
   position: absolute;
@@ -592,7 +674,6 @@ html { scroll-behavior: smooth; }
   max-width: 480px;
 }
 
-/* Glowing outline ring on focus */
 .ts-search-box::after {
   content: '';
   position: absolute;
@@ -1351,7 +1432,6 @@ html { scroll-behavior: smooth; }
   letter-spacing: -0.04em;
 }
 
-/* Remove the old bg-text div style */
 .ts-cta-bg-text { display: none; }
 
 .ts-cta-inner { position: relative; z-index: 1; width: 100%; }
@@ -1570,7 +1650,6 @@ html { scroll-behavior: smooth; }
   margin: auto;
 }
 
-/* Gold top border on modal */
 .ts-modal::before {
   content: '';
   position: absolute;
