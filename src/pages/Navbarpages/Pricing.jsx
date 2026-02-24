@@ -12,7 +12,7 @@ function Pricing() {
   const [transactionCode, setTransactionCode] = useState("");
   const [referenceNumber, setReferenceNumber] = useState("");
   const [verifyingManual, setVerifyingManual] = useState(false);
-  const [detectedProvider, setDetectedProvider] = useState(null); // "mpesa" | "airtel"
+  const [detectedProvider, setDetectedProvider] = useState(null);
 
   const copyToClipboard = (text, label) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -22,7 +22,6 @@ function Pricing() {
     });
   };
 
-  // Detect M-Pesa vs Airtel from phone prefix
   const detectProvider = (phone) => {
     const clean = phone.replace(/[\s\+\-]/g, "");
     const local = clean.startsWith("254") ? "0" + clean.substring(3) : clean;
@@ -124,16 +123,27 @@ function Pricing() {
       alert("Please enter your phone number");
       return;
     }
+
     const cleanPhone = phoneNumber.replace(/\s/g, "");
     const phoneRegex = /^(254|0)[17]\d{8}$/;
     if (!phoneRegex.test(cleanPhone)) {
-      alert("Please enter a valid Kenyan phone number (e.g., 0712345678 or 254712345678)");
+      alert("Please enter a valid Kenyan phone number (e.g., 0712345678)");
       return;
     }
 
+    // If Airtel detected, skip STK and go straight to manual
     const provider = detectProvider(cleanPhone);
+    if (provider === "airtel") {
+      setShowManualPayment(true);
+      setPaymentStatus({
+        type: "warning",
+        message: "⚠️ Airtel Money STK push is not supported yet. Please use manual payment below.",
+      });
+      return;
+    }
+
     setLoading(true);
-    setPaymentStatus({ type: "info", message: "Initiating payment..." });
+    setPaymentStatus({ type: "info", message: "Initiating M-Pesa payment..." });
 
     try {
       const token = localStorage.getItem("token");
@@ -155,10 +165,9 @@ function Pricing() {
       const data = await response.json();
 
       if (data.success) {
-        const providerName = provider === "mpesa" ? "M-Pesa" : "Airtel Money";
         setPaymentStatus({
           type: "success",
-          message: `✅ ${providerName} prompt sent! Check your phone and enter your PIN to complete payment.`,
+          message: "✅ M-Pesa STK Push sent! Check your phone and enter your PIN.",
         });
         pollPaymentStatus(data.invoice_id);
       } else {
@@ -183,7 +192,7 @@ function Pricing() {
   const pollPaymentStatus = async (invoiceId) => {
     const token = localStorage.getItem("token");
     let attempts = 0;
-    const maxAttempts = 30; // 30 × 6s = 3 minutes
+    const maxAttempts = 30;
 
     const checkStatus = async () => {
       try {
@@ -227,7 +236,6 @@ function Pricing() {
 
         setTimeout(checkStatus, 6000);
       } catch (error) {
-        console.error("Status check error:", error);
         attempts++;
         if (attempts < maxAttempts) {
           setTimeout(checkStatus, 6000);
@@ -284,13 +292,10 @@ function Pricing() {
       } else {
         setPaymentStatus({
           type: "error",
-          message:
-            data.message ||
-            "❌ Payment not found. Please check your transaction code or contact support.",
+          message: data.message || "❌ Payment not found. Please check your transaction code or contact support.",
         });
       }
     } catch (error) {
-      console.error("Manual verification error:", error);
       setPaymentStatus({
         type: "error",
         message: "❌ Verification failed. Please check your code and try again or contact support.",
@@ -460,7 +465,6 @@ function Pricing() {
         <div className="mpesa-overlay" onClick={closeModal}>
           <div className="mpesa-modal" onClick={(e) => e.stopPropagation()}>
 
-            {/* Header */}
             <div className="mpesa-header">
               <button className="mpesa-close" onClick={closeModal} aria-label="Close">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -473,7 +477,6 @@ function Pricing() {
               <p className="mpesa-header-sub">M-Pesa &amp; Airtel Money · Secure Payment</p>
             </div>
 
-            {/* Summary */}
             <div className="mpesa-summary">
               <div className="mpesa-merchant-row">
                 <div className="mpesa-merchant-icon">
@@ -500,18 +503,18 @@ function Pricing() {
 
             <div className="mpesa-divider" />
 
-            {/* Form */}
             <div className="mpesa-form">
               {!showManualPayment ? (
                 <>
                   <label className="mpesa-label" htmlFor="mpesa-phone">
-                    Phone Number (M-Pesa or Airtel Money)
+                    Phone Number
                   </label>
 
-                  {/* Provider badge */}
                   {detectedProvider && (
                     <div className={`provider-badge provider-badge-${detectedProvider}`}>
-                      {detectedProvider === "mpesa" ? "📲 M-Pesa detected" : "📲 Airtel Money detected"}
+                      {detectedProvider === "mpesa"
+                        ? "📲 M-Pesa detected — STK push will be sent"
+                        : "📲 Airtel detected — please use manual payment below"}
                     </div>
                   )}
 
@@ -524,7 +527,7 @@ function Pricing() {
                     <input
                       id="mpesa-phone"
                       type="tel"
-                      placeholder="e.g. 0712345678 or 0733123456"
+                      placeholder="M-Pesa: 07XXXXXXXX  |  Airtel: use manual payment"
                       value={phoneNumber}
                       onChange={handlePhoneChange}
                       disabled={loading}
@@ -560,15 +563,15 @@ function Pricing() {
                     <div className="mpesa-steps-title">HOW IT WORKS</div>
                     <div className="mpesa-step">
                       <div className="mpesa-step-num">1</div>
-                      <div className="mpesa-step-text">Enter your M-Pesa or Airtel number &amp; tap Pay</div>
+                      <div className="mpesa-step-text">Enter your M-Pesa number &amp; tap Pay</div>
                     </div>
                     <div className="mpesa-step">
                       <div className="mpesa-step-num">2</div>
-                      <div className="mpesa-step-text">A payment prompt appears on your phone</div>
+                      <div className="mpesa-step-text">An STK push prompt appears on your phone</div>
                     </div>
                     <div className="mpesa-step">
                       <div className="mpesa-step-num">3</div>
-                      <div className="mpesa-step-text">Enter your PIN to confirm and unlock VIP access</div>
+                      <div className="mpesa-step-text">Enter your M-Pesa PIN to confirm and unlock VIP</div>
                     </div>
                   </div>
                 </>
@@ -590,7 +593,7 @@ function Pricing() {
                     </div>
 
                     <div className="manual-payment-instructions">
-                      <p className="manual-payment-title">Complete payment manually using these details:</p>
+                      <p className="manual-payment-title">Pay via M-Pesa or Airtel Money Paybill:</p>
 
                       <div className="payment-detail-box">
                         <div className="payment-detail-item">
@@ -602,11 +605,7 @@ function Pricing() {
                           <span className="payment-detail-label">2. Business Number</span>
                           <div className="payment-value-with-copy">
                             <span className="payment-detail-value selectable payment-number">247247</span>
-                            <button
-                              className="copy-btn"
-                              onClick={() => copyToClipboard("247247", "Business Number")}
-                              type="button"
-                            >
+                            <button className="copy-btn" onClick={() => copyToClipboard("247247", "Business Number")} type="button">
                               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                                 <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
@@ -620,11 +619,7 @@ function Pricing() {
                           <span className="payment-detail-label">3. Account Number</span>
                           <div className="payment-value-with-copy">
                             <span className="payment-detail-value selectable payment-number">0040179069768</span>
-                            <button
-                              className="copy-btn"
-                              onClick={() => copyToClipboard("0040179069768", "Account Number")}
-                              type="button"
-                            >
+                            <button className="copy-btn" onClick={() => copyToClipboard("0040179069768", "Account Number")} type="button">
                               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                                 <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
@@ -636,14 +631,12 @@ function Pricing() {
 
                         <div className="payment-detail-item">
                           <span className="payment-detail-label">4. Amount</span>
-                          <span className="payment-detail-value amount">
-                            KES {plans[selectedPlan]?.price.toLocaleString()}
-                          </span>
+                          <span className="payment-detail-value amount">KES {plans[selectedPlan]?.price.toLocaleString()}</span>
                         </div>
                       </div>
 
                       <div className="manual-payment-note">
-                        💡 After paying, you'll receive a confirmation SMS with a transaction code (e.g., QH23KLM890 for M-Pesa or AI12345678 for Airtel)
+                        💡 After paying, enter the transaction code from your confirmation SMS (e.g., QH23KLM890 for M-Pesa or AI12345678 for Airtel)
                       </div>
                     </div>
 
@@ -707,7 +700,6 @@ function Pricing() {
                 <span>Secured by Safaricom M-Pesa &amp; Airtel Money · Powered by Paystack</span>
               </div>
             </div>
-
           </div>
         </div>
       )}
@@ -760,7 +752,7 @@ function Pricing() {
           <div className="mo-faq-item">
             <div className="mo-faq-num">03</div>
             <h3>Which payment methods are accepted?</h3>
-            <p>We accept M-Pesa and Airtel Money via Paystack's secure payment gateway. Your payment is encrypted and processed through official mobile money channels.</p>
+            <p>M-Pesa STK push (Safaricom) and manual Paybill payment for both M-Pesa and Airtel Money users.</p>
           </div>
           <div className="mo-faq-item">
             <div className="mo-faq-num">04</div>
