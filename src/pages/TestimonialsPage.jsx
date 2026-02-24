@@ -43,12 +43,14 @@ const TICKER = [
   '🔔 10,000+ members and counting',
 ];
 
+const randomSubscribers = () => Math.floor(Math.random() * (1580 - 700 + 1)) + 700;
+
 // ── Main Component ────────────────────────────────────────────────
 export default function TestimonialsPage() {
   const [reviews,           setReviews]           = useState([]);
   const [loading,           setLoading]           = useState(true);
   const [error,             setError]             = useState(null);
-  const [activeSubscribers, setActiveSubscribers] = useState(347);
+  const [activeSubscribers, setActiveSubscribers] = useState(randomSubscribers);
   const [displayCount,      setDisplayCount]      = useState(12);
   const [expandedCards,     setExpandedCards]     = useState(new Set());
   const [likedCards,        setLikedCards]        = useState(new Set());
@@ -75,7 +77,7 @@ export default function TestimonialsPage() {
   }, []);
 
   useEffect(() => {
-    const t = setInterval(() => setActiveSubscribers(p => Math.max(100, Math.min(900, p + Math.floor(Math.random() * 11) - 5))), 30000);
+    const t = setInterval(() => setActiveSubscribers(randomSubscribers()), 60000);
     return () => clearInterval(t);
   }, []);
 
