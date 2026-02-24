@@ -1,235 +1,371 @@
-.access-denied-page {
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+/* ── Reset & Root ─────────────────────────────────────────── */
+.vad-root {
+  --bg:        #07080c;
+  --surface:   #0e1018;
+  --border:    rgba(255,255,255,0.08);
+  --muted:     #3d4052;
+  --text-dim:  #7a8099;
+  --text:      #c8cde0;
+  --text-hi:   #eef0f8;
+  --accent:    #b8a04a;
+  --accent-lo: rgba(184,160,74,0.12);
+  --accent-hi: #e2c96e;
+  --red:       #c94f4f;
+  --mono:      'DM Mono', monospace;
+  --sans:      'DM Sans', sans-serif;
+  --display:   'Bebas Neue', sans-serif;
+
+  position: relative;
   min-height: 100vh;
-  background: #0a0a0f;
-  color: white;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
-  position: relative;
+  padding: 100px 24px 60px;
   overflow: hidden;
+  isolation: isolate;
 }
 
-.access-denied-orbs {
+/* ── Atmosphere layers ────────────────────────────────────── */
+.vad-grid {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.vad-scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.18) 3px,
+    rgba(0,0,0,0.18) 4px
+  );
   pointer-events: none;
   z-index: 0;
 }
 
-.denied-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.3;
-  animation: deniedFloat 15s infinite ease-in-out;
+.vad-noise {
+  position: fixed;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.denied-orb-1 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, #fbbf24, transparent);
-  top: -200px;
-  right: -200px;
-}
-
-.denied-orb-2 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, #f59e0b, transparent);
-  bottom: -300px;
-  left: -300px;
-  animation-delay: 5s;
-}
-
-@keyframes deniedFloat {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(30px, -30px);
-  }
-}
-
-.access-denied-content {
-  max-width: 600px;
-  text-align: center;
-  position: relative;
+/* ── Corner brackets ──────────────────────────────────────── */
+.vad-bracket {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border-color: var(--accent);
+  border-style: solid;
   z-index: 1;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 60px 40px;
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  box-shadow: 
-    0 20px 60px rgba(251, 191, 36, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  opacity: 0.5;
+  animation: bracketPulse 4s ease-in-out infinite;
+}
+.vad-bracket--tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+.vad-bracket--tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; animation-delay: 1s; }
+.vad-bracket--bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; animation-delay: 2s; }
+.vad-bracket--br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; animation-delay: 3s; }
+
+@keyframes bracketPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
-.lock-animation {
-  margin-bottom: 30px;
-}
-
-.lock-big {
-  font-size: 80px;
-  display: inline-block;
-  filter: drop-shadow(0 8px 30px rgba(251, 191, 36, 0.6));
-  animation: lockBounce 2s ease-in-out infinite;
-}
-
-@keyframes lockBounce {
-  0%, 100% {
-    transform: translateY(0px) rotate(-5deg);
-  }
-  50% {
-    transform: translateY(-15px) rotate(5deg);
-  }
-}
-
-.denied-title {
-  font-size: 42px;
-  font-weight: 800;
-  margin-bottom: 20px;
-  line-height: 1.2;
-}
-
-.denied-gradient {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 3s ease infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
-}
-
-.denied-text {
-  font-size: 17px;
-  color: #9ca3af;
-  line-height: 1.6;
-  margin-bottom: 40px;
-}
-
-.denied-features {
+/* ── Main card ────────────────────────────────────────────── */
+.vad-main {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 40px;
-  padding: 30px;
-  background: rgba(251, 191, 36, 0.05);
-  border-radius: 16px;
-  border: 1px solid rgba(251, 191, 36, 0.1);
+  align-items: center;
+  gap: 32px;
+  animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.denied-feature {
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Status bar ───────────────────────────────────────────── */
+.vad-status {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 15px;
-  color: #e5e7eb;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.feature-icon {
-  width: 24px;
-  height: 24px;
+.vad-status__dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: #0a0a0f;
+  background: var(--red);
+  flex-shrink: 0;
+  box-shadow: 0 0 6px var(--red);
+  animation: blink 1.4s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.vad-status__text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vad-status__code {
+  color: var(--red);
+  font-weight: 500;
   flex-shrink: 0;
 }
 
-.denied-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
-}
-
-.upgrade-btn {
+/* ── Emblem ───────────────────────────────────────────────── */
+.vad-emblem {
+  position: relative;
+  width: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 18px 40px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  color: #0a0a0f;
+}
+
+.vad-emblem__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  animation: ringRotate 12s linear infinite;
+}
+
+.vad-emblem__ring--outer {
+  inset: 0;
+  opacity: 0.25;
+}
+
+.vad-emblem__ring--inner {
+  inset: 16px;
+  opacity: 0.45;
+  border-style: dashed;
+  animation-direction: reverse;
+  animation-duration: 20s;
+}
+
+@keyframes ringRotate {
+  to { transform: rotate(360deg); }
+}
+
+.vad-emblem__icon {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 48px;
+  color: var(--accent-hi);
+  filter: drop-shadow(0 0 12px rgba(226,201,110,0.5));
+}
+
+/* ── Headline ─────────────────────────────────────────────── */
+.vad-headline {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.vad-headline__eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  margin: 0;
+}
+
+.vad-headline__title {
+  font-family: var(--display);
+  font-size: clamp(64px, 14vw, 96px);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  margin: 0;
+  color: var(--text-hi);
+}
+
+.vad-headline__title em {
+  font-style: normal;
+  color: var(--accent-hi);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent-hi);
+}
+
+.vad-headline__rule {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* ── Body ─────────────────────────────────────────────────── */
+.vad-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-dim);
+  text-align: center;
+  margin: 0;
+  max-width: 400px;
+}
+
+.vad-body strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── Table ────────────────────────────────────────────────── */
+.vad-table {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.vad-table__header {
+  padding: 10px 18px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+
+.vad-table__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.vad-table__row:last-child {
+  border-bottom: none;
+}
+
+.vad-table__row:hover {
+  background: var(--accent-lo);
+}
+
+.vad-table__label {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.vad-table__value {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.vad-table__value--highlight {
+  color: var(--accent-hi);
+}
+
+/* ── Actions ──────────────────────────────────────────────── */
+.vad-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.vad-cta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: var(--accent);
+  color: #0a0905;
+  text-decoration: none;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 32px rgba(184,160,74,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+  box-sizing: border-box;
+}
+
+.vad-cta:hover {
+  background: var(--accent-hi);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(226,201,110,0.35);
+}
+
+.vad-cta__arrow {
   font-size: 18px;
-  font-weight: 800;
+  transition: transform 0.2s;
+}
+
+.vad-cta:hover .vad-cta__arrow {
+  transform: translateX(4px);
+}
+
+.vad-back {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
   text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 10px 40px rgba(251, 191, 36, 0.4);
+  transition: color 0.2s;
 }
 
-.upgrade-btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 15px 50px rgba(251, 191, 36, 0.6);
+.vad-back:hover {
+  color: var(--text);
 }
 
-.crown-icon {
-  font-size: 24px;
-  animation: crownSpin 3s ease-in-out infinite;
-}
-
-@keyframes crownSpin {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(15deg);
-  }
-}
-
-.back-btn {
-  color: #9ca3af;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 600;
-  transition: all 0.3s;
-}
-
-.back-btn:hover {
-  color: #fbbf24;
-}
-
-/* VIP badge as link */
-.vip-badge {
-  cursor: pointer;
-  text-decoration: none;
-}
-@media (max-width: 500px) {
-  .access-denied-content {
-    padding: 40px 24px;
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .vad-root {
+    padding: 90px 16px 48px;
   }
 
-  .lock-big {
-    font-size: 60px;
+  .vad-status__text {
+    display: none;
   }
 
-  .denied-title {
-    font-size: 32px;
-  }
-
-  .denied-text {
-    font-size: 15px;
-  }
-
-  .upgrade-btn {
-    width: 100%;
+  .vad-headline__title {
+    font-size: 72px;
   }
 }

@@ -1,53 +1,96 @@
-import "./VipAccessDenied.css";
 import { Link } from "react-router-dom";
+import "./VipAccessDenied.css";
 
 function VipAccessDenied() {
   return (
-    <div className="access-denied-page">
-      <div className="access-denied-orbs">
-        <div className="denied-orb denied-orb-1"></div>
-        <div className="denied-orb denied-orb-2"></div>
-      </div>
+    <div className="vad-root">
+      {/* Scanline overlay */}
+      <div className="vad-scanlines" aria-hidden="true" />
 
-      <div className="access-denied-content">
-        <div className="lock-animation">
-          <span className="lock-big">🔒</span>
+      {/* Background grid */}
+      <div className="vad-grid" aria-hidden="true" />
+
+      {/* Noise texture */}
+      <div className="vad-noise" aria-hidden="true" />
+
+      {/* Corner brackets */}
+      <div className="vad-bracket vad-bracket--tl" aria-hidden="true" />
+      <div className="vad-bracket vad-bracket--tr" aria-hidden="true" />
+      <div className="vad-bracket vad-bracket--bl" aria-hidden="true" />
+      <div className="vad-bracket vad-bracket--br" aria-hidden="true" />
+
+      <main className="vad-main">
+        {/* Status bar */}
+        <div className="vad-status">
+          <span className="vad-status__dot" />
+          <span className="vad-status__text">ACCESS RESTRICTED — LEVEL 3 CLEARANCE REQUIRED</span>
+          <span className="vad-status__code">ERR_403</span>
         </div>
 
-        <h1 className="denied-title">
-          <span className="denied-gradient">VIP Access Required</span>
-        </h1>
+        {/* Central lock mark */}
+        <div className="vad-emblem">
+          <div className="vad-emblem__ring vad-emblem__ring--outer" />
+          <div className="vad-emblem__ring vad-emblem__ring--inner" />
+          <div className="vad-emblem__icon">
+            <svg viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="20" width="32" height="26" rx="3" stroke="currentColor" strokeWidth="2.5"/>
+              <path d="M12 20V14C12 9.58 15.58 6 20 6C24.42 6 28 9.58 28 14V20" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+              <circle cx="20" cy="33" r="3.5" fill="currentColor"/>
+              <line x1="20" y1="36.5" x2="20" y2="41" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+          </div>
+        </div>
 
-        <p className="denied-text">
-          This content is exclusively available to our VIP Elite members.
-          Upgrade your plan to unlock premium fixed matches with guaranteed accuracy.
+        {/* Headline */}
+        <div className="vad-headline">
+          <p className="vad-headline__eyebrow">MEMBERS ONLY</p>
+          <h1 className="vad-headline__title">
+            VIP Access<br />
+            <em>Denied</em>
+          </h1>
+          <div className="vad-headline__rule" />
+        </div>
+
+        {/* Body text */}
+        <p className="vad-body">
+          This content is reserved exclusively for <strong>VIP Elite</strong> members.
+          Upgrade your membership to unlock premium fixed matches.
         </p>
 
-        <div className="denied-features">
-          <div className="denied-feature">
-            <span className="feature-icon">✓</span>
-            <span>30+ Fixed Matches Monthly</span>
+        {/* Features table */}
+        <div className="vad-table">
+          <div className="vad-table__header">
+            <span>VIP ELITE — INCLUDED</span>
           </div>
-          <div className="denied-feature">
-            <span className="feature-icon">✓</span>
-            <span>100% Success Rate</span>
+          <div className="vad-table__row">
+            <span className="vad-table__label">Monthly Fixed Matches</span>
+            <span className="vad-table__value">30+</span>
           </div>
-          <div className="denied-feature">
-            <span className="feature-icon">✓</span>
-            <span>Exclusive VIP Telegram Group</span>
+          <div className="vad-table__row">
+            <span className="vad-table__label">Success Rate</span>
+            <span className="vad-table__value vad-table__value--highlight">100%</span>
+          </div>
+          <div className="vad-table__row">
+            <span className="vad-table__label">Private Telegram Group</span>
+            <span className="vad-table__value">✓</span>
+          </div>
+          <div className="vad-table__row">
+            <span className="vad-table__label">Priority Support</span>
+            <span className="vad-table__value">24 / 7</span>
           </div>
         </div>
 
-        <div className="denied-actions">
-          <Link to="/pricing" className="upgrade-btn">
-            <span>Upgrade to VIP</span>
-            <span className="crown-icon">👑</span>
+        {/* CTA */}
+        <div className="vad-actions">
+          <Link to="/pricing" className="vad-cta">
+            <span className="vad-cta__label">Upgrade to VIP Elite</span>
+            <span className="vad-cta__arrow">→</span>
           </Link>
-          <Link to="/" className="back-btn">
-            ← Back to Home
+          <Link to="/" className="vad-back">
+            ← Return home
           </Link>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
