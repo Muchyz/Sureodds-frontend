@@ -17,7 +17,7 @@
   --font-body:    'DM Sans', sans-serif;
   --font-mono:    'Share Tech Mono', monospace;
   --navbar-height: 70px;
-  /* M-Pesa brand greens */
+  /* M-Pesa / Paystack brand greens */
   --mp-green:      #2e7d32;
   --mp-green-mid:  #388e3c;
   --mp-green-lite: #43a047;
@@ -220,7 +220,7 @@
 .mo-btn:hover .mo-btn-arrow { transform: translateX(6px); }
 
 /* ══════════════════════════════════════════════════
-   M-PESA MODAL — Safaricom Green Theme
+   PAYMENT MODAL — Paystack / Mobile Money Theme
 ══════════════════════════════════════════════════ */
 
 .mpesa-overlay {
@@ -259,7 +259,6 @@
   text-align: center;
 }
 
-/* subtle pattern overlay on header */
 .mpesa-header::before {
   content: '';
   position: absolute; inset: 0;
@@ -282,7 +281,10 @@
   margin-bottom: 6px; position: relative; z-index: 1;
 }
 
-.mpesa-logo-svg { width: 160px; height: 50px; }
+.mpesa-logo-text {
+  font-size: 24px; font-weight: 900; color: #fff;
+  letter-spacing: 1px; font-family: 'Arial Black', Arial, sans-serif;
+}
 
 .mpesa-header-sub {
   font-size: 11px; color: rgba(255,255,255,0.75);
@@ -321,6 +323,20 @@
 .mpesa-form { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 13px; background: #fff; }
 
 .mpesa-label { font-size: 13px; font-weight: 600; color: #1b5e20; margin-bottom: -4px; }
+
+/* ── PROVIDER BADGE ── */
+.provider-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; width: fit-content;
+  animation: mpSlideDown 0.2s ease;
+}
+.provider-badge-mpesa {
+  background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7;
+}
+.provider-badge-airtel {
+  background: #fff3e0; color: #e65100; border: 1px solid #ffcc80;
+}
 
 .mpesa-phone-wrap {
   display: flex; align-items: stretch;
@@ -530,13 +546,8 @@
   box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
 }
 
-.copy-btn:active {
-  transform: translateY(0);
-}
-
-.copy-btn svg {
-  flex-shrink: 0;
-}
+.copy-btn:active { transform: translateY(0); }
+.copy-btn svg { flex-shrink: 0; }
 
 .payment-detail-value.selectable {
   user-select: all;
@@ -626,20 +637,8 @@
   .mpesa-modal { border-radius: 12px; }
   .mpesa-form { padding: 14px 14px 16px; }
   .mpesa-summary { padding: 12px 14px; }
-  
-  .payment-detail-box {
-    padding: 12px;
-  }
-  
-  .payment-detail-value {
-    font-size: 14px;
-  }
-  
-  .payment-detail-value.amount {
-    font-size: 18px;
-  }
-  
-  .manual-payment-note {
-    font-size: 11px;
-  }
+  .payment-detail-box { padding: 12px; }
+  .payment-detail-value { font-size: 14px; }
+  .payment-detail-value.amount { font-size: 18px; }
+  .manual-payment-note { font-size: 11px; }
 }
