@@ -1,371 +1,749 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Figtree:wght@300;400;500;600;700&family=DM+Mono:wght@300;400&display=swap');
 
-/* ── Reset & Root ─────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   VIP Access Denied — matches Pricing.jsx tiers exactly:
+   Starter = cyan  |  Pro = green  |  VIP Elite = gold
+   ───────────────────────────────────────────────────────── */
+
+:root {
+  --navbar-h: 64px; /* ← set to your actual navbar height */
+}
+
+/* ── Base tokens ────────────────────────────────────────────── */
 .vad-root {
-  --bg:        #07080c;
-  --surface:   #0e1018;
-  --border:    rgba(255,255,255,0.08);
-  --muted:     #3d4052;
-  --text-dim:  #7a8099;
-  --text:      #c8cde0;
-  --text-hi:   #eef0f8;
-  --accent:    #b8a04a;
-  --accent-lo: rgba(184,160,74,0.12);
-  --accent-hi: #e2c96e;
-  --red:       #c94f4f;
-  --mono:      'DM Mono', monospace;
-  --sans:      'DM Sans', sans-serif;
-  --display:   'Bebas Neue', sans-serif;
+  --void:        #060407;
+  --border:      rgba(255,100,100,0.1);
+  --border-hi:   rgba(255,130,130,0.18);
+  --surface:     rgba(255,80,80,0.04);
+
+  /* Red denial palette */
+  --red:         #e63946;
+  --coral:       #ff6b6b;
+  --ember:       #ff9a5c;
+
+  /* ── Tier: Cyan (Starter) ── */
+  --cyan-1:      #0891b2;
+  --cyan-2:      #22d3ee;
+  --cyan-3:      #a5f3fc;
+  --cyan-glow:   rgba(8,145,178,0.35);
+  --cyan-bg:     rgba(8,145,178,0.07);
+  --cyan-border: rgba(34,211,238,0.25);
+
+  /* ── Tier: Green (Pro) ── */
+  --green-1:     #15803d;
+  --green-2:     #4ade80;
+  --green-3:     #bbf7d0;
+  --green-glow:  rgba(21,128,61,0.4);
+  --green-bg:    rgba(21,128,61,0.08);
+  --green-border:rgba(74,222,128,0.28);
+
+  /* ── Tier: Gold (VIP Elite) ── */
+  --gold-1:      #92400e;
+  --gold-2:      #c9a84c;
+  --gold-3:      #fde68a;
+  --gold-glow:   rgba(201,168,76,0.4);
+  --gold-bg:     rgba(201,168,76,0.08);
+  --gold-border: rgba(253,230,138,0.25);
+
+  /* Text */
+  --text-hi:     #f5eaea;
+  --text:        #d4c0c0;
+  --text-mid:    #8a6a6a;
+  --text-lo:     #4a2e2e;
+
+  --serif:  'Fraunces', Georgia, serif;
+  --sans:   'Figtree', system-ui, sans-serif;
+  --mono:   'DM Mono', monospace;
 
   position: relative;
   min-height: 100vh;
-  background: var(--bg);
+  background: var(--void);
   color: var(--text);
   font-family: var(--sans);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 100px 24px 60px;
   overflow: hidden;
-  isolation: isolate;
 }
 
-/* ── Atmosphere layers ────────────────────────────────────── */
-.vad-grid {
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
-  z-index: 0;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+/* ── Atmosphere ─────────────────────────────────────────────── */
+.vad-bg {
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 100% 65% at 50% 0%,   rgba(110,4,18,0.55) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 50% at 5%  100%,  rgba(70,0,10,0.4)  0%, transparent 60%),
+    radial-gradient(ellipse 55% 55% at 95% 80%,   rgba(55,0,8,0.35)  0%, transparent 60%),
+    linear-gradient(160deg, #060407 0%, #0c0408 60%, #060407 100%);
+  pointer-events: none; z-index: 0;
 }
 
-.vad-scanlines {
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0,0,0,0.18) 3px,
-    rgba(0,0,0,0.18) 4px
-  );
-  pointer-events: none;
-  z-index: 0;
+.vad-orb {
+  position: fixed; border-radius: 50%;
+  filter: blur(80px); pointer-events: none; z-index: 0;
+}
+.vad-orb--1 {
+  width: 700px; height: 500px;
+  background: radial-gradient(ellipse, rgba(130,0,20,0.3) 0%, transparent 70%);
+  top: -180px; left: -200px;
+  animation: orb1 24s ease-in-out infinite;
+}
+.vad-orb--2 {
+  width: 500px; height: 450px;
+  background: radial-gradient(ellipse, rgba(190,15,35,0.18) 0%, transparent 70%);
+  bottom: -150px; right: -150px;
+  animation: orb2 18s ease-in-out infinite;
+}
+.vad-orb--3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(ellipse, rgba(255,90,50,0.1) 0%, transparent 70%);
+  top: 50%; left: 55%;
+  animation: orb3 14s ease-in-out infinite;
+}
+@keyframes orb1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,80px)} }
+@keyframes orb2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,-60px)} }
+@keyframes orb3 {
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}
+  50%{transform:translate(-50%,-50%) scale(1.4);opacity:1}
 }
 
-.vad-noise {
-  position: fixed;
-  inset: 0;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  pointer-events: none;
-  z-index: 0;
+.vad-grain {
+  position: fixed; inset: 0; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px; pointer-events: none; z-index: 0;
 }
 
-/* ── Corner brackets ──────────────────────────────────────── */
-.vad-bracket {
-  position: fixed;
-  width: 32px;
-  height: 32px;
-  border-color: var(--accent);
-  border-style: solid;
-  z-index: 1;
-  opacity: 0.5;
-  animation: bracketPulse 4s ease-in-out infinite;
-}
-.vad-bracket--tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
-.vad-bracket--tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; animation-delay: 1s; }
-.vad-bracket--bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; animation-delay: 2s; }
-.vad-bracket--br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; animation-delay: 3s; }
-
-@keyframes bracketPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+.vad-vignette {
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(6,4,7,.85) 100%);
+  pointer-events: none; z-index: 0;
 }
 
-/* ── Main card ────────────────────────────────────────────── */
+/* ── Navbar clearance scroll wrapper ────────────────────────── */
+.vad-scroll {
+  position: relative; z-index: 1;
+  padding-top: var(--navbar-h);
+  min-height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Main ───────────────────────────────────────────────────── */
 .vad-main {
-  position: relative;
-  z-index: 2;
   width: 100%;
-  max-width: 560px;
+  max-width: 1080px;
+  padding: 48px 24px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
-  animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  gap: 44px;
+  animation: pageIn .85s cubic-bezier(.16,1,.3,1) both;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes pageIn {
+  from { opacity:0; transform:translateY(32px); }
+  to   { opacity:1; transform:translateY(0); }
 }
 
-/* ── Status bar ───────────────────────────────────────────── */
-.vad-status {
+/* ── Alert ──────────────────────────────────────────────────── */
+.vad-alert {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: var(--text-dim);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 8px 14px;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 10px 18px;
+  border-radius: 100px;
+  border: 1px solid rgba(230,57,70,.28);
+  background: rgba(120,0,20,.22);
+  backdrop-filter: blur(16px);
+  animation: pageIn .85s .04s cubic-bezier(.16,1,.3,1) both;
 }
 
-.vad-status__dot {
-  width: 6px;
-  height: 6px;
+.vad-alert__pulse {
+  width: 7px; height: 7px;
   border-radius: 50%;
-  background: var(--red);
+  background: var(--coral);
+  box-shadow: 0 0 10px var(--coral), 0 0 20px rgba(255,107,107,.4);
   flex-shrink: 0;
-  box-shadow: 0 0 6px var(--red);
-  animation: blink 1.4s steps(1) infinite;
+  animation: alertPulse 1.6s ease-in-out infinite;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+@keyframes alertPulse {
+  0%,100%{ box-shadow:0 0 10px var(--coral),0 0 20px rgba(255,107,107,.4); }
+  50%    { box-shadow:0 0 18px var(--coral),0 0 36px rgba(255,107,107,.65); }
 }
 
-.vad-status__text {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.vad-alert__text {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .17em;
+  color: var(--coral);
 }
 
-.vad-status__code {
-  color: var(--red);
-  font-weight: 500;
-  flex-shrink: 0;
+.vad-alert__code {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: rgba(255,107,107,.5);
+  padding-left: 10px;
+  border-left: 1px solid rgba(255,107,107,.2);
 }
 
-/* ── Emblem ───────────────────────────────────────────────── */
+/* ── Hero ───────────────────────────────────────────────────── */
+.vad-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+  animation: pageIn .85s .08s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ── Emblem ─────────────────────────────────────────────────── */
 .vad-emblem {
   position: relative;
-  width: 120px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 120px; height: 120px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.vad-emblem__glow {
+  position: absolute; inset: -18px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(170,0,25,.5) 0%, transparent 70%);
+  filter: blur(16px);
+  animation: glowBreathe 3s ease-in-out infinite;
+}
+
+@keyframes glowBreathe {
+  0%,100%{ transform:scale(.85); opacity:.7; }
+  50%    { transform:scale(1.1);  opacity:1;  }
 }
 
 .vad-emblem__ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid var(--accent);
-  animation: ringRotate 12s linear infinite;
+  position: absolute; border-radius: 50%; pointer-events: none;
 }
-
-.vad-emblem__ring--outer {
+.vad-emblem__ring--a {
   inset: 0;
-  opacity: 0.25;
+  border: 1px solid rgba(230,57,70,.22);
+  animation: spinRing 18s linear infinite;
+}
+.vad-emblem__ring--b {
+  inset: 13px;
+  border: 1px dashed rgba(230,57,70,.15);
+  animation: spinRing 12s linear infinite reverse;
+}
+@keyframes spinRing { to{ transform:rotate(360deg); } }
+
+.vad-emblem__face {
+  width: 106px; height: 106px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(170,10,25,.22) 0%, rgba(90,0,12,.12) 100%);
+  border: 1px solid rgba(230,57,70,.24);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+  box-shadow:
+    0 0 0 1px rgba(255,120,120,.07) inset,
+    0 20px 50px rgba(0,0,0,.45),
+    0 0 50px rgba(130,0,0,.3);
+  backdrop-filter: blur(12px);
+}
+.vad-emblem__face svg {
+  width: 36px; height: 44px;
+  filter: drop-shadow(0 0 12px rgba(230,57,70,.7));
 }
 
-.vad-emblem__ring--inner {
-  inset: 16px;
-  opacity: 0.45;
-  border-style: dashed;
-  animation-direction: reverse;
-  animation-duration: 20s;
+/* ── Headline ───────────────────────────────────────────────── */
+.vad-headline__eyebrow {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .24em;
+  color: var(--text-mid);
+  margin: 0 0 12px;
+  text-transform: uppercase;
 }
 
-@keyframes ringRotate {
-  to { transform: rotate(360deg); }
-}
-
-.vad-emblem__icon {
-  position: relative;
-  z-index: 1;
-  width: 40px;
-  height: 48px;
-  color: var(--accent-hi);
-  filter: drop-shadow(0 0 12px rgba(226,201,110,0.5));
-}
-
-/* ── Headline ─────────────────────────────────────────────── */
-.vad-headline {
-  text-align: center;
+.vad-headline__h1 {
+  margin: 0 0 16px;
+  line-height: .92;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
 }
 
-.vad-headline__eyebrow {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  color: var(--accent);
-  margin: 0;
-}
-
-.vad-headline__title {
-  font-family: var(--display);
-  font-size: clamp(64px, 14vw, 96px);
-  line-height: 0.95;
-  letter-spacing: 0.03em;
-  margin: 0;
+.vad-headline__top {
+  font-family: var(--serif);
+  font-size: clamp(52px, 10vw, 88px);
+  font-weight: 300;
+  letter-spacing: -.025em;
   color: var(--text-hi);
 }
 
-.vad-headline__title em {
-  font-style: normal;
-  color: var(--accent-hi);
+.vad-headline__bot {
+  font-family: var(--serif);
+  font-size: clamp(52px, 10vw, 88px);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: -.025em;
+  background: linear-gradient(135deg, #ff9a5c 0%, #ff6b6b 30%, #e63946 60%, #8b0000 100%);
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.5px var(--accent-hi);
+  background-clip: text;
+  filter: drop-shadow(0 0 28px rgba(230,57,70,.55));
+  animation: deniedGlow 4s ease-in-out infinite alternate;
 }
 
-.vad-headline__rule {
-  width: 48px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+@keyframes deniedGlow {
+  from{ filter:drop-shadow(0 0 20px rgba(230,57,70,.4)); }
+  to  { filter:drop-shadow(0 0 42px rgba(255,100,80,.75)); }
 }
 
-/* ── Body ─────────────────────────────────────────────────── */
-.vad-body {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-dim);
-  text-align: center;
+.vad-headline__body {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text-mid);
+  max-width: 480px;
+  font-weight: 300;
   margin: 0;
-  max-width: 400px;
 }
-
-.vad-body strong {
-  color: var(--text);
+.vad-headline__body strong {
+  color: var(--text-hi);
   font-weight: 500;
 }
 
-/* ── Table ────────────────────────────────────────────────── */
-.vad-table {
+/* ── Tiers section ──────────────────────────────────────────── */
+.vad-tiers {
   width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--surface);
-}
-
-.vad-table__header {
-  padding: 10px 18px;
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  color: var(--text-dim);
-  border-bottom: 1px solid var(--border);
-  background: rgba(255,255,255,0.02);
-}
-
-.vad-table__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.2s;
-}
-
-.vad-table__row:last-child {
-  border-bottom: none;
-}
-
-.vad-table__row:hover {
-  background: var(--accent-lo);
-}
-
-.vad-table__label {
-  font-size: 13px;
-  color: var(--text-dim);
-}
-
-.vad-table__value {
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--text);
-  font-weight: 500;
-}
-
-.vad-table__value--highlight {
-  color: var(--accent-hi);
-}
-
-/* ── Actions ──────────────────────────────────────────────── */
-.vad-actions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  width: 100%;
+  gap: 20px;
+  animation: pageIn .85s .18s cubic-bezier(.16,1,.3,1) both;
 }
 
-.vad-cta {
+.vad-tiers__label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .2em;
+  color: var(--text-lo);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.vad-tiers__grid {
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* ── Card base ──────────────────────────────────────────────── */
+.vad-card {
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  padding: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s;
+}
+
+.vad-card:hover {
+  transform: translateY(-6px);
+}
+
+/* top stripe */
+.vad-card__stripe {
+  height: 3px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* popular badge */
+.vad-card__popular {
+  position: absolute;
+  top: 16px; right: 14px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: .14em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid;
+  z-index: 2;
+}
+
+/* card head */
+.vad-card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 22px 22px 0;
+}
+
+.vad-card__icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.vad-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.vad-card__badge {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  border: 1px solid;
+  border-radius: 100px;
+  padding: 3px 9px;
+  width: fit-content;
+}
+
+.vad-card__name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -.01em;
+  margin: 0;
+  line-height: 1.1;
+  color: var(--text-hi);
+}
+
+/* price block */
+.vad-card__price-block {
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vad-card__price-rule {
+  height: 1px;
+}
+
+.vad-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.vad-card__currency {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: var(--text-mid);
+  padding-bottom: 2px;
+}
+
+.vad-card__amount {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+
+.vad-card__period {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-lo);
+  letter-spacing: .06em;
+}
+
+/* features */
+.vad-card__features {
+  list-style: none;
+  margin: 0;
+  padding: 0 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+}
+
+.vad-card__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 12.5px;
+  color: var(--text-mid);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.vad-card__check {
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* CTA button */
+.vad-card__cta {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px;
-  background: var(--accent);
-  color: #0a0905;
+  margin: 20px 22px 0;
+  padding: 14px 18px;
+  border-radius: 12px;
   text-decoration: none;
-  border-radius: 6px;
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 32px rgba(184,160,74,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
-  box-sizing: border-box;
+  font-weight: 600;
+  overflow: hidden;
+  transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s;
 }
 
-.vad-cta:hover {
-  background: var(--accent-hi);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 40px rgba(226,201,110,0.35);
+.vad-card__cta-shine {
+  position: absolute;
+  top: 0; left: -80%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+  transform: skewX(-12deg);
+  animation: ctaShine 4s ease-in-out infinite;
 }
 
-.vad-cta__arrow {
-  font-size: 18px;
-  transition: transform 0.2s;
+@keyframes ctaShine {
+  0%  { left:-80%; opacity:0; }
+  15% { opacity:1; }
+  55% { left:140%; opacity:0; }
+  100%{ left:140%; opacity:0; }
 }
 
-.vad-cta:hover .vad-cta__arrow {
+.vad-card__cta-text { position: relative; z-index: 1; }
+
+.vad-card__cta svg {
+  width: 16px; height: 16px;
+  position: relative; z-index: 1;
+  transition: transform .25s cubic-bezier(.16,1,.3,1);
+}
+
+.vad-card__cta:hover svg {
   transform: translateX(4px);
 }
 
+.vad-card__cta:hover {
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIER: CYAN — Starter (matches Pricing.jsx mo-card-cyan)
+   ═════════════════════════════════════════════════════════ */
+.tier-bronze {
+  border-color: var(--cyan-border);
+  background: linear-gradient(160deg, var(--cyan-bg) 0%, rgba(8,145,178,.03) 100%);
+  box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(8,145,178,.1);
+}
+.tier-bronze:hover {
+  box-shadow: 0 32px 80px rgba(0,0,0,.5), 0 0 60px rgba(34,211,238,.2);
+}
+.tier-bronze .vad-card__stripe {
+  background: linear-gradient(90deg, transparent, var(--cyan-2), var(--cyan-3), var(--cyan-2), transparent);
+}
+.tier-bronze .vad-card__badge {
+  color: var(--cyan-2);
+  border-color: rgba(34,211,238,.3);
+  background: rgba(8,145,178,.1);
+}
+.tier-bronze .vad-card__amount  { color: var(--cyan-2); }
+.tier-bronze .vad-card__check   { color: var(--cyan-2); }
+.tier-bronze .vad-card__price-rule {
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,.3), transparent);
+}
+.tier-bronze .vad-card__cta {
+  background: linear-gradient(130deg, var(--cyan-1), var(--cyan-2));
+  color: #00131a;
+  box-shadow: 0 4px 24px var(--cyan-glow);
+}
+.tier-bronze .vad-card__cta:hover {
+  box-shadow: 0 8px 40px var(--cyan-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIER: GREEN — Pro (matches Pricing.jsx mo-card-green)
+   ═════════════════════════════════════════════════════════ */
+.tier-silver {
+  border-color: var(--green-border);
+  background: linear-gradient(160deg, var(--green-bg) 0%, rgba(21,128,61,.03) 100%);
+  box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(21,128,61,.12);
+}
+.tier-silver:hover {
+  box-shadow: 0 32px 80px rgba(0,0,0,.5), 0 0 60px rgba(74,222,128,.25);
+}
+.tier-silver.vad-card--hot {
+  border-color: rgba(74,222,128,.35);
+  box-shadow: 0 24px 70px rgba(0,0,0,.5), 0 0 80px rgba(21,128,61,.15);
+}
+.tier-silver .vad-card__stripe {
+  background: linear-gradient(90deg, transparent, var(--green-2), var(--green-3), var(--green-2), transparent);
+}
+.tier-silver .vad-card__badge {
+  color: var(--green-2);
+  border-color: rgba(74,222,128,.3);
+  background: rgba(21,128,61,.1);
+}
+.tier-silver .vad-card__popular {
+  color: var(--green-2);
+  border-color: rgba(74,222,128,.3);
+  background: rgba(21,128,61,.15);
+}
+.tier-silver .vad-card__amount  { color: var(--green-2); }
+.tier-silver .vad-card__check   { color: var(--green-2); }
+.tier-silver .vad-card__price-rule {
+  background: linear-gradient(90deg, transparent, rgba(74,222,128,.35), transparent);
+}
+.tier-silver .vad-card__cta {
+  background: linear-gradient(130deg, var(--green-1), var(--green-2));
+  color: #001a09;
+  box-shadow: 0 4px 24px var(--green-glow);
+}
+.tier-silver .vad-card__cta:hover {
+  box-shadow: 0 8px 40px var(--green-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIER: GOLD — VIP Elite (matches Pricing.jsx mo-card-gold)
+   ═════════════════════════════════════════════════════════ */
+.tier-gold {
+  border-color: var(--gold-border);
+  background: linear-gradient(160deg, var(--gold-bg) 0%, rgba(146,64,14,.03) 100%);
+  box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(201,168,76,.1);
+}
+.tier-gold:hover {
+  box-shadow: 0 32px 80px rgba(0,0,0,.5), 0 0 60px rgba(253,230,138,.25);
+}
+.tier-gold .vad-card__stripe {
+  background: linear-gradient(90deg, transparent, var(--gold-2), var(--gold-3), var(--gold-2), transparent);
+  animation: goldStripe 3s ease-in-out infinite alternate;
+}
+
+@keyframes goldStripe {
+  from{ opacity:.8; }
+  to  { opacity:1; filter:brightness(1.3); }
+}
+
+.tier-gold .vad-card__badge {
+  color: var(--gold-3);
+  border-color: rgba(253,230,138,.3);
+  background: rgba(201,168,76,.1);
+}
+.tier-gold .vad-card__amount  { color: var(--gold-2); }
+.tier-gold .vad-card__check   { color: var(--gold-2); }
+.tier-gold .vad-card__price-rule {
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.4), transparent);
+}
+.tier-gold .vad-card__cta {
+  background: linear-gradient(130deg, var(--gold-1) 0%, var(--gold-2) 55%, #d4ac40 100%);
+  background-size: 200% 100%;
+  color: #1a0f00;
+  box-shadow: 0 4px 28px var(--gold-glow);
+  animation: goldCtaShift 4s ease infinite;
+}
+.tier-gold .vad-card__cta:hover {
+  box-shadow: 0 10px 48px var(--gold-glow);
+}
+
+@keyframes goldCtaShift {
+  0%,100%{ background-position:0% 50%; }
+  50%    { background-position:100% 50%; }
+}
+
+/* ── Back link ──────────────────────────────────────────────── */
 .vad-back {
   font-family: var(--mono);
   font-size: 11px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
+  letter-spacing: .14em;
+  color: var(--text-mid);
   text-decoration: none;
-  transition: color 0.2s;
+  padding: 12px 28px;
+  border: 1px solid rgba(255,100,100,0.22);
+  border-radius: 100px;
+  background: rgba(255,80,80,0.06);
+  backdrop-filter: blur(8px);
+  transition: color .2s, border-color .2s, background .2s;
+  animation: pageIn .85s .3s cubic-bezier(.16,1,.3,1) both;
 }
-
 .vad-back:hover {
-  color: var(--text);
+  color: var(--text-hi);
+  border-color: rgba(255,107,107,0.45);
+  background: rgba(255,80,80,0.13);
 }
 
-/* ── Responsive ───────────────────────────────────────────── */
-@media (max-width: 480px) {
-  .vad-root {
-    padding: 90px 16px 48px;
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────────────────── */
+
+/* Medium — 2 col, Gold full width */
+@media (max-width: 900px) {
+  .vad-tiers__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tier-gold {
+    grid-column: 1 / -1;
+  }
+  /* When gold is full-width, lay it out horizontally */
+  .tier-gold .vad-card__features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+  }
+}
+
+/* Tablet portrait — single col */
+@media (max-width: 620px) {
+  :root { --navbar-h: 56px; }
+
+  .vad-main {
+    padding: 32px 16px 60px;
+    gap: 36px;
   }
 
-  .vad-status__text {
+  .vad-alert__text {
     display: none;
   }
 
-  .vad-headline__title {
-    font-size: 72px;
+  .vad-headline__top,
+  .vad-headline__bot {
+    font-size: clamp(44px, 14vw, 64px);
   }
+
+  .vad-headline__body {
+    font-size: 13.5px;
+  }
+
+  .vad-tiers__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tier-gold {
+    grid-column: auto;
+  }
+
+  .tier-gold .vad-card__features {
+    display: flex;
+    grid-template-columns: unset;
+  }
+
+  .vad-card {
+    padding-bottom: 22px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 400px) {
+  .vad-main { padding: 24px 12px 48px; }
+
+  .vad-emblem { width: 96px; height: 96px; }
+  .vad-emblem__face { width: 84px; height: 84px; }
+  .vad-emblem__face svg { width: 28px; height: 35px; }
+
+  .vad-headline__top,
+  .vad-headline__bot { font-size: 40px; }
+
+  .vad-card__amount { font-size: 30px; }
 }
